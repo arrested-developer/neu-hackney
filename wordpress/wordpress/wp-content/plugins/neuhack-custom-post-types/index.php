@@ -18,19 +18,19 @@ function neuhack_activate() {
     }
 }
 
-// Register General Meeting Custom Post Type
-function neuhack_custom_post_gm() {
+// Register Event Custom Post Type
+function neuhack_custom_post_events() {
 
 	$labels = array(
-		'name'                  => 'General Meetings',
-		'singular_name'         => 'General Meeting',
-		'menu_name'             => 'General Meetings',
-		'name_admin_bar'        => 'General Meeting',
-		'archives'              => 'General Meeting Archives',
+		'name'                  => 'Events',
+		'singular_name'         => 'Event',
+		'menu_name'             => 'Events',
+		'name_admin_bar'        => 'Event',
+		'archives'              => 'Event Archives',
 		'attributes'            => 'Item Attributes',
 		'parent_item_colon'     => 'Parent Item:',
 		'all_items'             => 'All Items',
-		'add_new_item'          => 'Add New General Meeting',
+		'add_new_item'          => 'Add New Event',
 		'add_new'               => 'Add New',
 		'new_item'              => 'New Item',
 		'edit_item'             => 'Edit Item',
@@ -51,14 +51,17 @@ function neuhack_custom_post_gm() {
 		'filter_items_list'     => 'Filter items list',
 	);
 	$rewrite = array(
-		'slug'                  => 'generalmeeting',
+		'slug'                  => 'events',
 		'with_front'            => true,
 		'pages'                 => true,
 		'feeds'                 => true,
-	);
+  );
+  $template = array(
+    array('core/image'),
+  );
 	$args = array(
-		'label'                 => 'General Meeting',
-		'description'           => 'General Meetings',
+		'label'                 => 'Event',
+		'description'           => 'Events',
 		'labels'                => $labels,
 		'supports'              => array( 'title', 'editor' ),
 		'taxonomies'            => array( 'category', 'post_tag' ),
@@ -76,13 +79,127 @@ function neuhack_custom_post_gm() {
 		'rewrite'               => $rewrite,
 		'capability_type'       => 'post',
 		'show_in_rest'          => true,
-		'rest_base'             => 'generalmeeting',
+    'rest_base'             => 'events',
+    'template'              => $template,
+    'template_lock'         => 'all',
 	);
-	register_post_type( 'general_meeting', $args );
+	register_post_type( 'events', $args );
 
 }
 // register post types with priority 10
-add_action( 'init', 'neuhack_custom_post_gm', 10 );
+add_action( 'init', 'neuhack_custom_post_events', 10 );
+
+// add custom fields for events
+
+if( function_exists('acf_add_local_field_group') ):
+
+  acf_add_local_field_group(array(
+    'key' => 'group_5c9aac9c1322c',
+    'title' => 'Event Options',
+    'fields' => array(
+      array(
+        'key' => 'field_5c9aaca3d315c',
+        'label' => 'Date and Time',
+        'name' => 'date_and_time',
+        'type' => 'date_time_picker',
+        'instructions' => '',
+        'required' => 1,
+        'conditional_logic' => 0,
+        'wrapper' => array(
+          'width' => '',
+          'class' => '',
+          'id' => '',
+        ),
+        'display_format' => 'F j, Y g:i a',
+        'return_format' => 'Y-m-d H:i:s',
+        'first_day' => 1,
+      ),
+      array(
+        'key' => 'field_5c9aacb8d315d',
+        'label' => 'Event Type',
+        'name' => 'event_type',
+        'type' => 'select',
+        'instructions' => '',
+        'required' => 1,
+        'conditional_logic' => 0,
+        'wrapper' => array(
+          'width' => '',
+          'class' => '',
+          'id' => '',
+        ),
+        'choices' => array(
+          'General Meeting' => 'General Meeting',
+          'NEU Event' => 'NEU Event',
+          'Other' => 'Other',
+        ),
+        'default_value' => array(
+        ),
+        'allow_null' => 0,
+        'multiple' => 0,
+        'ui' => 0,
+        'return_format' => 'value',
+        'ajax' => 0,
+        'placeholder' => '',
+      ),
+      array(
+        'key' => 'field_5c9abd315522d',
+        'label' => 'Location',
+        'name' => 'location',
+        'type' => 'textarea',
+        'instructions' => 'Details of address or location for the event',
+        'required' => 1,
+        'conditional_logic' => 0,
+        'wrapper' => array(
+          'width' => '',
+          'class' => '',
+          'id' => '',
+        ),
+        'default_value' => '',
+        'placeholder' => '',
+        'maxlength' => '',
+        'rows' => '',
+        'new_lines' => '',
+      ),
+      array(
+        'key' => 'field_5c9aadc3e466a',
+        'label' => 'Upload Agenda',
+        'name' => 'agenda',
+        'type' => 'file',
+        'instructions' => 'Upload the full flyer and agenda',
+        'required' => 0,
+        'conditional_logic' => 0,
+        'wrapper' => array(
+          'width' => '',
+          'class' => '',
+          'id' => '',
+        ),
+        'return_format' => 'url',
+        'library' => 'uploadedTo',
+        'min_size' => '',
+        'max_size' => 1000,
+        'mime_types' => 'pdf, jpg, jpeg',
+      ),
+    ),
+    'location' => array(
+      array(
+        array(
+          'param' => 'post_type',
+          'operator' => '==',
+          'value' => 'events',
+        ),
+      ),
+    ),
+    'menu_order' => 0,
+    'position' => 'normal',
+    'style' => 'seamless',
+    'label_placement' => 'top',
+    'instruction_placement' => 'label',
+    'hide_on_screen' => '',
+    'active' => true,
+    'description' => '',
+  ));
+  
+  endif;
 
 // Register Campaign Custom Post Type
 function neuhack_custom_post_campaign() {

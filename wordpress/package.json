@@ -7,7 +7,7 @@
     "test": "jest",
     "dev:start": "docker-compose up -d",
     "dev:stop": "docker-compose down",
-    "dev:erase": "docker-compose down -v"
+    "dev:erase": "docker-compose down -v && rm -r wordpress/wp-content/uploads"
   },
   "repository": {
     "type": "git",
