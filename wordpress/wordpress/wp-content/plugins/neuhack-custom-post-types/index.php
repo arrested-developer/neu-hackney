@@ -18,6 +18,35 @@ function neuhack_activate() {
     }
 }
 
+// Define the categories
+function neuhack_register_categories() {
+	wp_insert_term(
+		'Leadership',
+		'category',
+		array(
+		  'description'	=> 'School leaders, heads, deputies',
+		  'slug' 		=> 'leadership'
+		)
+  );
+  wp_insert_term(
+		'Teachers',
+		'category',
+		array(
+		  'description'	=> 'Teachers',
+		  'slug' 		=> 'teachers'
+		)
+  );
+  wp_insert_term(
+		'Support Staff',
+		'category',
+		array(
+		  'description'	=> 'Support staff in schools, colleges, etc.',
+		  'slug' 		=> 'supportstaff'
+		)
+  );
+}
+add_action( 'after_setup_theme', 'neuhack_register_categories' );
+
 // Register Event Custom Post Type
 function neuhack_custom_post_events() {
 
