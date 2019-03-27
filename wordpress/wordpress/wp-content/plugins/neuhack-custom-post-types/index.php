@@ -238,7 +238,16 @@ function neuhack_custom_post_campaign() {
 		'with_front'            => true,
 		'pages'                 => true,
 		'feeds'                 => true,
-	);
+  );
+  $template = [
+    ['core/paragraph', [
+      'placeholder' => 'Type a short description',
+    ] ],
+    ['core/image', [] ],
+    ['core/paragraph', [
+      'placeholder' =>  'Type a paragraph about the campaign'
+    ]],
+    ];
 	$args = array(
 		'label'                 => 'Campaign',
 		'description'           => 'Campaigns',
@@ -259,7 +268,9 @@ function neuhack_custom_post_campaign() {
 		'rewrite'               => $rewrite,
 		'capability_type'       => 'post',
 		'show_in_rest'          => true,
-		'rest_base'             => 'campaign',
+    'rest_base'             => 'campaign',
+    'template'              => $template,
+    'template_lock'         => 'all',
 	);
 	register_post_type( 'campaign', $args );
 
@@ -298,7 +309,10 @@ function neuhack_custom_post_officer() {
 		'items_list'            => 'Items list',
 		'items_list_navigation' => 'Items list navigation',
 		'filter_items_list'     => 'Filter items list',
-	);
+  );
+  $template = [
+    ['core/image'],
+  ];
 	$rewrite = array(
 		'slug'                  => 'officers',
 		'with_front'            => true,
@@ -325,13 +339,142 @@ function neuhack_custom_post_officer() {
 		'rewrite'               => $rewrite,
 		'capability_type'       => 'post',
 		'show_in_rest'          => true,
-		'rest_base'             => 'officers',
+    'rest_base'             => 'officers',
+    'template'              => $template,
+    'template_lock'         => 'all',
 	);
 	register_post_type( 'officer', $args );
 
 }
 // register post types with priority 10
 add_action( 'init', 'neuhack_custom_post_officer', 10 );
+
+// add custom fields for officer post type
+
+if( function_exists('acf_add_local_field_group') ):
+
+  acf_add_local_field_group(array(
+    'key' => 'group_5c9b95a9483c4',
+    'title' => 'Officer Details',
+    'fields' => array(
+      array(
+        'key' => 'field_5c9b95ae33823',
+        'label' => 'Name',
+        'name' => 'officer_name',
+        'type' => 'text',
+        'instructions' => '',
+        'required' => 1,
+        'conditional_logic' => 0,
+        'wrapper' => array(
+          'width' => '',
+          'class' => '',
+          'id' => '',
+        ),
+        'default_value' => '',
+        'placeholder' => '',
+        'prepend' => '',
+        'append' => '',
+        'maxlength' => '',
+      ),
+      array(
+        'key' => 'field_5c9b95c133824',
+        'label' => 'Email',
+        'name' => 'officer_email',
+        'type' => 'email',
+        'instructions' => '',
+        'required' => 1,
+        'conditional_logic' => 0,
+        'wrapper' => array(
+          'width' => '',
+          'class' => '',
+          'id' => '',
+        ),
+        'default_value' => '',
+        'placeholder' => '',
+        'prepend' => '',
+        'append' => '',
+      ),
+      array(
+        'key' => 'field_5c9b95dd33825',
+        'label' => 'Position',
+        'name' => 'officer_position',
+        'type' => 'select',
+        'instructions' => '',
+        'required' => 1,
+        'conditional_logic' => 0,
+        'wrapper' => array(
+          'width' => '',
+          'class' => '',
+          'id' => '',
+        ),
+        'choices' => array(
+          'Divisional Secretary' => 'Divisional Secretary',
+          'Vice President' => 'Vice President',
+          'Associate Secretary' => 'Associate Secretary',
+          'Treasurer' => 'Treasurer',
+          'Membership Secretary' => 'Membership Secretary',
+          'Health and Safety Officer' => 'Health and Safety Officer',
+          'Press and Publicity Officer' => 'Press and Publicity Officer',
+          'Equal Opportunities Officer' => 'Equal Opportunities Officer',
+          'New Professionals Officer' => 'New Professionals Officer',
+          'International Solidarity Officer' => 'International Solidarity Officer',
+          'Independent Sector Officer' => 'Independent Sector Officer',
+          'Post 16 Officer' => 'Post 16 Officer',
+          'Support Staff Officer' => 'Support Staff Officer',
+          'Committee Member' => 'Committee Member',
+        ),
+        'default_value' => array(
+        ),
+        'allow_null' => 0,
+        'multiple' => 0,
+        'ui' => 0,
+        'return_format' => 'value',
+        'ajax' => 0,
+        'placeholder' => '',
+      ),
+      array(
+        'key' => 'field_5c9b9a4accb07',
+        'label' => 'Show on Page',
+        'name' => 'show_on_page',
+        'type' => 'taxonomy',
+        'instructions' => '',
+        'required' => 0,
+        'conditional_logic' => 0,
+        'wrapper' => array(
+          'width' => '',
+          'class' => '',
+          'id' => '',
+        ),
+        'taxonomy' => 'category',
+        'field_type' => 'multi_select',
+        'allow_null' => 0,
+        'add_term' => 1,
+        'save_terms' => 0,
+        'load_terms' => 0,
+        'return_format' => 'id',
+        'multiple' => 0,
+      ),
+    ),
+    'location' => array(
+      array(
+        array(
+          'param' => 'post_type',
+          'operator' => '==',
+          'value' => 'officer',
+        ),
+      ),
+    ),
+    'menu_order' => 0,
+    'position' => 'normal',
+    'style' => 'default',
+    'label_placement' => 'top',
+    'instruction_placement' => 'label',
+    'hide_on_screen' => '',
+    'active' => true,
+    'description' => '',
+  ));
+
+endif;
 
 // flush rewrite rules only if required, with a later priority
 add_action( 'init', 'neuhack_flush_rewrite_rules_maybe', 20 );
