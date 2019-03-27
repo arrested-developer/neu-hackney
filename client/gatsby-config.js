@@ -59,7 +59,7 @@ module.exports = {
         },
         // Set verboseOutput to true to display a verbose output on `npm run develop` or `npm run build`
         // It can help you debug specific API Endpoints problems.
-        verboseOutput: true,
+        verboseOutput: false,
         // Set how many pages are retrieved per API request.
         perPage: 100,
         // Search and Replace Urls across WordPress content.
@@ -86,8 +86,8 @@ module.exports = {
           "**/tags",
           "**/taxonomies",
           "**/users",
-          "**/generalmeeting",
-          "**/campaign",
+          "**/events",
+          "**/campaigns",
           "**/officers",
         ],
         // Blacklisted routes using glob patterns

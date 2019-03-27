@@ -2,15 +2,15 @@ import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-export default ({ pageContext: { generalMeetings, officers, campaigns } }) => {
+export default ({ pageContext: { events, officers, campaigns } }) => {
   return (
     <Layout>
       <SEO title="Home" />
       <h1>Home</h1>
       <ul>
-        <h2>General Meetings</h2>
-        {generalMeetings.edges.map(({ node: { title } }) => (
-          <li>{title}</li>
+        <h2>Events</h2>
+        {events.edges.map(({ node: { content } }) => (
+          <div dangerouslySetInnerHTML={{ __html: content }} />
         ))}
       </ul>
       <ul>
