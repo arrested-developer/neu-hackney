@@ -263,7 +263,7 @@ function neuhack_custom_post_campaign() {
 		'filter_items_list'     => 'Filter items list',
 	);
 	$rewrite = array(
-		'slug'                  => 'campaign',
+		'slug'                  => 'campaigns',
 		'with_front'            => true,
 		'pages'                 => true,
 		'feeds'                 => true,
@@ -297,11 +297,11 @@ function neuhack_custom_post_campaign() {
 		'rewrite'               => $rewrite,
 		'capability_type'       => 'post',
 		'show_in_rest'          => true,
-    'rest_base'             => 'campaign',
+    'rest_base'             => 'campaigns',
     'template'              => $template,
     'template_lock'         => 'all',
 	);
-	register_post_type( 'campaign', $args );
+	register_post_type( 'campaigns', $args );
 
 }
 // register post types with priority 10
