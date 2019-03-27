@@ -7,24 +7,27 @@ export default ({ pageContext: { events, officers, campaigns } }) => {
     <Layout>
       <SEO title="Home" />
       <h1>Home</h1>
-      <ul>
+      <section>
         <h2>Events</h2>
         {events.edges.map(({ node: { content } }) => (
           <div dangerouslySetInnerHTML={{ __html: content }} />
         ))}
-      </ul>
-      <ul>
+      </section>
+      <section>
         <h2>Officers</h2>
         {officers.edges.map(({ node: { title } }) => (
           <li>{title}</li>
         ))}
-      </ul>
-      <ul>
+      </section>
+      <section>
         <h2>Campaigns</h2>
-        {campaigns.edges.map(({ node: { title } }) => (
-          <li>{title}</li>
+        {campaigns.edges.map(({ node: { title, content } }) => (
+          <div>
+            <h3>{title}</h3>
+            <div dangerouslySetInnerHTML={{ __html: content }} />
+          </div>
         ))}
-      </ul>
+      </section>
     </Layout>
   )
 }
