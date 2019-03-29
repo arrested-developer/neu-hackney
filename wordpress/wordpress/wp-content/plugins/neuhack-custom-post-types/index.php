@@ -86,13 +86,13 @@ function neuhack_custom_post_events() {
 		'feeds'                 => true,
   );
   $template = array(
-    array('core/image'),
+    array('neuhack/flyer'),
   );
 	$args = array(
 		'label'                 => 'Event',
 		'description'           => 'Events',
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor' ),
+		'supports'              => array( 'title', 'editor', 'custom-fields' ),
 		'taxonomies'            => array( 'category', 'post_tag' ),
 		'hierarchical'          => false,
 		'public'                => true,
@@ -117,118 +117,6 @@ function neuhack_custom_post_events() {
 }
 // register post types with priority 10
 add_action( 'init', 'neuhack_custom_post_events', 10 );
-
-// add custom fields for events
-
-if( function_exists('acf_add_local_field_group') ):
-
-  acf_add_local_field_group(array(
-    'key' => 'group_5c9aac9c1322c',
-    'title' => 'Event Options',
-    'fields' => array(
-      array(
-        'key' => 'field_5c9aaca3d315c',
-        'label' => 'Date and Time',
-        'name' => 'date_and_time',
-        'type' => 'date_time_picker',
-        'instructions' => '',
-        'required' => 1,
-        'conditional_logic' => 0,
-        'wrapper' => array(
-          'width' => '',
-          'class' => '',
-          'id' => '',
-        ),
-        'display_format' => 'F j, Y g:i a',
-        'return_format' => 'Y-m-d H:i:s',
-        'first_day' => 1,
-      ),
-      array(
-        'key' => 'field_5c9aacb8d315d',
-        'label' => 'Event Type',
-        'name' => 'event_type',
-        'type' => 'select',
-        'instructions' => '',
-        'required' => 1,
-        'conditional_logic' => 0,
-        'wrapper' => array(
-          'width' => '',
-          'class' => '',
-          'id' => '',
-        ),
-        'choices' => array(
-          'General Meeting' => 'General Meeting',
-          'NEU Event' => 'NEU Event',
-          'Other' => 'Other',
-        ),
-        'default_value' => array(
-        ),
-        'allow_null' => 0,
-        'multiple' => 0,
-        'ui' => 0,
-        'return_format' => 'value',
-        'ajax' => 0,
-        'placeholder' => '',
-      ),
-      array(
-        'key' => 'field_5c9abd315522d',
-        'label' => 'Location',
-        'name' => 'location',
-        'type' => 'textarea',
-        'instructions' => 'Details of address or location for the event',
-        'required' => 1,
-        'conditional_logic' => 0,
-        'wrapper' => array(
-          'width' => '',
-          'class' => '',
-          'id' => '',
-        ),
-        'default_value' => '',
-        'placeholder' => '',
-        'maxlength' => '',
-        'rows' => '',
-        'new_lines' => '',
-      ),
-      array(
-        'key' => 'field_5c9aadc3e466a',
-        'label' => 'Upload Agenda',
-        'name' => 'agenda',
-        'type' => 'file',
-        'instructions' => 'Upload the full flyer and agenda',
-        'required' => 0,
-        'conditional_logic' => 0,
-        'wrapper' => array(
-          'width' => '',
-          'class' => '',
-          'id' => '',
-        ),
-        'return_format' => 'url',
-        'library' => 'uploadedTo',
-        'min_size' => '',
-        'max_size' => 1000,
-        'mime_types' => 'pdf, jpg, jpeg',
-      ),
-    ),
-    'location' => array(
-      array(
-        array(
-          'param' => 'post_type',
-          'operator' => '==',
-          'value' => 'events',
-        ),
-      ),
-    ),
-    'menu_order' => 0,
-    'position' => 'normal',
-    'style' => 'seamless',
-    'label_placement' => 'top',
-    'instruction_placement' => 'label',
-    'hide_on_screen' => '',
-    'active' => true,
-    'description' => '',
-  ));
-  
-  endif;
 
 // Register Campaign Custom Post Type
 function neuhack_custom_post_campaign() {
@@ -281,7 +169,7 @@ function neuhack_custom_post_campaign() {
 		'label'                 => 'Campaign',
 		'description'           => 'Campaigns',
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor' ),
+		'supports'              => array( 'title', 'editor', 'custom-fields' ),
 		'taxonomies'            => array( 'category', 'post_tag' ),
 		'hierarchical'          => false,
 		'public'                => true,
@@ -352,7 +240,7 @@ function neuhack_custom_post_officer() {
 		'label'                 => 'Officer',
 		'description'           => 'Officers',
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor' ),
+		'supports'              => array( 'title', 'editor', 'custom-fields' ),
 		'taxonomies'            => array( 'category', 'post_tag' ),
 		'hierarchical'          => false,
 		'public'                => true,
@@ -377,133 +265,6 @@ function neuhack_custom_post_officer() {
 }
 // register post types with priority 10
 add_action( 'init', 'neuhack_custom_post_officer', 10 );
-
-// add custom fields for officer post type
-
-if( function_exists('acf_add_local_field_group') ):
-
-  acf_add_local_field_group(array(
-    'key' => 'group_5c9b95a9483c4',
-    'title' => 'Officer Details',
-    'fields' => array(
-      array(
-        'key' => 'field_5c9b95ae33823',
-        'label' => 'Name',
-        'name' => 'officer_name',
-        'type' => 'text',
-        'instructions' => '',
-        'required' => 1,
-        'conditional_logic' => 0,
-        'wrapper' => array(
-          'width' => '',
-          'class' => '',
-          'id' => '',
-        ),
-        'default_value' => '',
-        'placeholder' => '',
-        'prepend' => '',
-        'append' => '',
-        'maxlength' => '',
-      ),
-      array(
-        'key' => 'field_5c9b95c133824',
-        'label' => 'Email',
-        'name' => 'officer_email',
-        'type' => 'email',
-        'instructions' => '',
-        'required' => 1,
-        'conditional_logic' => 0,
-        'wrapper' => array(
-          'width' => '',
-          'class' => '',
-          'id' => '',
-        ),
-        'default_value' => '',
-        'placeholder' => '',
-        'prepend' => '',
-        'append' => '',
-      ),
-      array(
-        'key' => 'field_5c9b95dd33825',
-        'label' => 'Position',
-        'name' => 'officer_position',
-        'type' => 'select',
-        'instructions' => '',
-        'required' => 1,
-        'conditional_logic' => 0,
-        'wrapper' => array(
-          'width' => '',
-          'class' => '',
-          'id' => '',
-        ),
-        'choices' => array(
-          'Divisional Secretary' => 'Divisional Secretary',
-          'Vice President' => 'Vice President',
-          'Associate Secretary' => 'Associate Secretary',
-          'Treasurer' => 'Treasurer',
-          'Membership Secretary' => 'Membership Secretary',
-          'Health and Safety Officer' => 'Health and Safety Officer',
-          'Press and Publicity Officer' => 'Press and Publicity Officer',
-          'Equal Opportunities Officer' => 'Equal Opportunities Officer',
-          'New Professionals Officer' => 'New Professionals Officer',
-          'International Solidarity Officer' => 'International Solidarity Officer',
-          'Independent Sector Officer' => 'Independent Sector Officer',
-          'Post 16 Officer' => 'Post 16 Officer',
-          'Support Staff Officer' => 'Support Staff Officer',
-          'Committee Member' => 'Committee Member',
-        ),
-        'default_value' => array(
-        ),
-        'allow_null' => 0,
-        'multiple' => 0,
-        'ui' => 0,
-        'return_format' => 'value',
-        'ajax' => 0,
-        'placeholder' => '',
-      ),
-      array(
-        'key' => 'field_5c9b9a4accb07',
-        'label' => 'Show on Page',
-        'name' => 'show_on_page',
-        'type' => 'taxonomy',
-        'instructions' => '',
-        'required' => 0,
-        'conditional_logic' => 0,
-        'wrapper' => array(
-          'width' => '',
-          'class' => '',
-          'id' => '',
-        ),
-        'taxonomy' => 'category',
-        'field_type' => 'multi_select',
-        'allow_null' => 0,
-        'add_term' => 1,
-        'save_terms' => 0,
-        'load_terms' => 0,
-        'return_format' => 'id',
-        'multiple' => 0,
-      ),
-    ),
-    'location' => array(
-      array(
-        array(
-          'param' => 'post_type',
-          'operator' => '==',
-          'value' => 'officer',
-        ),
-      ),
-    ),
-    'menu_order' => 0,
-    'position' => 'normal',
-    'style' => 'default',
-    'label_placement' => 'top',
-    'instruction_placement' => 'label',
-    'hide_on_screen' => '',
-    'active' => true,
-    'description' => '',
-  ));
-
-endif;
 
 // flush rewrite rules only if required, with a later priority
 add_action( 'init', 'neuhack_flush_rewrite_rules_maybe', 20 );
