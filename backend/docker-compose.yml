@@ -1,0 +1,50 @@
+version: '3.3'
+
+services:
+  wp_neu:
+    depends_on:
+      - wp_neu_db
+    image: wordpress:latest
+    volumes:
+    - type: bind
+      source: ./wp-content
+      target: /var/www/html/wp-content
+    ports:
+      - "8001:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: wp_neu_db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+
+  wp_neu_db:
+    image: mysql:5.7
+    volumes:
+      - wp_neu_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
+
+  wp_neu_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: wp_neu_phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+    restart: always
+    ports:
+      - 8002:80
+    volumes:
+      - /sessions
+    links:
+      - wp_neu_db:db
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root_password
+
+volumes:
+    wp_neu_files:
+    wp_neu_data:

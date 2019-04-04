@@ -6,12 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "init:client": "cd client && npm i",
-    "init:wordpress": "cd wordpress && npm i",
+    "init:wordpress": "cd backend && npm i",
     "init:both": "npm run init:client && npm run init:wordpress",
     "dev:client": "cd client && gatsby develop",
-    "dev:wordpress": "cd wordpress && npm run dev:start",
-    "dev:start": "npm run dev:wordpress && sleep 20 && npm run dev:client",
-    "dev:stop": "cd wordpress && npm run dev:stop"
+    "dev:wordpress": "cd backend && npm run dev:start",
+    "dev:start": "npm run dev:backend && sleep 20 && npm run dev:client",
+    "dev:stop": "cd backend && npm run dev:stop"
   },
   "repository": {
     "type": "git",

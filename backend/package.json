@@ -1,0 +1,26 @@
+{
+  "name": "wp-develop",
+  "version": "1.0.0",
+  "description": "Wordpress development environment using Docker",
+  "main": "index.js",
+  "scripts": {
+    "dev:start": "docker-compose up -d",
+    "dev:stop": "docker-compose down",
+    "dev:erase": "docker-compose down -v && rm -r wordpress/wp-content/uploads"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arrested-developer/wp-develop.git"
+  },
+  "author": "@arrested-developer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arrested-developer/wp-develop/issues"
+  },
+  "homepage": "https://github.com/arrested-developer/wp-develop#readme",
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-config-prettier": "^4.1.0",
+    "prettier": "^1.16.4"
+  }
+}

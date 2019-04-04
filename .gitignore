@@ -70,30 +70,3 @@ yarn-error.log
 
 # DS_Store
 .DS_Store
-
-# wordpress
-*.log
-wordpress/wordpress/wp-config.php
-wordpress/wordpress/wp-content/advanced-cache.php
-wordpress/wordpress/wp-content/backup-db/
-wordpress/wordpress/wp-content/backups/
-wordpress/wordpress/wp-content/blogs.dir/
-wordpress/wordpress/wp-content/cache/
-wordpress/wordpress/wp-content/upgrade/
-wordpress/wordpress/wp-content/uploads/
-wordpress/wordpress/wp-content/mu-plugins/
-wordpress/wordpress/wp-content/wp-cache-config.php
-wordpress/wordpress/wp-content/plugins/hello.php
-wordpress/wordpress/wp-content/themes/twentysixteen
-wordpress/wordpress/wp-content/themes/twentyseventeen
-wordpress/wordpress/wp-content/themes/twentyeighteen
-wordpress/wordpress/wp-content/themes/twentynineteen
-
-wordpress/wordpress/wp-admin
-wordpress/wordpress/wp-includes
-
-wordpress/wordpress/.htaccess
-wordpress/wordpress/license.txt
-wordpress/wordpress/readme.html
-wordpress/wordpress/sitemap.xml
-wordpress/wordpress/sitemap.xml.gz

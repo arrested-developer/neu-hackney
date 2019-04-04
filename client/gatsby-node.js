@@ -22,7 +22,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // from the fetched data that you can run queries against.
   const result = await graphql(`
     {
-      allWordpressWpCampaign {
+      allWordpressWpCampaigns {
         edges {
           node {
             id
@@ -40,7 +40,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allWordpressWpGeneralmeeting {
+      allWordpressWpEvents {
         edges {
           node {
             id
@@ -59,8 +59,8 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Access query results via object destructuring
   const {
-    allWordpressWpGeneralmeeting,
-    allWordpressWpCampaign,
+    allWordpressWpEvents,
+    allWordpressWpCampaigns,
     allWordpressWpOfficers,
   } = result.data
 
@@ -69,8 +69,8 @@ exports.createPages = async ({ graphql, actions }) => {
     path: `/`,
     component: path.resolve("./src/templates/home.js"),
     context: {
-      generalMeetings: allWordpressWpGeneralmeeting,
-      campaigns: allWordpressWpCampaign,
+      events: allWordpressWpEvents,
+      campaigns: allWordpressWpCampaigns,
       officers: allWordpressWpOfficers,
     },
   })
