@@ -5,8 +5,11 @@
  * Simple block, renders and saves the same content without any interactivity.
  */
 
+//  Import components
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+const { MediaUpload } = wp.editor;
+const { Button, BaseControl } = wp.components;
 
 //  Import CSS.
 import './style.scss';
@@ -35,30 +38,69 @@ registerBlockType( 'neu-hackney/newsletter', {
 		__( 'CGB Example' ),
 		__( 'create-guten-block' ),
 	],
-
-	edit: props => {
-		// Creates a <p class='wp-block-cgb-block-neu-hackney-newsletter'></p>.
+	attributes: {
+		newsletterID: {
+			type: 'number',
+		},
+		newsletterURL: {
+			type: 'string',
+			source: 'attribute',
+			selector: 'a',
+			attribute: 'href',
+		},
+	},
+	edit: ( {
+		attributes: { newsletterID, newsletterURL, date },
+		className,
+		setAttributes,
+	} ) => {
+		const onSelectFile = file => {
+			setAttributes( {
+				newsletterID: file.id,
+				newsletterURL: file.url,
+			} );
+		};
 		return (
-			<div className={ props.className }>
-				<p>— Hello from the backend.</p>
-				<p>
-					CGB BLOCK: <code>neu-hackney-newsletter</code> is a new Gutenberg
-					block
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>
-					.
-				</p>
+			<div className={ className }>
+				<BaseControl
+					label={
+						newsletterID ?
+							'Preview Newsletter' :
+							'Upload NEU Hackney Newsletter in pdf format'
+					}
+					id="newsletter-upload"
+				>
+					<MediaUpload
+						onSelect={ onSelectFile }
+						allowedTypes="pdf"
+						value={ newsletterID }
+						id="newsletter-upload"
+						render={ ( { open } ) => (
+							<div style={ { width: '100%' } }>
+								{ newsletterID && (
+									<embed
+										src={ newsletterURL }
+										type="application/pdf"
+										width="100%"
+										height="600px"
+									/>
+								) }
+								<Button className="button button-large" onClick={ open }>
+									{ ! newsletterID ? 'Upload agenda' : 'Choose again' }
+								</Button>
+							</div>
+						) }
+					/>
+				</BaseControl>
 			</div>
 		);
 	},
 
-	save: () => {
-		return null;
+	save: ( { className, attributes: { newsletterURL } } ) => {
+		return (
+			<a className={ className } href={ newsletterURL }>
+				View
+			</a>
+		);
 	},
 } );
