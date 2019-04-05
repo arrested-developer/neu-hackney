@@ -48,7 +48,10 @@ function neuhackney_custom_post_newsletters() {
 		'with_front'            => true,
 		'pages'                 => true,
 		'feeds'                 => true,
-  );
+	);
+	$template = array(
+		array('neu-hackney/newsletter')
+	);
 	$args = array(
 		'label'                 => 'Newsletter',
 		'description'           => 'NEU Hackney Newsletters',
@@ -69,7 +72,9 @@ function neuhackney_custom_post_newsletters() {
 		'rewrite'               => $rewrite,
 		'capability_type'       => 'post',
 		'show_in_rest'          => true,
-    'rest_base'             => 'newsletters',
+		'rest_base'             => 'newsletters',
+		'template'              => $template,
+		'template_lock'         => 'all',
 	);
 	register_post_type( 'Newsletters', $args );
 

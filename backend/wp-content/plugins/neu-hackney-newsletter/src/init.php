@@ -64,7 +64,7 @@ function neu_hackney_newsletter_cgb_block_assets() { // phpcs:ignore
 	 * @since 1.16.0
 	 */
 	register_block_type(
-		'cgb/block-neu-hackney-newsletter', array(
+		'neu-hackney/newsletter', array(
 			// Enqueue blocks.style.build.css on both frontend & backend.
 			'style'         => 'neu_hackney_newsletter-cgb-style-css',
 			// Enqueue blocks.build.js in the editor only.

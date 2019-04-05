@@ -88,7 +88,7 @@ registerBlockType( 'neu-hackney/newsletter', {
 				>
 					<MediaUpload
 						onSelect={ onSelectFile }
-						allowedTypes="pdf"
+						allowedTypes="application/pdf"
 						value={ newsletterID }
 						id="newsletter-upload"
 						render={ ( { open } ) => (
