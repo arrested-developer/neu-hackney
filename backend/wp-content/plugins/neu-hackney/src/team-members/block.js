@@ -9,7 +9,7 @@
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const { MediaUpload } = wp.editor;
-const { Button, BaseControl } = wp.components;
+const { Button, BaseControl, TextControl } = wp.components;
 
 //  Import CSS.
 import './style.scss';
@@ -45,15 +45,39 @@ registerBlockType( 'neu-hackney/team-member', {
 		mediaURL: {
 			type: 'string',
 			source: 'attribute',
-			selector: 'img',
-			attribute: 'src',
+			selector: '.neu-hackney-team-member-photo',
+			attribute: 'data-src',
+		},
+		name: {
+			type: 'array',
+			source: 'children',
+			selector: 'h4',
+		},
+		email: {
+			type: 'array',
+			source: 'children',
+			selector: 'a',
 		},
 	},
-	edit: ( { className, setAttributes, attributes: { mediaID, mediaURL } } ) => {
+	edit: ( {
+		className,
+		setAttributes,
+		attributes: { mediaID, mediaURL, name, email },
+	} ) => {
 		const onSelectImage = image => {
 			setAttributes( {
 				mediaID: image.id,
 				mediaURL: image.url,
+			} );
+		};
+		const onChangeName = n => {
+			setAttributes( {
+				name: n,
+			} );
+		};
+		const onChangeEmail = e => {
+			setAttributes( {
+				email: e,
 			} );
 		};
 		const TeamPhoto = ( { src } ) => {
@@ -68,6 +92,18 @@ registerBlockType( 'neu-hackney/team-member', {
 		};
 		return (
 			<section className={ className }>
+				<TextControl
+					label="Name"
+					placeholder=""
+					value={ name }
+					onChange={ onChangeName }
+				/>
+				<TextControl
+					label="Email"
+					placeholder="someone@neu.org.uk"
+					value={ email }
+					onChange={ onChangeEmail }
+				/>
 				<BaseControl label="Add a photo for the team member" id="flyer-upload">
 					<MediaUpload
 						onSelect={ onSelectImage }
@@ -88,10 +124,23 @@ registerBlockType( 'neu-hackney/team-member', {
 		);
 	},
 
-	save: ( { className, attributes: { mediaURL } } ) => {
+	save: ( { className, attributes: { mediaURL, name, email } } ) => {
+		const TeamPhoto = ( { src } ) => {
+			return (
+				<div
+					className="neu-hackney-team-member-photo"
+					data-src={ src }
+					style={ {
+						backgroundImage: `url(${ src })`,
+					} }
+				/>
+			);
+		};
 		return (
 			<article className={ className }>
-				<TeamPhoto src={ mediaURL } />
+				<TeamPhoto src={ mediaURL } data-src={ mediaURL } />
+				<h4>{ name }</h4>
+				<a href={ `mailto:${ email }` }>{ email }</a>
 			</article>
 		);
 	},
