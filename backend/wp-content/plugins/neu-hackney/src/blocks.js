@@ -11,3 +11,4 @@
 
 import './newsletters/block.js';
 import './events/block.js';
+import './campaigns/block.js';
