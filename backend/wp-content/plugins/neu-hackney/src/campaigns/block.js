@@ -38,12 +38,47 @@ registerBlockType( 'neu-hackney/campaign', {
 		__( 'CGB Example' ),
 		__( 'create-guten-block' ),
 	],
-	attributes: {},
-	edit: () => {
-		return <h1>campaign editor</h1>;
+	attributes: {
+		mediaID: {
+			type: 'number',
+		},
+		mediaURL: {
+			type: 'string',
+			source: 'attribute',
+			selector: 'img',
+			attribute: 'src',
+		},
+	},
+	edit: ( { className, setAttributes, attributes: { mediaID, mediaURL } } ) => {
+		const onSelectImage = image => {
+			setAttributes( {
+				mediaID: image.id,
+				mediaURL: image.url,
+			} );
+		};
+		return (
+			<section className={ className }>
+				<BaseControl label="Add a photo for the campaign" id="flyer-upload">
+					<MediaUpload
+						onSelect={ onSelectImage }
+						allowedTypes="image"
+						value={ mediaID }
+						id="flyer-upload"
+						render={ ( { open } ) => (
+							<Button
+								className={ mediaID ? 'image-button' : 'button button-large' }
+								onClick={ open }
+							>
+								{ ! mediaID ? 'Upload image' : <img src={ mediaURL } alt="" /> }
+							</Button>
+						) }
+					/>
+				</BaseControl>
+			</section>
+		);
 	},
 
-	save: () => {
-		return null;
+	save: ( { attributes: { mediaURL } } ) => {
+		return <img src={ mediaURL } alt="" />;
 	},
 } );
