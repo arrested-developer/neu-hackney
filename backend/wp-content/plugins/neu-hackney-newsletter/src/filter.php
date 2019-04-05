@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function set_newsletter_title( $data , $postarr ) {
   if($data['post_type'] == 'newsletters') {
-		$data['post_title'] = date("F Y", strtotime($data['post_date']));
+		$data['post_title'] = 'NEU Hackney News - ' . date("F Y", strtotime($data['post_date']));
   }
   return $data;
 }
