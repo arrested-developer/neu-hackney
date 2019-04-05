@@ -10,5 +10,3 @@
  * CSS for just Backend enqueued after style.scss
  * which makes it higher in priority.
  */
-.wp-block-neu-hackney-newsletter {
-  border: 1px solid #292929; }
