@@ -9,7 +9,7 @@
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const { MediaUpload } = wp.editor;
-const { Button, BaseControl } = wp.components;
+const { Button, BaseControl, Notice } = wp.components;
 
 //  Import CSS.
 import './style.scss';
@@ -45,12 +45,15 @@ registerBlockType( 'neu-hackney/newsletter', {
 		newsletterURL: {
 			type: 'string',
 			source: 'attribute',
-			selector: 'a',
-			attribute: 'href',
+			selector: 'embed',
+			attribute: 'src',
+		},
+		warningShown: {
+			type: 'boolean',
 		},
 	},
 	edit: ( {
-		attributes: { newsletterID, newsletterURL, date },
+		attributes: { newsletterID, newsletterURL, warningShown },
 		className,
 		setAttributes,
 	} ) => {
@@ -60,13 +63,26 @@ registerBlockType( 'neu-hackney/newsletter', {
 				newsletterURL: file.url,
 			} );
 		};
+		if ( ! warningShown ) {
+			wp.data.dispatch( 'core/notices' ).createNotice(
+				'warning', // Can be one of: success, info, warning, error.
+				'Newsletter will be published with the current month and year. To publish with a different date, change the publish settings from "Immediately" to your chosen date in the "Status & Visibility" options at the top right of the screen.', // Text string to display.
+				{
+					isDismissible: true, // Whether the user can dismiss the notice.
+					// Any actions the user can perform.
+					actions: [],
+				}
+			);
+			setAttributes( {
+				warningShown: true,
+			} );
+		}
+
 		return (
 			<div className={ className }>
 				<BaseControl
 					label={
-						newsletterID ?
-							'Preview Newsletter' :
-							'Upload NEU Hackney Newsletter in pdf format'
+						newsletterID ? null : 'Upload NEU Hackney Newsletter in pdf format'
 					}
 					id="newsletter-upload"
 				>
@@ -86,7 +102,7 @@ registerBlockType( 'neu-hackney/newsletter', {
 									/>
 								) }
 								<Button className="button button-large" onClick={ open }>
-									{ ! newsletterID ? 'Upload agenda' : 'Choose again' }
+									{ ! newsletterID ? 'Upload newsletter' : 'Choose another file' }
 								</Button>
 							</div>
 						) }
@@ -98,9 +114,14 @@ registerBlockType( 'neu-hackney/newsletter', {
 
 	save: ( { className, attributes: { newsletterURL } } ) => {
 		return (
-			<a className={ className } href={ newsletterURL }>
-				View
-			</a>
+			<div className={ className }>
+				<embed
+					src={ newsletterURL }
+					type="application/pdf"
+					width="100%"
+					height="600px"
+				/>
+			</div>
 		);
 	},
 } );
