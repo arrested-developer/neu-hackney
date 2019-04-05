@@ -233,7 +233,7 @@ registerBlockType( 'neu-hackney/event', {
 						>
 							<MediaUpload
 								onSelect={ onSelectFile }
-								allowedTypes="pdf"
+								allowedTypes="application/pdf"
 								value={ agendaID }
 								id="agenda-upload"
 								render={ ( { open } ) => (
