@@ -8,7 +8,7 @@ const {
 	RadioControl,
 } = wp.components;
 
-registerBlockType( 'neuhack/event', {
+registerBlockType( 'neu-hackney/event', {
 	title: 'Event Details',
 	icon: 'format-image',
 	category: 'common',

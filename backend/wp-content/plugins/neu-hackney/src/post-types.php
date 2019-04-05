@@ -36,3 +36,8 @@ function neu_hackney_flush_rewrite_rules_maybe() {
  * Register Post Type for Newsletters
  */
 require_once plugin_dir_path( __FILE__ ) . 'newsletters/post-type.php';
+
+/**
+ * Register Post Type for Events
+ */
+require_once plugin_dir_path( __FILE__ ) . 'events/post-type.php';

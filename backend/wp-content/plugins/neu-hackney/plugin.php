@@ -27,3 +27,8 @@ require_once plugin_dir_path( __FILE__ ) . 'src/post-types.php';
  * Register Filters
  */
 require_once plugin_dir_path( __FILE__ ) . 'src/filters.php';
+
+/**
+ * Register Meta Fields
+ */
+require_once plugin_dir_path( __FILE__ ) . 'src/meta.php';

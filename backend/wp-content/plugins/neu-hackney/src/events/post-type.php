@@ -1,34 +1,12 @@
 <?php
-
-/*
-Plugin Name: Events Post-type with Gutenberg Support
-Version: 1.0
-Author: Michael Watts
-Author URI: https://michaelwatts.co
-License: MIT
-*/
-
-// add a flag to flush rewrite rules when plugin is activated
-register_activation_hook( __FILE__, 'neuhack_events_activate' );
-
-function neuhack_meta_block_activate() {
-    if ( ! get_option( 'neuhack_events_flush_rewrite_rules_flag' ) ) {
-        add_option( 'neuhack_events_flush_rewrite_rules_flag', true );
-    }
-}
-
-add_action( 'init', 'neuhack_events_flush_rewrite_rules_maybe', 20 );
 /**
- * Flush rewrite rules if the previously added flag exists,
- * and then remove the flag.
+ * Register meta fields for the events post type
  */
-function neuhack_events_flush_rewrite_rules_maybe() {
-    if ( get_option( 'neuhack_events_flush_rewrite_rules_flag' ) ) {
-        flush_rewrite_rules();
-        delete_option( 'neuhack_events_flush_rewrite_rules_flag' );
-    }
-}
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 // Register Event Custom Post Type
 function neuhack_custom_post_events() {
 
@@ -68,7 +46,7 @@ function neuhack_custom_post_events() {
 		'feeds'                 => true,
   );
   $template = array(
-    array('neuhack/event')
+    array('neu-hackney/event')
   );
 	$args = array(
 		'label'                 => 'Event',
@@ -99,46 +77,3 @@ function neuhack_custom_post_events() {
 }
 // register post types with priority 10
 add_action( 'init', 'neuhack_custom_post_events', 10 );
-
-// register custom meta tag field
-
-// note, we can use 'object_subtype' => 'events' to restrict these fields
-// to the events post type
-function neuhack_register_meta() {
-  register_meta( 'post', 'neuhack_event_flyer_url', array(
-      'show_in_rest' => true,
-      'single' => true,
-      'type' => 'string',
-  ) );
-  register_meta( 'post', 'neuhack_event_image_alt', array(
-    'show_in_rest' => true,
-    'single' => true,
-    'type' => 'string',
-  ) );
-  register_meta( 'post', 'neuhack_event_date_time', array(
-    'show_in_rest' => true,
-    'single' => true,
-    'type' => 'string',
-  ) );
-  register_meta( 'post', 'neuhack_event_is_general_meeting', array(
-    'show_in_rest' => true,
-    'single' => true,
-    'type' => 'number',
-  ) );
-  register_meta( 'post', 'neuhack_event_agenda', array(
-    'show_in_rest' => true,
-    'single' => true,
-    'type' => 'string',
-  ) );
-}
-add_action( 'init', 'neuhack_register_meta' );
-
-// enqueue event block script
-function neuhack_events_block_enqueue() {
-  wp_enqueue_script(
-      'neuhack-event-block-script',
-      plugins_url( 'build/index.js', __FILE__ ),
-      array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' )
-  );
-}
-add_action( 'enqueue_block_editor_assets', 'neuhack_events_block_enqueue' );

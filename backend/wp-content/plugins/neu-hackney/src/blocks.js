@@ -10,3 +10,4 @@
  */
 
 import './newsletters/block.js';
+import './events/block.js';
