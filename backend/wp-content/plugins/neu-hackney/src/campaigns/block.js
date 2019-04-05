@@ -8,8 +8,8 @@
 //  Import components
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
-const { MediaUpload } = wp.editor;
-const { Button, BaseControl, Notice } = wp.components;
+const { MediaUpload, RichText } = wp.editor;
+const { Button, BaseControl, TextControl } = wp.components;
 
 //  Import CSS.
 import './style.scss';
@@ -48,12 +48,36 @@ registerBlockType( 'neu-hackney/campaign', {
 			selector: 'img',
 			attribute: 'src',
 		},
+		campaignDetails: {
+			type: 'array',
+			source: 'children',
+			selector: '.neu-hackney-campaign-details',
+		},
+		headline: {
+			type: 'array',
+			source: 'children',
+			selector: '.neu-hackney-campaign-headline',
+		},
 	},
-	edit: ( { className, setAttributes, attributes: { mediaID, mediaURL } } ) => {
+	edit: ( {
+		className,
+		setAttributes,
+		attributes: { mediaID, mediaURL, campaignDetails, headline },
+	} ) => {
 		const onSelectImage = image => {
 			setAttributes( {
 				mediaID: image.id,
 				mediaURL: image.url,
+			} );
+		};
+		const onChangeDetails = text => {
+			setAttributes( {
+				campaignDetails: text,
+			} );
+		};
+		const onChangeHeadline = text => {
+			setAttributes( {
+				headline: text,
 			} );
 		};
 		return (
@@ -74,11 +98,40 @@ registerBlockType( 'neu-hackney/campaign', {
 						) }
 					/>
 				</BaseControl>
+				<TextControl
+					label="Short Description"
+					placeholder="A short headline description of the campaign"
+					value={ headline }
+					onChange={ onChangeHeadline }
+				/>
+				<BaseControl label="Campaign Details" id="campaign-details">
+					<RichText
+						tagName="div"
+						multiline="br"
+						id="event-details"
+						placeholder="Enter the key event details, e.g. location"
+						value={ campaignDetails }
+						onChange={ onChangeDetails }
+						style={ {
+							marginTop: '1rem',
+							marginBottom: '1rem',
+						} }
+					/>
+				</BaseControl>
 			</section>
 		);
 	},
 
-	save: ( { attributes: { mediaURL } } ) => {
-		return <img src={ mediaURL } alt="" />;
+	save: ( {
+		className,
+		attributes: { mediaURL, campaignDetails, headline },
+	} ) => {
+		return (
+			<article className={ className }>
+				<img src={ mediaURL } alt="" />
+				<h3 className="neu-hackney-campaign-headline">{ headline }</h3>
+				<p className="neu-hackney-campaign-details">{ campaignDetails }</p>
+			</article>
+		);
 	},
 } );
