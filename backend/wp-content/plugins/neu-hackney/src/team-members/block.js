@@ -53,6 +53,11 @@ registerBlockType( 'neu-hackney/team-member', {
 			source: 'children',
 			selector: 'h4',
 		},
+		__name: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_team_member_name',
+		},
 		email: {
 			type: 'array',
 			source: 'children',
@@ -64,6 +69,10 @@ registerBlockType( 'neu-hackney/team-member', {
 		setAttributes,
 		attributes: { mediaID, mediaURL, name, email },
 	} ) => {
+		// change placeholder text for the title
+		window.addEventListener( 'load', () => {
+			document.querySelector( '.editor-post-title__input' ).placeholder = 'Name';
+		} );
 		const onSelectImage = image => {
 			setAttributes( {
 				mediaID: image.id,
@@ -73,6 +82,7 @@ registerBlockType( 'neu-hackney/team-member', {
 		const onChangeName = n => {
 			setAttributes( {
 				name: n,
+				__name: n,
 			} );
 		};
 		const onChangeEmail = e => {
@@ -92,12 +102,6 @@ registerBlockType( 'neu-hackney/team-member', {
 		};
 		return (
 			<section className={ className }>
-				<TextControl
-					label="Name"
-					placeholder=""
-					value={ name }
-					onChange={ onChangeName }
-				/>
 				<TextControl
 					label="Email"
 					placeholder="someone@neu.org.uk"

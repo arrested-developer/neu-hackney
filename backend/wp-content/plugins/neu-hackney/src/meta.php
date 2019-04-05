@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Register Meta Fields for Events
+ * Register Meta Fields
  */
 require_once plugin_dir_path( __FILE__ ) . 'events/meta.php';
+require_once plugin_dir_path( __FILE__ ) . 'team-members/meta.php';

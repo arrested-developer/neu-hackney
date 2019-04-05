@@ -10,6 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 /**
- * Register Filters for Newsletters
+ * Register Filters
  */
 require_once plugin_dir_path( __FILE__ ) . 'newsletters/filter.php';
