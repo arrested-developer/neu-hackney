@@ -38,3 +38,4 @@ function neu_hackney_flush_rewrite_rules_maybe() {
 require_once plugin_dir_path( __FILE__ ) . 'newsletters/post-type.php';
 require_once plugin_dir_path( __FILE__ ) . 'events/post-type.php';
 require_once plugin_dir_path( __FILE__ ) . 'campaigns/post-type.php';
+require_once plugin_dir_path( __FILE__ ) . 'team-members/post-type.php';
