@@ -53,7 +53,7 @@ function neuhackney_custom_post_newsletters() {
 		'label'                 => 'Newsletter',
 		'description'           => 'NEU Hackney Newsletters',
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'custom-fields' ),
+		'supports'              => array( 'editor', 'custom-fields' ),
 		'taxonomies'            => array( 'category', 'post_tag' ),
 		'hierarchical'          => false,
 		'public'                => true,

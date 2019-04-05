@@ -26,3 +26,8 @@ require_once plugin_dir_path( __FILE__ ) . 'src/init.php';
  * Register Custom Post Type
  */
 require_once plugin_dir_path( __FILE__ ) . 'src/post-type.php';
+
+/**
+ * Register Filters
+ */
+require_once plugin_dir_path( __FILE__ ) . 'src/filter.php';
