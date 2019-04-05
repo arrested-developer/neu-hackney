@@ -19,6 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once plugin_dir_path( __FILE__ ) . 'src/init.php';
 
 /**
+ * Register Taxonomies
+ */
+require_once plugin_dir_path( __FILE__ ) . 'src/taxonomies.php';
+
+/**
  * Register Custom Post Types
  */
 require_once plugin_dir_path( __FILE__ ) . 'src/post-types.php';
@@ -32,3 +37,5 @@ require_once plugin_dir_path( __FILE__ ) . 'src/filters.php';
  * Register Meta Fields
  */
 require_once plugin_dir_path( __FILE__ ) . 'src/meta.php';
+
+
