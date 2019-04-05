@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: neu-hackney — CGB Gutenberg Block Plugin
+ * Plugin Name: neu-hackney-newsletter — CGB Gutenberg Block Plugin
  * Plugin URI: https://github.com/ahmadawais/create-guten-block/
- * Description: neu-hackney — is a Gutenberg plugin created via create-guten-block.
+ * Description: neu-hackney-newsletter — is a Gutenberg plugin created via create-guten-block.
  * Author: mrahmadawais, maedahbatool
  * Author URI: https://AhmadAwais.com/
  * Version: 1.0.0
@@ -21,3 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Block Initializer.
  */
 require_once plugin_dir_path( __FILE__ ) . 'src/init.php';
+
+/**
+ * Register Custom Post Type
+ */
+require_once plugin_dir_path( __FILE__ ) . 'src/post-types.php';
+
+/**
+ * Register Filters
+ */
+require_once plugin_dir_path( __FILE__ ) . 'src/filters.php';
