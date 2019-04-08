@@ -48,10 +48,20 @@ registerBlockType( 'neu-hackney/team-member', {
 			selector: '.neu-hackney-team-member-photo',
 			attribute: 'data-src',
 		},
+		__mediaURL: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_image_url',
+		},
 		email: {
 			type: 'array',
 			source: 'children',
 			selector: 'a',
+		},
+		__email: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_team_member_email',
 		},
 	},
 	edit: ( {
@@ -67,11 +77,13 @@ registerBlockType( 'neu-hackney/team-member', {
 			setAttributes( {
 				mediaID: image.id,
 				mediaURL: image.url,
+				__mediaURL: image.url,
 			} );
 		};
 		const onChangeEmail = e => {
 			setAttributes( {
 				email: e,
+				__email: e,
 			} );
 		};
 		const TeamPhoto = ( { src } ) => {

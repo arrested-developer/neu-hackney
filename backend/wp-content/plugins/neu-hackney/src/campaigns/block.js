@@ -10,6 +10,7 @@ const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const { MediaUpload, RichText } = wp.editor;
 const { Button, BaseControl, TextControl } = wp.components;
+import richTextToString from '../utils/richTextToString';
 
 //  Import CSS.
 import './style.scss';
@@ -48,15 +49,30 @@ registerBlockType( 'neu-hackney/campaign', {
 			selector: 'img',
 			attribute: 'src',
 		},
+		__mediaURL: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_image_url',
+		},
 		campaignDetails: {
 			type: 'array',
 			source: 'children',
 			selector: '.neu-hackney-campaign-details',
 		},
+		__campaignDetails: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_details',
+		},
 		headline: {
 			type: 'array',
 			source: 'children',
 			selector: '.neu-hackney-campaign-headline',
+		},
+		__headline: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_headline',
 		},
 	},
 	edit: ( {
@@ -68,16 +84,19 @@ registerBlockType( 'neu-hackney/campaign', {
 			setAttributes( {
 				mediaID: image.id,
 				mediaURL: image.url,
+				__mediaURL: image.url,
 			} );
 		};
 		const onChangeDetails = text => {
 			setAttributes( {
 				campaignDetails: text,
+				__campaignDetails: richTextToString( text ),
 			} );
 		};
 		const onChangeHeadline = text => {
 			setAttributes( {
 				headline: text,
+				__headline: text,
 			} );
 		};
 		return (
