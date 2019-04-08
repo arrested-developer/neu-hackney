@@ -43,6 +43,13 @@ function neuhack_position() {
 		'show_tagcloud'              => true,
 		'show_in_rest'               => true,
 		'rest_base'                  => 'position',
+		// prevent users from changing the taxonomy as the site will rely on it
+		'capabilities' => array(
+			'manage_terms' => 'edit_users',
+			'edit_terms'   => 'edit_users',
+			'delete_terms' => 'edit_users',
+			'assign_terms' => 'edit_posts',
+		),
 	);
 	register_taxonomy( 'position', array( 'team' ), $args );
 
@@ -50,110 +57,110 @@ function neuhack_position() {
 add_action( 'init', 'neuhack_position', 0 );
 
 function neuhack_register_positions(){
-	wp_insert_term(
-		'Divisional Secretary', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'divisional-secretary',
-		)
-	);
-	wp_insert_term(
-		'President', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'president',
-		)
-	);
-	wp_insert_term(
-		'Vice President', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'vice-president',
-		)
-	);
-	wp_insert_term(
-		'Associate Secretary', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'associate-secretary',
-		)
-	);
-	wp_insert_term(
-		'Treasurer', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'treasurer',
-		)
-	);
-	wp_insert_term(
-		'Membership Secretary', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'membership-secretary',
-		)
-	);
-	wp_insert_term(
-		'Health and Safety Officer', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'health-and-safety',
-		)
-	);
-	wp_insert_term(
-		'Press and Publicity Officer', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'press-and-publicity',
-		)
-	);
-	wp_insert_term(
-		'Equal Opportunities Officer', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'equal-opportunities',
-		)
-	);
-	wp_insert_term(
-		'New Professionals Officer', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'new-professionals',
-		)
-	);
-	wp_insert_term(
-		'International Solidarity Officer', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'international-solidarity',
-		)
-	);
-	wp_insert_term(
-		'Independent Sector Officer', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'independent-sector',
-		)
-	);
-	wp_insert_term(
-		'Post 16 Officer', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'post-16',
-		)
-	);
-	wp_insert_term(
-		'Support Staff Officer', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'support-staff',
-		)
-	);
-	wp_insert_term(
-		'Committee Member', // the term
-		'position', // the taxonomy
-		array(
-			'slug' => 'committee-member',
-		)
-	);
+		wp_insert_term(
+			'Divisional Secretary', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'divisional-secretary',
+			)
+		);
+		wp_insert_term(
+			'President', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'president',
+			)
+		);
+		wp_insert_term(
+			'Vice President', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'vice-president',
+			)
+		);
+		wp_insert_term(
+			'Associate Secretary', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'associate-secretary',
+			)
+		);
+		wp_insert_term(
+			'Treasurer', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'treasurer',
+			)
+		);
+		wp_insert_term(
+			'Membership Secretary', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'membership-secretary',
+			)
+		);
+		wp_insert_term(
+			'Health and Safety Officer', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'health-and-safety',
+			)
+		);
+		wp_insert_term(
+			'Press and Publicity Officer', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'press-and-publicity',
+			)
+		);
+		wp_insert_term(
+			'Equal Opportunities Officer', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'equal-opportunities',
+			)
+		);
+		wp_insert_term(
+			'New Professionals Officer', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'new-professionals',
+			)
+		);
+		wp_insert_term(
+			'International Solidarity Officer', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'international-solidarity',
+			)
+		);
+		wp_insert_term(
+			'Independent Sector Officer', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'independent-sector',
+			)
+		);
+		wp_insert_term(
+			'Post 16 Officer', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'post-16',
+			)
+		);
+		wp_insert_term(
+			'Support Staff Officer', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'support-staff',
+			)
+		);
+		wp_insert_term(
+			'Committee Member', // the term
+			'position', // the taxonomy
+			array(
+				'slug' => 'committee-member',
+			)
+		);
 }
 add_action( 'admin_init', 'neuhack_register_positions', 0 );

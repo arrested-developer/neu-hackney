@@ -38,4 +38,14 @@ require_once plugin_dir_path( __FILE__ ) . 'src/filters.php';
  */
 require_once plugin_dir_path( __FILE__ ) . 'src/meta.php';
 
+/**
+ * Remove standard posts from admin menu
+ */
+
+function neuhack_remove_menu_pages() {
+		remove_menu_page('edit.php');
+		remove_menu_page('edit-comments.php');
+}
+add_action( 'admin_menu', 'neuhack_remove_menu_pages' );
+
 

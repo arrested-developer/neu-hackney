@@ -64,6 +64,7 @@ function neuhackney_custom_post_newsletters() {
 		'show_in_menu'          => true,
 		'menu_position'         => 5,
 		'show_in_admin_bar'     => true,
+		'menu_icon'             => 'dashicons-media-document',
 		'show_in_nav_menus'     => true,
 		'can_export'            => true,
 		'has_archive'           => true,
