@@ -58,6 +58,7 @@ function neuhack_custom_post_events() {
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => true,
+		'menu_icon'             => 'dashicons-tickets-alt',
 		'menu_position'         => 5,
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,
