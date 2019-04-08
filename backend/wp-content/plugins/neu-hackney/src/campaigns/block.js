@@ -10,6 +10,7 @@ const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const { MediaUpload, RichText } = wp.editor;
 const { Button, BaseControl, TextControl } = wp.components;
+import richTextToString from '../utils/richTextToString';
 
 //  Import CSS.
 import './style.scss';
@@ -59,7 +60,7 @@ registerBlockType( 'neu-hackney/campaign', {
 			selector: '.neu-hackney-campaign-details',
 		},
 		__campaignDetails: {
-			type: 'array',
+			type: 'string',
 			source: 'meta',
 			meta: 'neuhack_details',
 		},
@@ -89,7 +90,7 @@ registerBlockType( 'neu-hackney/campaign', {
 		const onChangeDetails = text => {
 			setAttributes( {
 				campaignDetails: text,
-				__campaignDetails: text,
+				__campaignDetails: richTextToString( text ),
 			} );
 		};
 		const onChangeHeadline = text => {

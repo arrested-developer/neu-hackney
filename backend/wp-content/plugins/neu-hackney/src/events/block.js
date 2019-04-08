@@ -7,6 +7,7 @@ const {
 	TimePicker,
 	RadioControl,
 } = wp.components;
+import richTextToString from '../utils/richTextToString';
 
 registerBlockType( 'neu-hackney/event', {
 	title: 'Event Details',
@@ -57,6 +58,11 @@ registerBlockType( 'neu-hackney/event', {
 			type: 'array',
 			source: 'children',
 			selector: '.neuhack-event-details',
+		},
+		__eventDetails: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_details',
 		},
 		eventIsGeneralMeeting: {
 			type: 'number',
@@ -133,6 +139,7 @@ registerBlockType( 'neu-hackney/event', {
 		const onChangeDetails = details => {
 			setAttributes( {
 				eventDetails: details,
+				__eventDetails: richTextToString( details ),
 			} );
 		};
 
@@ -190,7 +197,8 @@ registerBlockType( 'neu-hackney/event', {
 				<BaseControl label="Event Details" id="event-details">
 					<RichText
 						tagName="div"
-						multiline="br"
+						// multiline="br"
+						format="string"
 						id="event-details"
 						placeholder="Enter the key event details, e.g. location"
 						value={ eventDetails }
