@@ -1,6 +1,6 @@
 <?php
 /**
- * Register meta fields for the events post type
+ * Register meta fields for the campaigns post type
  */
 
 // Exit if accessed directly.
@@ -10,11 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // note, we can use 'object_subtype' => 'events' to restrict these fields
 // to the events post type
-function neuhack_register_events_meta() {
-  register_meta( 'post', 'neuhack_event_is_general_meeting', array(
+function neuhack_register_campaigns_meta() {
+  register_meta( 'post', 'neuhack_headline', array(
     'show_in_rest' => true,
     'single' => true,
-    'type' => 'number',
+    'type' => 'string',
   ) );
 }
-add_action( 'init', 'neuhack_register_events_meta' );
+add_action( 'init', 'neuhack_register_campaigns_meta' );
