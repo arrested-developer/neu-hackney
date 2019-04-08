@@ -48,15 +48,30 @@ registerBlockType( 'neu-hackney/campaign', {
 			selector: 'img',
 			attribute: 'src',
 		},
+		__mediaURL: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_image_url',
+		},
 		campaignDetails: {
 			type: 'array',
 			source: 'children',
 			selector: '.neu-hackney-campaign-details',
 		},
+		__campaignDetails: {
+			type: 'array',
+			source: 'meta',
+			meta: 'neuhack_details',
+		},
 		headline: {
 			type: 'array',
 			source: 'children',
 			selector: '.neu-hackney-campaign-headline',
+		},
+		__headline: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_headline',
 		},
 	},
 	edit: ( {
@@ -68,16 +83,19 @@ registerBlockType( 'neu-hackney/campaign', {
 			setAttributes( {
 				mediaID: image.id,
 				mediaURL: image.url,
+				__mediaURL: image.url,
 			} );
 		};
 		const onChangeDetails = text => {
 			setAttributes( {
 				campaignDetails: text,
+				__campaignDetails: text,
 			} );
 		};
 		const onChangeHeadline = text => {
 			setAttributes( {
 				headline: text,
+				__headline: text,
 			} );
 		};
 		return (

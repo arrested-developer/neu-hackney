@@ -48,6 +48,11 @@ registerBlockType( 'neu-hackney/newsletter', {
 			selector: 'embed',
 			attribute: 'src',
 		},
+		__newsletterURL: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_attachment_url',
+		},
 		warningShown: {
 			type: 'boolean',
 		},
@@ -61,6 +66,7 @@ registerBlockType( 'neu-hackney/newsletter', {
 			setAttributes( {
 				newsletterID: file.id,
 				newsletterURL: file.url,
+				__newsletterURL: file.url,
 			} );
 		};
 		if ( ! warningShown ) {

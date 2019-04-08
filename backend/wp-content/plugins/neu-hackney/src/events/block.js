@@ -25,7 +25,7 @@ registerBlockType( 'neu-hackney/event', {
 		__mediaURL: {
 			type: 'string',
 			source: 'meta',
-			meta: 'neuhack_event_flyer_url',
+			meta: 'neuhack_image_url',
 		},
 		imageAlt: {
 			type: 'string',
@@ -36,12 +36,12 @@ registerBlockType( 'neu-hackney/event', {
 		__imageAlt: {
 			type: 'string',
 			source: 'meta',
-			meta: 'neuhack_event_image_alt',
+			meta: 'neuhack_image_alt',
 		},
 		__dateTime: {
 			type: 'string',
 			source: 'meta',
-			meta: 'neuhack_event_date_time',
+			meta: 'neuhack_date_time',
 		},
 		date: {
 			type: 'array',
@@ -78,7 +78,7 @@ registerBlockType( 'neu-hackney/event', {
 		__agendaURL: {
 			type: 'string',
 			source: 'meta',
-			meta: 'neuhack_event_agenda',
+			meta: 'neuhack_attachment_url',
 		},
 	},
 	edit: ( {
