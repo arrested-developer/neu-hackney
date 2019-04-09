@@ -9,11 +9,23 @@
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const { MediaUpload } = wp.editor;
-const { Button, BaseControl, TextControl } = wp.components;
+const { Button, BaseControl, TextControl, SelectControl } = wp.components;
 
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
+
+//  Fetch Team Member Positions
+//  Happens aynchronously on script load, before the editor loads (I hope)
+const positions = [];
+const positionNames = [];
+wp.apiFetch( { path: '/wp/v2/position' } ).then( posts => {
+	positions.push( { label: 'Select a Position', value: 0 } );
+	posts.sort().forEach( post => {
+		positions.push( { label: post.name, value: post.id } );
+		positionNames[ post.id ] = post.name;
+	} );
+} );
 
 /**
  * Register: aa Gutenberg Block.
@@ -63,11 +75,19 @@ registerBlockType( 'neu-hackney/team-member', {
 			source: 'meta',
 			meta: 'neuhack_team_member_email',
 		},
+		selectedPosition: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_team_member_position',
+		},
+		positionName: {
+			type: 'string',
+		},
 	},
 	edit: ( {
 		className,
 		setAttributes,
-		attributes: { mediaID, mediaURL, name, email },
+		attributes: { mediaID, mediaURL, email, selectedPosition },
 	} ) => {
 		// change placeholder text for the title
 		window.addEventListener( 'load', () => {
@@ -84,6 +104,12 @@ registerBlockType( 'neu-hackney/team-member', {
 			setAttributes( {
 				email: e,
 				__email: e,
+			} );
+		};
+		const onChangePosition = e => {
+			setAttributes( {
+				selectedPosition: e,
+				positionName: positionNames[ e ],
 			} );
 		};
 		const TeamPhoto = ( { src } ) => {
@@ -120,11 +146,17 @@ registerBlockType( 'neu-hackney/team-member', {
 						) }
 					/>
 				</BaseControl>
+				<SelectControl
+					label={ __( 'Select a Post' ) }
+					options={ positions }
+					value={ selectedPosition }
+					onChange={ onChangePosition }
+				/>
 			</section>
 		);
 	},
 
-	save: ( { className, attributes: { mediaURL, name, email } } ) => {
+	save: ( { className, attributes: { mediaURL, positionName, email } } ) => {
 		const TeamPhoto = ( { src } ) => {
 			return (
 				<div
@@ -147,6 +179,7 @@ registerBlockType( 'neu-hackney/team-member', {
 					}
 					data-src={ mediaURL }
 				/>
+				<h4>{ positionName }</h4>
 				<a href={ `mailto:${ email }` }>{ email }</a>
 			</article>
 		);
