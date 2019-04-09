@@ -19,7 +19,7 @@ import './editor.scss';
 //  Happens aynchronously on script load, before the editor loads (I hope)
 const positions = [];
 const positionNames = [];
-wp.apiFetch( { path: '/wp/v2/position' } ).then( posts => {
+wp.apiFetch( { path: '/wp/v2/position?per_page=99' } ).then( posts => {
 	positions.push( { label: 'No Position', value: 0 } );
 	posts
 		.sort( ( a, b ) => a.id > b.id )
