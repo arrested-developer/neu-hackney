@@ -138,8 +138,10 @@ registerBlockType( 'neu-hackney/team-member', {
 		};
 		return (
 			<article className={ className }>
-				<TeamPhoto src={ mediaURL } data-src={ mediaURL } />
-				<h4>{ name }</h4>
+				<TeamPhoto
+					src={ mediaURL ? mediaURL : 'assets/img/team-member-placeholder.jpg' }
+					data-src={ mediaURL }
+				/>
 				<a href={ `mailto:${ email }` }>{ email }</a>
 			</article>
 		);
