@@ -136,10 +136,15 @@ registerBlockType( 'neu-hackney/team-member', {
 				/>
 			);
 		};
+		const host = window.location.href.split( '/wp-admin' )[ 0 ];
 		return (
 			<article className={ className }>
 				<TeamPhoto
-					src={ mediaURL ? mediaURL : 'assets/img/team-member-placeholder.jpg' }
+					src={
+						mediaURL ?
+							mediaURL :
+							`${ host }/wp-content/plugins/neu-hackney/assets/img/team-member.png`
+					}
 					data-src={ mediaURL }
 				/>
 				<a href={ `mailto:${ email }` }>{ email }</a>
