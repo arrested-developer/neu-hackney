@@ -51,7 +51,7 @@ function neuhack_position() {
 			'assign_terms' => 'edit_posts',
 		),
 	);
-	register_taxonomy( 'position', array( 'team' ), $args );
+	register_taxonomy( 'position', array( 'post' ), $args );
 
 }
 add_action( 'init', 'neuhack_position', 0 );

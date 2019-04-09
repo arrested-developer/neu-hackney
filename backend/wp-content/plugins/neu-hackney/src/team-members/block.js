@@ -20,12 +20,17 @@ import './editor.scss';
 const positions = [];
 const positionNames = [];
 wp.apiFetch( { path: '/wp/v2/position' } ).then( posts => {
-	positions.push( { label: 'Select a Position', value: 0 } );
-	posts.sort().forEach( post => {
-		positions.push( { label: post.name, value: post.id } );
-		positionNames[ post.id ] = post.name;
-	} );
+	positions.push( { label: 'No Position', value: 0 } );
+	posts
+		.sort( ( a, b ) => a.id > b.id )
+		.forEach( post => {
+			positions.push( { label: post.name, value: post.id } );
+			positionNames[ post.id ] = post.name;
+		} );
 } );
+
+const host = window.location.href.split( '/wp-admin' )[ 0 ];
+const teamPlaceholder = `${ host }/wp-content/plugins/neu-hackney/assets/img/team-member.png`;
 
 /**
  * Register: aa Gutenberg Block.
@@ -130,7 +135,10 @@ registerBlockType( 'neu-hackney/team-member', {
 					value={ email }
 					onChange={ onChangeEmail }
 				/>
-				<BaseControl label="Add a photo for the team member" id="flyer-upload">
+				<BaseControl
+					label="Add a photo for the team member (if no photo is selected, a placeholder will be used)"
+					id="flyer-upload"
+				>
 					<MediaUpload
 						onSelect={ onSelectImage }
 						allowedTypes="image"
@@ -141,13 +149,13 @@ registerBlockType( 'neu-hackney/team-member', {
 								className={ mediaID ? 'image-button' : 'button button-large' }
 								onClick={ open }
 							>
-								{ ! mediaID ? 'Upload image' : <TeamPhoto src={ mediaURL } /> }
+								{ ! mediaID ? 'Select Photo' : <TeamPhoto src={ mediaURL } /> }
 							</Button>
 						) }
 					/>
 				</BaseControl>
 				<SelectControl
-					label={ __( 'Select a Post' ) }
+					label={ __( 'Select a Position' ) }
 					options={ positions }
 					value={ selectedPosition }
 					onChange={ onChangePosition }
@@ -168,15 +176,10 @@ registerBlockType( 'neu-hackney/team-member', {
 				/>
 			);
 		};
-		const host = window.location.href.split( '/wp-admin' )[ 0 ];
 		return (
 			<article className={ className }>
 				<TeamPhoto
-					src={
-						mediaURL ?
-							mediaURL :
-							`${ host }/wp-content/plugins/neu-hackney/assets/img/team-member.png`
-					}
+					src={ mediaURL ? mediaURL : teamPlaceholder }
 					data-src={ mediaURL }
 				/>
 				<h4>{ positionName }</h4>

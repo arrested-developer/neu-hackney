@@ -57,7 +57,7 @@ function neuhackney_custom_post_team_members() {
 		'description'           => 'NEU Hackney Team Members',
 		'labels'                => $labels,
 		'supports'              => array( 'title', 'editor', 'custom-fields' ),
-		'taxonomies'            => array( 'category', 'position' ),
+		'taxonomies'            => array( 'category' ),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
