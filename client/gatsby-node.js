@@ -22,11 +22,20 @@ exports.createPages = async ({ graphql, actions }) => {
   // from the fetched data that you can run queries against.
   const result = await graphql(`
     {
-      allWordpressWpNewsletters {
+      allWordpressWpEvents {
         edges {
           node {
             id
             content
+            meta {
+              neuhack_image_alt
+              neuhack_date_time
+              neuhack_details
+              neuhack_event_is_general_meeting
+              neuhack_image_url {
+                source_url
+              }
+            }
           }
         }
       }
@@ -36,6 +45,13 @@ exports.createPages = async ({ graphql, actions }) => {
             id
             title
             content
+            meta {
+              neuhack_details
+              neuhack_headline
+              neuhack_image_url {
+                source_url
+              }
+            }
           }
         }
       }
@@ -45,15 +61,27 @@ exports.createPages = async ({ graphql, actions }) => {
             id
             title
             content
+            meta {
+              neuhack_team_member_email
+              neuhack_team_member_position
+              neuhack_image_url {
+                source_url
+              }
+            }
           }
         }
       }
-      allWordpressWpEvents {
+      allWordpressWpNewsletters {
         edges {
           node {
             id
-            title
+            date
             content
+            meta {
+              neuhack_attachment_url {
+                source_url
+              }
+            }
           }
         }
       }
@@ -69,7 +97,8 @@ exports.createPages = async ({ graphql, actions }) => {
   const {
     allWordpressWpEvents,
     allWordpressWpCampaigns,
-    allWordpressWpOfficers,
+    allWordpressWpTeam,
+    allWordpressWpNewsletters,
   } = result.data
 
   // create home page with graphQL data from meetings, campaigns and officers
@@ -79,7 +108,8 @@ exports.createPages = async ({ graphql, actions }) => {
     context: {
       events: allWordpressWpEvents,
       campaigns: allWordpressWpCampaigns,
-      officers: allWordpressWpOfficers,
+      team: allWordpressWpTeam,
+      newsletters: allWordpressWpNewsletters,
     },
   })
 

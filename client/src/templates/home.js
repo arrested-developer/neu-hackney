@@ -2,7 +2,7 @@ import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-export default ({ pageContext: { events, officers, campaigns } }) => {
+export default ({ pageContext: { newsletters, campaigns, team, events } }) => {
   return (
     <Layout>
       <SEO title="Home" />
@@ -14,8 +14,8 @@ export default ({ pageContext: { events, officers, campaigns } }) => {
         ))}
       </section>
       <section>
-        <h2>Officers</h2>
-        {officers.edges.map(({ node: { title } }) => (
+        <h2>Our Team</h2>
+        {team.edges.map(({ node: { title } }) => (
           <li>{title}</li>
         ))}
       </section>
@@ -25,6 +25,14 @@ export default ({ pageContext: { events, officers, campaigns } }) => {
           <div>
             <h3>{title}</h3>
             <div dangerouslySetInnerHTML={{ __html: content }} />
+          </div>
+        ))}
+      </section>
+      <section>
+        <h2>Newsletters</h2>
+        {newsletters.edges.map(({ node: { date, content } }) => (
+          <div>
+            <h3>{date}</h3>
           </div>
         ))}
       </section>
