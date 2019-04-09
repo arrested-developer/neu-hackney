@@ -22,6 +22,14 @@ exports.createPages = async ({ graphql, actions }) => {
   // from the fetched data that you can run queries against.
   const result = await graphql(`
     {
+      allWordpressWpNewsletters {
+        edges {
+          node {
+            id
+            content
+          }
+        }
+      }
       allWordpressWpCampaigns {
         edges {
           node {
@@ -31,7 +39,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allWordpressWpOfficers {
+      allWordpressWpTeam {
         edges {
           node {
             id
