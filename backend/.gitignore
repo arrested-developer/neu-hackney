@@ -21,3 +21,6 @@ wp-content/themes/twentynineteen
 # Ignore starter plugins
 wp-content/plugins/akismet
 wp-content/plugins/hello.php
+
+# Ignore database files
+database/
