@@ -9,8 +9,18 @@ import React from "react"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 
-import Header from "./header"
+import Header from "./header/header"
+import "bootstrap/dist/css/bootstrap.min.css"
 import "./layout.css"
+
+const navLinks = [
+  { name: "Home", to: "/" },
+  { name: "Members", to: "/members" },
+  { name: "Events", to: "/events" },
+  { name: "Equalities", to: "/equalities" },
+  { name: "Reps", to: "/reps" },
+  { name: "Gallery", to: "/gallery" },
+]
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -25,13 +35,7 @@ const Layout = ({ children }) => (
     `}
     render={data => (
       <>
-        <Header
-          siteTitle={data.site.siteMetadata.title}
-          navLinks={[
-            { name: "one", href: "one" },
-            { name: "two", href: "two" },
-          ]}
-        />
+        <Header siteTitle={data.site.siteMetadata.title} navLinks={navLinks} />
         <div
           style={{
             margin: `0 auto`,
