@@ -1,4 +1,6 @@
 import React from "react"
+import { StaticQuery, graphql } from "gatsby"
+import Img from "gatsby-image"
 
 import {
   Title,
@@ -7,6 +9,7 @@ import {
   NEUHeader,
   Logo,
   FlexRow,
+  BackgroundImageContainer,
 } from "./header.styles"
 
 import {
@@ -26,7 +29,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFacebookF, faTwitter } from "@fortawesome/free-brands-svg-icons"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   constructor(props) {
     super(props)
 
@@ -41,12 +44,17 @@ export default class Header extends React.Component {
     })
   }
   render() {
-    const { siteTitle, navLinks } = this.props
+    const { siteTitle, navLinks, data } = this.props
     return (
       <>
         <NEUHeader>
+          <BackgroundImageContainer>
+            <Img fluid={data.headerBackground.childImageSharp.fluid} />
+          </BackgroundImageContainer>
           <FlexRow>
-            <Logo />
+            <Logo>
+              <Img fluid={data.headerLogo.childImageSharp.fluid} />
+            </Logo>
             <Title>{siteTitle}</Title>
           </FlexRow>
           <Navbar color="info" light expand="md">
@@ -101,3 +109,29 @@ export default class Header extends React.Component {
     )
   }
 }
+
+export default props => (
+  <StaticQuery
+    query={graphql`
+      query headerQuery {
+        headerLogo: file(
+          relativePath: { eq: "neu-logo-dark-transparent.png" }
+        ) {
+          childImageSharp {
+            fluid(maxWidth: 100) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+        headerBackground: file(relativePath: { eq: "hexagons-header.png" }) {
+          childImageSharp {
+            fluid(maxWidth: 500) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    `}
+    render={data => <Header data={data} {...props} />}
+  />
+)
