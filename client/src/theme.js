@@ -15,10 +15,11 @@ export default {
   black: "#333f48",
   white: "#fefef8",
 
-  // breakpoints
-  break_ns: "screen and (min-width: 30em)",
-  break_m: "screen and (min-width: 30em) and (max-width: 60em)",
-  break_l: "screen and (min-width: 60em)",
+  // breakpoints (match with bootstrap)
+  break_ns: "screen and (min-width: 768px)",
+  break_m: "screen and (min-width: 768px) and (max-width: 992px)",
+  break_l: "screen and (min-width: 992px)",
+  break_xl: "screen and (min-width: 1200px)",
 
   // spacing
   xxs: "0.125rem",
