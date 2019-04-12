@@ -49,7 +49,6 @@ const NavLink = styled(Link).attrs({
   className: "nav-link",
 })`
   margin-right: ${({ theme }) => theme.m};
-  color: white !important;
   font-family: "Arial Bold", "Arial", sans-serif;
 `
 

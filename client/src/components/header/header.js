@@ -21,7 +21,10 @@ import {
   DropdownItem,
 } from "reactstrap"
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 import { faFacebookF, faTwitter } from "@fortawesome/free-brands-svg-icons"
+import { faBars } from "@fortawesome/free-solid-svg-icons"
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -47,7 +50,15 @@ export default class Header extends React.Component {
             <Title>{siteTitle}</Title>
           </FlexRow>
           <Navbar color="info" light expand="md">
-            <NavbarToggler onClick={this.toggle} />
+            <NavbarToggler onClick={this.toggle}>
+              <FontAwesomeIcon
+                icon={faBars}
+                style={{
+                  fontSize: "1.5rem",
+                  color: "white",
+                }}
+              />
+            </NavbarToggler>
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-0 mr-auto" navbar>
                 {navLinks.map(link => (
@@ -72,7 +83,7 @@ export default class Header extends React.Component {
               className="mr-0 ml-auto"
               style={{
                 position: "absolute",
-                right: 0,
+                right: "0.5rem",
                 top: "1rem",
                 fontSize: "1.25rem",
               }}
