@@ -33,7 +33,9 @@ export const BackgroundImageContainer = styled.div`
   background-color: ${({ theme }) => theme.dark_blue};
 `
 
-export const BackgroundImage = styled(Img)`
+export const BackgroundImage = styled(Img).attrs({
+  fadeIn: false,
+})`
   width: 50%;
   max-width: 500px;
   margin-right: 0;

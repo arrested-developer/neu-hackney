@@ -33,5 +33,5 @@ export default {
 
   // fonts
   heading: "font-family: Lexia, serif; font-weight: 700",
-  body: "arial, sans-serif",
+  body: "font-family: arial, sans-serif",
 }

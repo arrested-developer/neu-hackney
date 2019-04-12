@@ -41,7 +41,7 @@ const Header = ({ siteTitle, navLinks, data }) => {
         </BackgroundImageContainer>
         <FlexRow>
           <Logo>
-            <Img fluid={data.headerLogo.childImageSharp.fluid} />
+            <Img fluid={data.headerLogo.childImageSharp.fluid} fadeIn={false} />
           </Logo>
           <Title>{siteTitle}</Title>
         </FlexRow>
@@ -121,14 +121,14 @@ export default props => (
         ) {
           childImageSharp {
             fluid(maxWidth: 100) {
-              ...GatsbyImageSharpFluid
+              ...GatsbyImageSharpFluid_noBase64
             }
           }
         }
         headerBackground: file(relativePath: { eq: "hexagons-header.png" }) {
           childImageSharp {
             fluid(maxWidth: 500) {
-              ...GatsbyImageSharpFluid
+              ...GatsbyImageSharpFluid_noBase64
             }
           }
         }

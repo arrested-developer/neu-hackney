@@ -1,23 +1,32 @@
 import React from "react"
-import Img from "gatsby-image"
 import { Link } from "gatsby"
+
+import MailingList from "./mailingList"
+import LocationMap from "./locationMap"
+import ContactDetails from "./contactDetails"
 
 import {
   Footer,
-  FooterLinks,
+  FooterSection,
   LinkList,
   FooterHeading,
   LinkItem,
 } from "./footer.styles"
-import { H2 } from "../shared/headings"
+import { H2 } from "../shared/typography"
+
+const Section = ({ title, children, ...props }) => (
+  <FooterSection {...props}>
+    <FooterHeading>
+      <H2>{title}</H2>
+    </FooterHeading>
+    {children}
+  </FooterSection>
+)
 
 export default ({ navLinks }) => {
   return (
     <Footer>
-      <FooterLinks>
-        <FooterHeading>
-          <H2>Links</H2>
-        </FooterHeading>
+      <Section title="Links" maxWidth="8rem">
         <LinkList>
           {navLinks.map(link => {
             if (Array.isArray(link.to)) {
@@ -42,7 +51,16 @@ export default ({ navLinks }) => {
             }
           })}
         </LinkList>
-      </FooterLinks>
+      </Section>
+      <Section title="Mailing List" maxWidth="300px">
+        <MailingList />
+      </Section>
+      <Section title="Contact" maxWidth="300px">
+        <ContactDetails />
+      </Section>
+      <Section title="Map">
+        <LocationMap />
+      </Section>
     </Footer>
   )
 }

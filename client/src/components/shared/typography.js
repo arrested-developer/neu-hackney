@@ -52,3 +52,15 @@ export const H4 = styled.h4`
     line-height: 1.22222222em;
   }
 `
+
+export const P = styled.p`
+  ${({ theme }) => theme.body};
+  font-size: 1rem;
+  line-height: 1.25em;
+  @media ${({ theme }) => theme.ns} {
+    line-height: 1.375em;
+  }
+  max-width: 38em;
+  text-overflow: ellipsis;
+  margin-bottom: 1em;
+`
