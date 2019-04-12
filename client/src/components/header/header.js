@@ -27,6 +27,8 @@ import {
 
 import { Facebook, Twitter } from "../shared/social"
 
+import theme from "../../theme"
+
 const Header = ({ siteTitle, navLinks, data }) => {
   const [opened, setOpened] = useState(false)
   return (
@@ -44,12 +46,11 @@ const Header = ({ siteTitle, navLinks, data }) => {
           <Title>{siteTitle}</Title>
         </FlexRow>
         <Navbar
-          color="info"
           light
           expand="md"
           // match the left margin of the logo
           // 2 rem, minus 8px for the left pad on the first nav link
-          style={{ paddingLeft: "calc(2rem - 8px)" }}
+          style={{ paddingLeft: "calc(2rem - 8px)", background: theme.cyan }}
         >
           <NavbarToggler
             onClick={() => setOpened(!opened)}
@@ -59,7 +60,7 @@ const Header = ({ siteTitle, navLinks, data }) => {
             <Burger />
           </NavbarToggler>
           <Collapse isOpen={opened} navbar>
-            <Nav className="pl-0 ml-0 mr-auto my-2 my-md-0" navbar>
+            <Nav className="pl-2 pl-md-0 ml-0 mr-auto my-2 my-md-0" navbar>
               {navLinks.map(link => {
                 if (Array.isArray(link.to)) {
                   return (
