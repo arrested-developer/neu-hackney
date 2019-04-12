@@ -71,11 +71,6 @@ export const NavLink = styled(Link).attrs({
   font-family: "Arial Bold", "Arial", sans-serif;
 `
 
-export const ExternalNavLink = styled.a.attrs({})`
-  color: white;
-  margin-right: 1rem;
-`
-
 export const Burger = () => (
   <FontAwesomeIcon
     icon={faBars}
