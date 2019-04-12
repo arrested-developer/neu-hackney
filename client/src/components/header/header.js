@@ -10,6 +10,7 @@ import {
   Logo,
   FlexRow,
   BackgroundImageContainer,
+  BackgroundImage,
 } from "./header.styles"
 
 import {
@@ -49,7 +50,9 @@ class Header extends React.Component {
       <>
         <NEUHeader>
           <BackgroundImageContainer>
-            <Img fluid={data.headerBackground.childImageSharp.fluid} />
+            <BackgroundImage
+              fluid={data.headerBackground.childImageSharp.fluid}
+            />
           </BackgroundImageContainer>
           <FlexRow>
             <Logo>
@@ -57,7 +60,7 @@ class Header extends React.Component {
             </Logo>
             <Title>{siteTitle}</Title>
           </FlexRow>
-          <Navbar color="info" light expand="md">
+          <Navbar color="info" light expand="md" style={{ marginTop: "6rem" }}>
             <NavbarToggler onClick={this.toggle}>
               <FontAwesomeIcon
                 icon={faBars}
