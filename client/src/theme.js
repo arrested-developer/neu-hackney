@@ -30,4 +30,8 @@ export default {
   xl: "4rem",
   xxl: "8rem",
   xxxl: "16rem",
+
+  // fonts
+  heading: "font-family: Lexia, serif; font-weight: 700",
+  body: "arial, sans-serif",
 }
