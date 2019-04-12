@@ -43,8 +43,19 @@ const Header = ({ siteTitle, navLinks, data }) => {
           </Logo>
           <Title>{siteTitle}</Title>
         </FlexRow>
-        <Navbar color="info" light expand="md" className="pl-4">
-          <NavbarToggler onClick={() => setOpened(!opened)}>
+        <Navbar
+          color="info"
+          light
+          expand="md"
+          // match the left margin of the logo
+          // 2 rem, minus 8px for the left pad on the first nav link
+          style={{ paddingLeft: "calc(2rem - 8px)" }}
+        >
+          <NavbarToggler
+            onClick={() => setOpened(!opened)}
+            // keep toggle icon in line with logo
+            style={{ marginLeft: "0.5rem" }}
+          >
             <Burger />
           </NavbarToggler>
           <Collapse isOpen={opened} navbar>
