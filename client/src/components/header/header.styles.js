@@ -4,22 +4,22 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Img from "gatsby-image"
-import { Navbar as UnstyledNavbar } from "reactstrap"
 
-import logo from "./neu-logo-dark-transparent.png"
-import hexagons from "./hexagons.png"
+import { faBars } from "@fortawesome/free-solid-svg-icons"
 
 export const NEUHeader = styled.header`
   display: block;
   width: 100vw;
   background-color: ${({ theme }) => theme.dark_blue};
+  padding-top: 6rem;
+  font-family: "Arial Bold", "Arial", sans-serif;
 `
 
 export const Logo = styled.div`
   display: block;
   width: ${({ theme }) => theme.xl};
   height: ${({ theme }) => theme.xl};
-  margin-left: ${({ theme }) => theme.m};
+  margin-left: ${({ theme }) => theme.l};
 `
 
 export const BackgroundImageContainer = styled.div`
@@ -40,7 +40,7 @@ export const BackgroundImage = styled(Img)`
   margin-left: auto;
   margin-top: 2rem;
   @media ${({ theme }) => theme.break_ns} {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
   }
 `
 
@@ -76,8 +76,12 @@ export const ExternalNavLink = styled.a.attrs({})`
   margin-right: 1rem;
 `
 
-export const SocialLink = ({ icon, alt, href }) => (
-  <ExternalNavLink href={href}>
-    <FontAwesomeIcon icon={icon} />
-  </ExternalNavLink>
+export const Burger = () => (
+  <FontAwesomeIcon
+    icon={faBars}
+    style={{
+      fontSize: "1.5rem",
+      color: "white",
+    }}
+  />
 )

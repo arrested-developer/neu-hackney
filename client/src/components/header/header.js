@@ -5,12 +5,12 @@ import Img from "gatsby-image"
 import {
   Title,
   NavLink,
-  SocialLink,
   NEUHeader,
   Logo,
   FlexRow,
   BackgroundImageContainer,
   BackgroundImage,
+  Burger,
 } from "./header.styles"
 
 import {
@@ -25,10 +25,7 @@ import {
   DropdownItem,
 } from "reactstrap"
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
-import { faFacebookF, faTwitter } from "@fortawesome/free-brands-svg-icons"
-import { faBars } from "@fortawesome/free-solid-svg-icons"
+import { Facebook, Twitter } from "../shared/social"
 
 class Header extends React.Component {
   constructor(props) {
@@ -60,50 +57,55 @@ class Header extends React.Component {
             </Logo>
             <Title>{siteTitle}</Title>
           </FlexRow>
-          <Navbar color="info" light expand="md" style={{ marginTop: "6rem" }}>
+          <Navbar color="info" light expand="md" className="pl-4">
             <NavbarToggler onClick={this.toggle}>
-              <FontAwesomeIcon
-                icon={faBars}
-                style={{
-                  fontSize: "1.5rem",
-                  color: "white",
-                }}
-              />
+              <Burger />
             </NavbarToggler>
             <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-0 mr-auto" navbar>
-                {navLinks.map(link => (
-                  <NavItem>
-                    <NavLink to={link.to}>{link.name}</NavLink>
-                  </NavItem>
-                ))}
-                {/* <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret light>
-                    Options
-                  </DropdownToggle>
-                  <DropdownMenu right>
-                    <DropdownItem>Option 1</DropdownItem>
-                    <DropdownItem>Option 2</DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>Reset</DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown> */}
+              <Nav className="pl-0 ml-0 mr-auto my-2 my-md-0" navbar>
+                {navLinks.map(link => {
+                  if (Array.isArray(link.to)) {
+                    return (
+                      <UncontrolledDropdown nav inNavbar className="mr-2 ml-0">
+                        <DropdownToggle nav caret light>
+                          {link.name}
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          {link.to.map(innerLink => (
+                            <DropdownItem>
+                              <NavLink to={innerLink.to}>
+                                {innerLink.name}
+                              </NavLink>
+                            </DropdownItem>
+                          ))}
+                        </DropdownMenu>
+                      </UncontrolledDropdown>
+                    )
+                  } else {
+                    return (
+                      <NavItem className="my-1 my-md-0">
+                        <NavLink to={link.to}>{link.name}</NavLink>
+                      </NavItem>
+                    )
+                  }
+                })}
               </Nav>
             </Collapse>
             <Nav
               className="mr-0 ml-auto"
               style={{
                 position: "absolute",
-                right: "0.5rem",
+                right: "2rem",
                 top: "1rem",
-                fontSize: "1.25rem",
+                fontSize: "1rem",
+                color: "white",
               }}
             >
-              <NavItem>
-                <SocialLink href="https://twitter.com" icon={faTwitter} />
+              <NavItem className="mr-3">
+                <Twitter href="https://twitter.com" title="Twitter" />
               </NavItem>
               <NavItem>
-                <SocialLink href="https://twitter.com" icon={faFacebookF} />
+                <Facebook href="https://facebook.com" title="Facebook" />
               </NavItem>
             </Nav>
           </Navbar>
