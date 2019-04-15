@@ -20,16 +20,20 @@ const navLinks = [
   {
     name: "Members",
     to: [
-      { name: "Events", to: "/events" },
-      { name: "Equalities", to: "/equalities" },
-      { name: "Reps", to: "/reps" },
-      { name: "Gallery", to: "/gallery" },
+      { name: "Teachers", to: "members/teachers" },
+      { name: "NQTs", to: "members/nqt" },
+      { name: "Support Staff", to: "members/support-staff" },
+      { name: "Leadership", to: "members/leadership" },
+      { name: "Post 16", to: "members/post-16" },
+      { name: "Independent Sector", to: "members/independent" },
+      { name: "Supply Teachers", to: "members/supply" },
     ],
   },
   { name: "Events", to: "/events" },
   { name: "Equalities", to: "/equalities" },
   { name: "Reps", to: "/reps" },
   { name: "Gallery", to: "/gallery" },
+  { name: "Affiliations", to: "/affiliation" },
 ]
 
 const Layout = ({ children }) => (
