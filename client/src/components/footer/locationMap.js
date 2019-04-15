@@ -1,13 +1,6 @@
 import React from "react"
-import styled from "styled-components"
 import { StaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
-
-const MapImg = styled(Img)`
-  width: 100%;
-  height: 180px;
-`
-
+import MapImg from "./footer.styles"
 export default props => (
   <StaticQuery
     query={graphql`
