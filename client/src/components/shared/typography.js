@@ -57,10 +57,11 @@ export const P = styled.p`
   ${({ theme }) => theme.body};
   font-size: 1rem;
   line-height: 1.25em;
-  @media ${({ theme }) => theme.ns} {
-    line-height: 1.375em;
-  }
   max-width: 38em;
   text-overflow: ellipsis;
   margin-bottom: 1em;
+  font-weight: 300;
+  @media ${({ theme }) => theme.ns} {
+    line-height: 1.375em;
+  }
 `
