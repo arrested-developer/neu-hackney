@@ -1,5 +1,5 @@
 import styled from "styled-components"
-
+import Img from "gatsby-image"
 import { P } from "../shared/typography"
 
 export const Footer = styled.footer`
@@ -10,7 +10,7 @@ export const Footer = styled.footer`
   flex-wrap: wrap;
   justify-content: space-between;
   padding-bottom: ${({ theme }) => theme.l};
-  @media ${({ theme }) => theme.break_ns} {
+  @media screen and (min-width: 550px) {
     padding: ${({ theme }) => theme.xl};
   }
 `
@@ -24,13 +24,12 @@ export const FooterSection = styled.section`
   margin: ${({ theme }) => theme.l};
   padding-top: ${({ theme }) => theme.l};
   width: 100%;
-  max-width: 400px;
   @media ${({ theme }) => theme.break_ns} {
     margin: 0;
-    width: calc(50% - ${({ theme }) => theme.m});
+    width: calc(45% - ${({ theme }) => theme.m});
     padding: ${({ theme }) => theme.l} 0;
   }
-  @media ${({ theme }) => theme.break_l} {
+  @media ${({ theme }) => theme.break_xl} {
     width: 25%;
     max-width: ${props => props.maxWidth};
   }
@@ -38,11 +37,13 @@ export const FooterSection = styled.section`
 
 export const FooterHeading = styled.header`
   margin-bottom: 2rem;
-  color: ${({ theme }) => theme.cyan};
+  background: ${({ theme }) => theme.cyan};
+  color: white;
+  padding: ${({ theme }) => theme.xs};
 `
 
 export const LinkList = styled.ul`
-  margin-left: ${({ theme }) => theme.m};
+  ${props => (props.indent ? `margin-left: ${props.theme.l}` : null)};
 `
 
 export const LinkItem = styled.li`
@@ -52,6 +53,7 @@ export const LinkItem = styled.li`
 export const ContactLink = styled.a`
   display: block;
   margin: ${({ theme }) => theme.s} 0;
+  text-decoration: underline;
 `
 
 export const ContactP = styled(P)`
@@ -73,4 +75,9 @@ export const FormMessage = styled(P).attrs({
       : props.type === "error"
       ? "red"
       : "inherit"};
+`
+
+export const MapImg = styled(Img)`
+  width: 100%;
+  aspect-ratio: 4/3;
 `
