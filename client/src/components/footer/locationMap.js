@@ -1,6 +1,6 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
-import MapImg from "./footer.styles"
+import { MapImg } from "./footer.styles"
 export default props => (
   <StaticQuery
     query={graphql`
