@@ -50,7 +50,9 @@ export default class MailingList extends React.Component {
       <>
         <Form onSubmit={this._handleSubmit}>
           <FormGroup>
-            <Label for="mc-email">Email</Label>
+            <Label for="mc-email" style={{ marginBottom: "0.25em" }}>
+              Email
+            </Label>
             <Input
               type="email"
               name="email"
@@ -62,7 +64,9 @@ export default class MailingList extends React.Component {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="mc-firstname">First Name</Label>
+            <Label for="mc-firstname" style={{ marginBottom: "0.25em" }}>
+              First Name
+            </Label>
             <Input
               type="text"
               name="FNAME"
@@ -73,7 +77,9 @@ export default class MailingList extends React.Component {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="mc-lastname">Last Name</Label>
+            <Label for="mc-lastname" style={{ marginBottom: "0.25em" }}>
+              Last Name
+            </Label>
             <Input
               type="text"
               name="LNAME"
@@ -84,43 +90,48 @@ export default class MailingList extends React.Component {
             />
           </FormGroup>
           <P>
-            Please select all the ways you would like to hear from NEU Hackney:
+            <Label style={{ marginBottom: "0.25em" }}>
+              Please select all the ways you would like to hear from NEU
+              Hackney:
+            </Label>
+            <FormGroup check>
+              <Label check style={{ lineHeight: "1.8em" }}>
+                <Input
+                  type="checkbox"
+                  id="gdpr_20951"
+                  name="gdpr[20951]"
+                  value="Y"
+                  class="av-checkbox gdpr"
+                  onChange={this._handleChange}
+                />{" "}
+                Email Newsletter
+              </Label>
+            </FormGroup>
+            <FormGroup check>
+              <Label check style={{ lineHeight: "1.8em" }}>
+                <Input
+                  type="checkbox"
+                  id="gdpr_20975"
+                  name="gdpr[20975]"
+                  value="Y"
+                  class="av-checkbox gdpr"
+                  onChange={this._handleChange}
+                />{" "}
+                Information about events
+              </Label>
+            </FormGroup>
           </P>
-          <FormGroup check>
-            <Label check style={{ lineHeight: "1.8em" }}>
-              <Input
-                type="checkbox"
-                id="gdpr_20951"
-                name="gdpr[20951]"
-                value="Y"
-                class="av-checkbox gdpr"
-                onChange={this._handleChange}
-              />{" "}
-              Email Newsletter
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label check style={{ lineHeight: "1.8em" }}>
-              <Input
-                type="checkbox"
-                id="gdpr_20975"
-                name="gdpr[20975]"
-                value="Y"
-                class="av-checkbox gdpr"
-                onChange={this._handleChange}
-              />{" "}
-              Information about events
-            </Label>
-          </FormGroup>
           <P>
             You can unsubscribe at any time by clicking the link in the footer
-            of our emails. For information about our privacy practices, please
-            visit our website.
+            of our emails. For any other privacy requests, please contact us by
+            email and we will be happy to help.
           </P>
           <P>
             We use Mailchimp as our marketing platform. By clicking below to
             subscribe, you acknowledge that your information will be transferred
             to Mailchimp for processing.
+          </P>
+          <P>
             <a href="https://mailchimp.com/legal/">
               Learn more about Mailchimp's privacy practices here.
             </a>

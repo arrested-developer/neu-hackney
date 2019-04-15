@@ -1,5 +1,5 @@
 import React from "react"
-import { ContactLink, ContactP } from "./footer.styles.js"
+import { ExternalLink, ContactP } from "./footer.styles.js"
 
 const emails = ["dave.davies@neu.org.uk", "sandra.hall@neu.org.uk"]
 const phone = "0208 958 2056"
@@ -9,10 +9,10 @@ const ContactDetails = props => {
   return (
     <div {...props}>
       {emails.map(email => (
-        <ContactLink href={`mailto:${email}`}>{email}</ContactLink>
+        <ExternalLink href={`mailto:${email}`}>{email}</ExternalLink>
       ))}
       <ContactP>
-        <ContactLink href={`tel:${phone}`}>{phone}</ContactLink>
+        <ExternalLink href={`tel:${phone}`}>{phone}</ExternalLink>
       </ContactP>
       <ContactP dangerouslySetInnerHTML={{ __html: address }} />
     </div>

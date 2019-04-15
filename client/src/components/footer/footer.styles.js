@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import Img from "gatsby-image"
+import { Link as GatsbyLink } from "gatsby"
 import { P } from "../shared/typography"
 
 export const Footer = styled.footer`
@@ -16,7 +17,7 @@ export const Footer = styled.footer`
 `
 
 export const FooterSection = styled.section`
-  font-family: "Arial Bold", "Arial", sans-serif;
+  font-family: ${({ theme }) => theme.body};
   color: white;
   a {
     color: white;
@@ -30,7 +31,7 @@ export const FooterSection = styled.section`
     padding: ${({ theme }) => theme.l} 0;
   }
   @media ${({ theme }) => theme.break_xl} {
-    width: 25%;
+    width: calc(25% - ${({ theme }) => theme.s});
     max-width: ${props => props.maxWidth};
   }
 `
@@ -48,12 +49,21 @@ export const LinkList = styled.ul`
 
 export const LinkItem = styled.li`
   margin: ${({ theme }) => theme.m} 0;
+  font-family: ${({ theme }) => theme.body};
 `
 
-export const ContactLink = styled.a`
+export const Link = styled(GatsbyLink)`
   display: block;
   margin: ${({ theme }) => theme.s} 0;
   text-decoration: underline;
+  font-family: ${({ theme }) => theme.body};
+`
+
+export const ExternalLink = styled.a`
+  display: block;
+  margin: ${({ theme }) => theme.s} 0;
+  text-decoration: underline;
+  font-family: ${({ theme }) => theme.body};
 `
 
 export const ContactP = styled(P)`

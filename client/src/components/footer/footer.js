@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "gatsby"
 
 import MailingList from "./mailingList"
 import LocationMap from "./locationMap"
@@ -11,6 +10,8 @@ import {
   LinkList,
   FooterHeading,
   LinkItem,
+  Link,
+  ExternalLink,
 } from "./footer.styles"
 import { H2 } from "../shared/typography"
 
@@ -26,7 +27,7 @@ const Section = ({ title, children, ...props }) => (
 export default ({ navLinks }) => {
   return (
     <Footer>
-      <Section title="Links" maxWidth="10rem">
+      <Section title="Links" maxWidth="14rem">
         <LinkList>
           {navLinks.map(link => {
             if (Array.isArray(link.to)) {

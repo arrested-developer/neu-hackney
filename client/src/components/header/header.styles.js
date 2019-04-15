@@ -12,7 +12,8 @@ export const NEUHeader = styled.header`
   width: 100vw;
   background-color: ${({ theme }) => theme.dark_blue};
   padding-top: 6rem;
-  font-family: "Arial Bold", "Arial", sans-serif;
+  font-family: ${({ theme }) => theme.body};
+  font-weight: 500;
 `
 
 export const Logo = styled.div`
@@ -70,7 +71,6 @@ export const NavLink = styled(Link).attrs({
   className: "nav-link",
 })`
   margin-right: ${({ theme }) => theme.m};
-  font-family: "Arial Bold", "Arial", sans-serif;
 `
 
 export const Burger = () => (
