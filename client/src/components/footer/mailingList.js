@@ -38,9 +38,10 @@ export default class MailingList extends React.Component {
     }
   }
 
-  _handleChange = ({ target: { name, value } }) => {
+  _handleChange = ({ target: { name, type, checked, value } }) => {
+    const newValue = type === "checkbox" ? (checked ? value : false) : value
     this.setState({
-      [name]: value,
+      [name]: newValue,
     })
   }
 
