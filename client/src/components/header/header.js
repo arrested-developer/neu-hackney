@@ -50,7 +50,10 @@ const Header = ({ siteTitle, navLinks, data }) => {
           expand="md"
           // match the left margin of the logo
           // 2 rem, minus 8px for the left pad on the first nav link
-          style={{ paddingLeft: "calc(2rem - 8px)", background: theme.cyan }}
+          style={{
+            paddingLeft: "calc(2rem - 8px)",
+            background: theme.cyan,
+          }}
         >
           <NavbarToggler
             onClick={() => setOpened(!opened)}
