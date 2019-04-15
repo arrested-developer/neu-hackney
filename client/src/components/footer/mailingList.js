@@ -1,6 +1,7 @@
 import React from "react"
 import addToMailchimp from "gatsby-plugin-mailchimp"
 import { Form, FormGroup, Label, Input, Button } from "reactstrap"
+import { FormP as P, FormMessage } from "./footer.styles"
 
 import theme from "../../theme"
 
@@ -9,18 +10,35 @@ export default class MailingList extends React.Component {
     super(props)
     this.state = {
       email: "",
+      message: { show: false, type: "", text: "" },
     }
   }
 
   _handleSubmit = async e => {
     e.preventDefault()
-    const response = await addToMailchimp(this.state.email, this.state)
-    console.log(response)
-    this.setState({ result: response.result, message: response.msg })
+    this.setState({ message: { show: true, type: "info", text: "Loading..." } })
+    if (this.state["gdpr[20951]"] === "Y" || this.state["gdpr[20975"] === "Y") {
+      const response = await addToMailchimp(this.state.email, this.state)
+      this.setState({
+        message: {
+          show: true,
+          type: response.result,
+          text: response.msg,
+        },
+      })
+    } else {
+      this.setState({
+        message: {
+          show: true,
+          type: "error",
+          text:
+            "Please select at least one way that you would like to be contacted",
+        },
+      })
+    }
   }
 
-  _handleChange = ({ target: { type, name, checked, value } }) => {
-    //const newValue = type === "checkbox" ? checked : value
+  _handleChange = ({ target: { name, value } }) => {
     this.setState({
       [name]: value,
     })
@@ -64,56 +82,54 @@ export default class MailingList extends React.Component {
               onChange={this._handleChange}
             />
           </FormGroup>
-          <div class="content__gdpr">
-            <label>Marketing Permissions</label>
-            <p>
-              Please select all the ways you would like to hear from Yalla
-              Cooperative:
-            </p>
-            <fieldset
-              class="mc_fieldset gdprRequired mc-field-group"
-              name="interestgroup_field"
-            >
-              <label class="checkbox subfield" htmlFor="gdpr_20951">
-                <input
-                  type="checkbox"
-                  id="gdpr_20951"
-                  name="gdpr[20951]"
-                  value="Y"
-                  class="av-checkbox gdpr"
-                  onChange={this._handleChange}
-                />
-                <span>Email Newsletter</span>{" "}
-              </label>
-              <label class="checkbox subfield" htmlFor="gdpr_20975">
-                <input
-                  type="checkbox"
-                  id="gdpr_20975"
-                  name="gdpr[20975]"
-                  value="Y"
-                  class="av-checkbox gdpr"
-                  onChange={this._handleChange}
-                />
-                <span>Information and updates about events</span>
-              </label>
-            </fieldset>
-            <p>
-              You can unsubscribe at any time by clicking the link in the footer
-              of our emails. For information about our privacy practices, please
-              visit our website.
-            </p>
-          </div>
-          <div class="content__gdprLegal">
-            <p>
-              We use Mailchimp as our marketing platform. By clicking below to
-              subscribe, you acknowledge that your information will be
-              transferred to Mailchimp for processing.
-              <a href="https://mailchimp.com/legal/">
-                Learn more about Mailchimp's privacy practices here.
-              </a>
-            </p>
-          </div>
+          <P>
+            Please select all the ways you would like to hear from NEU Hackney:
+          </P>
+          <FormGroup check>
+            <Label check style={{ lineHeight: "1.8em" }}>
+              <Input
+                type="checkbox"
+                id="gdpr_20951"
+                name="gdpr[20951]"
+                value="Y"
+                class="av-checkbox gdpr"
+                onChange={this._handleChange}
+              />{" "}
+              Email Newsletter
+            </Label>
+          </FormGroup>
+          <FormGroup check>
+            <Label check style={{ lineHeight: "1.8em" }}>
+              <Input
+                type="checkbox"
+                id="gdpr_20975"
+                name="gdpr[20975]"
+                value="Y"
+                class="av-checkbox gdpr"
+                onChange={this._handleChange}
+              />{" "}
+              Information about events
+            </Label>
+          </FormGroup>
+          <P>
+            You can unsubscribe at any time by clicking the link in the footer
+            of our emails. For information about our privacy practices, please
+            visit our website.
+          </P>
+          <P>
+            We use Mailchimp as our marketing platform. By clicking below to
+            subscribe, you acknowledge that your information will be transferred
+            to Mailchimp for processing.
+            <a href="https://mailchimp.com/legal/">
+              Learn more about Mailchimp's privacy practices here.
+            </a>
+          </P>
           <Button style={{ background: theme.cyan }}>Submit</Button>
+          {this.state.message.show ? (
+            <FormMessage type={this.state.message.type}>
+              {this.state.message.text}
+            </FormMessage>
+          ) : null}
         </Form>
       </>
     )

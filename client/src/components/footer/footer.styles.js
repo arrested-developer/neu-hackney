@@ -57,3 +57,20 @@ export const ContactLink = styled.a`
 export const ContactP = styled(P)`
   margin-top: ${({ theme }) => theme.l};
 `
+
+export const FormP = styled(P)`
+  margin-top: ${({ theme }) => theme.m};
+`
+
+export const FormMessage = styled(P).attrs({
+  role: "alert",
+  aria-live: "assertive"
+})`
+  margin-top: ${({ theme }) => theme.m};
+  color: ${props =>
+    props.type === "success"
+      ? "lime"
+      : props.type === "error"
+      ? "red"
+      : "inherit"};
+`
