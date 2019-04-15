@@ -26,14 +26,14 @@ const Section = ({ title, children, ...props }) => (
 export default ({ navLinks }) => {
   return (
     <Footer>
-      <Section title="Links" maxWidth="8rem">
+      <Section title="Links" maxWidth="10rem">
         <LinkList>
           {navLinks.map(link => {
             if (Array.isArray(link.to)) {
               return (
                 <>
                   <LinkItem>{link.name}</LinkItem>
-                  <LinkList>
+                  <LinkList indent>
                     {link.to.map(innerLink => (
                       <LinkItem>
                         <Link to={innerLink.to}>{innerLink.name}</Link>
@@ -55,11 +55,11 @@ export default ({ navLinks }) => {
       <Section title="Mailing List" maxWidth="300px">
         <MailingList />
       </Section>
-      <Section title="Contact" maxWidth="300px">
-        <ContactDetails />
-      </Section>
       <Section title="Map">
         <LocationMap />
+      </Section>
+      <Section title="Contact">
+        <ContactDetails />
       </Section>
     </Footer>
   )
