@@ -64,7 +64,7 @@ export const FormP = styled(P)`
 
 export const FormMessage = styled(P).attrs({
   role: "alert",
-  aria-live: "assertive"
+  "aria-live": "assertive",
 })`
   margin-top: ${({ theme }) => theme.m};
   color: ${props =>
