@@ -48,7 +48,7 @@ const Layout = ({ children }) => (
       }
     `}
     render={data => (
-      <>
+      <div style={{ background: "teal" }}>
         <Header siteTitle={data.site.siteMetadata.title} navLinks={navLinks} />
         <div
           style={{
@@ -61,7 +61,7 @@ const Layout = ({ children }) => (
           <main>{children}</main>
         </div>
         <Footer navLinks={navLinks} />
-      </>
+      </div>
     )}
   />
 )
