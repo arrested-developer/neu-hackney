@@ -18,9 +18,7 @@ import { Facebook, Twitter } from "../shared/social"
 
 const Section = ({ title, children, ...props }) => (
   <FooterSection {...props}>
-    <FooterHeading>
-      <H2>{title}</H2>
-    </FooterHeading>
+    <H2 background="cyan">{title}</H2>
     {children}
   </FooterSection>
 )

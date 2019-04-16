@@ -2,21 +2,21 @@ import React from "react"
 import Img from "gatsby-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import { HomePageSection, Content } from "./home.styles"
 import { H1, H2 } from "../components/shared/typography"
-import GeneralMeeting from "../components/generalMeeting/generalMeeting"
+import { NextGeneralMeeting } from "../components/generalMeeting/generalMeeting"
 
 export default ({ pageContext: { newsletters, campaigns, team, events } }) => {
-  const generalMeetings = events.edges.filter(
-    event => event.node.meta.neuhack_event_is_general_meeting
-  )
   return (
     <Layout>
       <SEO title="Home" />
       <H1>Home</H1>
-      <section>
-        <H2>Next General Meeting</H2>
-        <GeneralMeeting meetings={generalMeetings} />
-      </section>
+      <HomePageSection>
+        <H2 background="light_green">Next General Meeting</H2>
+        <Content>
+          <NextGeneralMeeting events={events} />
+        </Content>
+      </HomePageSection>
       {/* <section>
         <h2>Events</h2>
         {events.edges.map(event => {
