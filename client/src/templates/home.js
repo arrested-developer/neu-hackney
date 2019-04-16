@@ -2,13 +2,22 @@ import React from "react"
 import Img from "gatsby-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import { HomePageSection, Content } from "./home.styles"
+import { H1, H2 } from "../components/shared/typography"
+import { NextGeneralMeeting } from "../components/generalMeeting/generalMeeting"
 
 export default ({ pageContext: { newsletters, campaigns, team, events } }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      <h1>Home</h1>
-      <section>
+      <H1>Home</H1>
+      <HomePageSection>
+        <H2 background="light_green">Next General Meeting</H2>
+        <Content>
+          <NextGeneralMeeting events={events} />
+        </Content>
+      </HomePageSection>
+      {/* <section>
         <h2>Events</h2>
         {events.edges.map(event => {
           return (
@@ -21,7 +30,7 @@ export default ({ pageContext: { newsletters, campaigns, team, events } }) => {
             />
           )
         })}
-      </section>
+      </section> */}
       {/* <section>
         <h2>Our Team</h2>
         {team.edges.map(({ node: { title } }) => (

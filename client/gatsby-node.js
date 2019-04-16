@@ -27,11 +27,17 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             id
             content
+            title
             meta {
               neuhack_image_alt
               neuhack_date_time
               neuhack_details
               neuhack_event_is_general_meeting
+              neuhack_attachment_url {
+                localFile {
+                  publicURL
+                }
+              }
               neuhack_image_url {
                 localFile {
                   childImageSharp {
