@@ -2,6 +2,7 @@ import styled from "styled-components"
 import Img from "gatsby-image"
 import { Link as GatsbyLink } from "gatsby"
 import { P } from "../shared/typography"
+import { Alert } from "reactstrap"
 
 export const Footer = styled.footer`
   background: ${({ theme }) => theme.dark_blue};
@@ -57,6 +58,10 @@ export const Link = styled(GatsbyLink)`
   margin: ${({ theme }) => theme.s} 0;
   text-decoration: underline;
   font-family: ${({ theme }) => theme.body};
+  &:hover,
+  &:focus {
+    color: ${({ theme }) => theme.cyan};
+  }
 `
 
 export const ExternalLink = styled.a`
@@ -64,6 +69,10 @@ export const ExternalLink = styled.a`
   margin: ${({ theme }) => theme.s} 0;
   text-decoration: underline;
   font-family: ${({ theme }) => theme.body};
+  &:hover,
+  &:focus {
+    color: ${({ theme }) => theme.cyan};
+  }
 `
 
 export const ContactP = styled(P)`
@@ -74,17 +83,16 @@ export const FormP = styled(P)`
   margin-top: ${({ theme }) => theme.m};
 `
 
-export const FormMessage = styled(P).attrs({
+export const SecondaryP = styled(P)`
+  margin-top: ${({ theme }) => theme.m};
+  opacity: 0.6;
+`
+
+export const FormMessage = styled(Alert).attrs({
   role: "alert",
   "aria-live": "assertive",
 })`
   margin-top: ${({ theme }) => theme.m};
-  color: ${props =>
-    props.type === "success"
-      ? "lime"
-      : props.type === "error"
-      ? "red"
-      : "inherit"};
 `
 
 export const MapImg = styled(Img)`

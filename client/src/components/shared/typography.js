@@ -55,7 +55,7 @@ export const H4 = styled.h4`
 
 export const P = styled.p`
   ${({ theme }) => theme.body};
-  font-size: 1rem;
+  font-size: ${props => (props.small ? "0.8rem" : "1rem")};
   line-height: 1.25em;
   max-width: 38em;
   text-overflow: ellipsis;
@@ -64,4 +64,9 @@ export const P = styled.p`
   @media ${({ theme }) => theme.ns} {
     line-height: 1.375em;
   }
+`
+
+export const SecondaryP = styled(P)`
+  margin-top: ${({ theme }) => theme.m};
+  opacity: 0.6;
 `

@@ -8,20 +8,20 @@ export const ExternalNavLink = styled.a.attrs({})`
   color: white;
 `
 
-export const SocialLink = ({ icon, title, href }) => (
-  <ExternalNavLink href={href} title={title}>
+export const SocialLink = ({ icon, title, href, ...props }) => (
+  <ExternalNavLink href={href} title={title} {...props}>
     <FontAwesomeIcon icon={icon} />
   </ExternalNavLink>
 )
 
-export const Facebook = ({ href, title }) => (
-  <ExternalNavLink href={href} title={title}>
+export const Facebook = ({ href, title, ...props }) => (
+  <ExternalNavLink href={href} title={title} {...props}>
     <FontAwesomeIcon icon={faFacebookF} />
   </ExternalNavLink>
 )
 
-export const Twitter = ({ href, title }) => (
-  <ExternalNavLink href={href} title={title}>
+export const Twitter = ({ href, title, ...props }) => (
+  <ExternalNavLink href={href} title={title} {...props}>
     <FontAwesomeIcon icon={faTwitter} />
   </ExternalNavLink>
 )
