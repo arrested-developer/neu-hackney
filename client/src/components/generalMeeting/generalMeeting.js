@@ -1,24 +1,8 @@
-import React, { useState, useEffect } from "react"
-import { H3 } from "../shared/typography"
+import React from "react"
+import { H3, P } from "../shared/typography"
 import Img from "gatsby-image"
 
-export default ({ meetings, ...props }) => {
-  const sortByDateAscending = events => {
-    const unsorted = events.slice()
-    return unsorted.sort(
-      (a, b) =>
-        new Date(a.node.meta.neuhack_date_time) -
-        new Date(b.node.meta.neuhack_date_time)
-    )
-  }
-
-  const getFutureEvents = events =>
-    events.filter(
-      event => new Date(event.node.meta.neuhack_date_time) > new Date()
-    )
-
-  const getNextEvent = events => getFutureEvents(sortByDateAscending(events))[0]
-
+export const GeneralMeeting = ({ meeting, ...props }) => {
   const getReadableDateTime = dateTime => {
     const d = new Date(dateTime)
     const date = d.toLocaleDateString("en-GB", {
@@ -34,7 +18,6 @@ export default ({ meetings, ...props }) => {
     })
     return `${date} @ ${time}`
   }
-
   const {
     node: {
       title,
@@ -47,14 +30,43 @@ export default ({ meetings, ...props }) => {
         },
       },
     },
-  } = getNextEvent(meetings)
-
+  } = meeting
   return (
     <article {...props}>
-      <H3>{title}</H3>
-      <Img fluid={childImageSharp.fluid} alt={neuhack_image_alt} />
-      <div>{getReadableDateTime(neuhack_date_time)}</div>
-      <div dangerouslySetInnerHTML={{ __html: neuhack_details }} />
+      {/* <H3 visuallyHidden>{title}</H3> */}
+      <Img
+        fluid={childImageSharp.fluid}
+        alt={neuhack_image_alt}
+        style={{ boxShadow: "5px 5px 20px black" }}
+      />
+      <P style={{ marginTop: "1em" }}>
+        {getReadableDateTime(neuhack_date_time)}
+      </P>
+      <P dangerouslySetInnerHTML={{ __html: neuhack_details }} />
     </article>
   )
+}
+
+export const NextGeneralMeeting = ({ events, ...props }) => {
+  const meetings = events.edges.filter(
+    event => event.node.meta.neuhack_event_is_general_meeting
+  )
+  const sortByDateAscending = meetings => {
+    const unsorted = meetings.slice()
+    return unsorted.sort(
+      (a, b) =>
+        new Date(a.node.meta.neuhack_date_time) -
+        new Date(b.node.meta.neuhack_date_time)
+    )
+  }
+
+  const getFutureMeetings = meetings =>
+    meetings.filter(
+      event => new Date(event.node.meta.neuhack_date_time) > new Date()
+    )
+
+  const getNextMeeting = events =>
+    getFutureMeetings(sortByDateAscending(events))[0]
+
+  return <GeneralMeeting meeting={getNextMeeting(meetings)} {...props} />
 }
