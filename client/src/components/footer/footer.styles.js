@@ -11,7 +11,7 @@ export const Footer = styled.footer`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding-bottom: ${({ theme }) => theme.l};
+  padding: ${({ theme }) => theme.l};
   @media screen and (min-width: 550px) {
     padding: ${({ theme }) => theme.xl};
   }
@@ -23,8 +23,7 @@ export const FooterSection = styled.section`
   a {
     color: white;
   }
-  margin: ${({ theme }) => theme.l};
-  padding-top: ${({ theme }) => theme.l};
+  margin: ${({ theme }) => theme.l} 0;
   width: 100%;
   @media ${({ theme }) => theme.break_ns} {
     margin: 0;
@@ -98,4 +97,14 @@ export const FormMessage = styled(Alert).attrs({
 export const MapImg = styled(Img)`
   width: 100%;
   aspect-ratio: 4/3;
+`
+
+export const FooterSocials = styled.nav`
+  font-size: 1.5rem;
+  color: white;
+  border-top: 1px solid white;
+  width: 100%;
+  padding-top: ${({ theme }) => theme.m};
+  margin: ${({ theme }) => theme.l} 0;
+  text-align: right;
 `

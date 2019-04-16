@@ -11,6 +11,7 @@ import {
   FooterHeading,
   LinkItem,
   Link,
+  FooterSocials,
 } from "./footer.styles"
 import { H2 } from "../shared/typography"
 import { Facebook, Twitter } from "../shared/social"
@@ -62,31 +63,14 @@ export default ({ navLinks }) => {
       <Section title="Contact">
         <ContactDetails />
       </Section>
-      <div
-        style={{
-          //width: "calc(100% - 4rem)",
-          width: "100%",
-          margin: "0 auto",
-          borderTop: "1px solid rgba(255,255,255,0.75)",
-          paddingTop: "1rem",
-          marginTop: "2rem",
-        }}
-      >
-        <nav
-          style={{
-            fontSize: "1.5rem",
-            color: "white",
-            textAlign: "right",
-          }}
-        >
-          <Twitter
-            href="https://twitter.com"
-            title="Twitter"
-            style={{ marginRight: "1rem" }}
-          />
-          <Facebook href="https://facebook.com" title="Facebook" />
-        </nav>
-      </div>
+      <FooterSocials>
+        <Twitter
+          href="https://twitter.com"
+          title="Twitter"
+          style={{ marginRight: "1rem" }}
+        />
+        <Facebook href="https://facebook.com" title="Facebook" />
+      </FooterSocials>
     </Footer>
   )
 }
