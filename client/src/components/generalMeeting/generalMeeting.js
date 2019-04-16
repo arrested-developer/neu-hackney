@@ -1,6 +1,6 @@
 import React from "react"
-import { H3, P } from "../shared/typography"
-import Img from "gatsby-image"
+import { P } from "../shared/typography"
+import { ImgShadow } from "./generalMeeting.styles"
 
 export const GeneralMeeting = ({ meeting, ...props }) => {
   const getReadableDateTime = dateTime => {
@@ -34,14 +34,8 @@ export const GeneralMeeting = ({ meeting, ...props }) => {
   return (
     <article {...props}>
       {/* <H3 visuallyHidden>{title}</H3> */}
-      <Img
-        fluid={childImageSharp.fluid}
-        alt={neuhack_image_alt}
-        style={{ boxShadow: "5px 5px 20px black" }}
-      />
-      <P style={{ marginTop: "1em" }}>
-        {getReadableDateTime(neuhack_date_time)}
-      </P>
+      <ImgShadow fluid={childImageSharp.fluid} alt={neuhack_image_alt} />
+      <P>{getReadableDateTime(neuhack_date_time)}</P>
       <P dangerouslySetInnerHTML={{ __html: neuhack_details }} />
     </article>
   )
