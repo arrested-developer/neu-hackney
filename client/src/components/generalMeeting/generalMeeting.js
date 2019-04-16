@@ -1,6 +1,7 @@
 import React from "react"
 import { P } from "../shared/typography"
 import { ImgShadow } from "./generalMeeting.styles"
+import { ExternalLink } from "../shared/links"
 
 export const GeneralMeeting = ({ meeting, ...props }) => {
   const getReadableDateTime = dateTime => {
@@ -28,6 +29,9 @@ export const GeneralMeeting = ({ meeting, ...props }) => {
         neuhack_image_url: {
           localFile: { childImageSharp },
         },
+        neuhack_attachment_url: {
+          localFile: { publicURL },
+        },
       },
     },
   } = meeting
@@ -37,6 +41,9 @@ export const GeneralMeeting = ({ meeting, ...props }) => {
       <ImgShadow fluid={childImageSharp.fluid} alt={neuhack_image_alt} />
       <P>{getReadableDateTime(neuhack_date_time)}</P>
       <P dangerouslySetInnerHTML={{ __html: neuhack_details }} />
+      <ExternalLink href={publicURL}>
+        View / download agenda and minutes
+      </ExternalLink>
     </article>
   )
 }
