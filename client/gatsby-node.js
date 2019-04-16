@@ -33,7 +33,22 @@ exports.createPages = async ({ graphql, actions }) => {
               neuhack_details
               neuhack_event_is_general_meeting
               neuhack_image_url {
-                source_url
+                localFile {
+                  childImageSharp {
+                    fluid(maxWidth: 500) {
+                      base64
+                      tracedSVG
+                      aspectRatio
+                      src
+                      srcSet
+                      srcWebp
+                      srcSetWebp
+                      sizes
+                      originalImg
+                      originalName
+                    }
+                  }
+                }
               }
             }
           }
@@ -49,7 +64,22 @@ exports.createPages = async ({ graphql, actions }) => {
               neuhack_details
               neuhack_headline
               neuhack_image_url {
-                source_url
+                localFile {
+                  childImageSharp {
+                    fluid(maxWidth: 500) {
+                      base64
+                      tracedSVG
+                      aspectRatio
+                      src
+                      srcSet
+                      srcWebp
+                      srcSetWebp
+                      sizes
+                      originalImg
+                      originalName
+                    }
+                  }
+                }
               }
             }
           }
@@ -65,7 +95,22 @@ exports.createPages = async ({ graphql, actions }) => {
               neuhack_team_member_email
               neuhack_team_member_position
               neuhack_image_url {
-                source_url
+                localFile {
+                  childImageSharp {
+                    fluid(maxWidth: 500) {
+                      base64
+                      tracedSVG
+                      aspectRatio
+                      src
+                      srcSet
+                      srcWebp
+                      srcSetWebp
+                      sizes
+                      originalImg
+                      originalName
+                    }
+                  }
+                }
               }
             }
           }

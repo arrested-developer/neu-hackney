@@ -1,4 +1,5 @@
 import React from "react"
+import Img from "gatsby-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
@@ -9,17 +10,25 @@ export default ({ pageContext: { newsletters, campaigns, team, events } }) => {
       <h1>Home</h1>
       <section>
         <h2>Events</h2>
-        {events.edges.map(({ node: { content } }) => (
-          <div dangerouslySetInnerHTML={{ __html: content }} />
-        ))}
+        {events.edges.map(event => {
+          return (
+            <Img
+              key={event.node.id}
+              fluid={
+                event.node.meta.neuhack_image_url.localFile.childImageSharp
+                  .fluid
+              }
+            />
+          )
+        })}
       </section>
-      <section>
+      {/* <section>
         <h2>Our Team</h2>
         {team.edges.map(({ node: { title } }) => (
           <li>{title}</li>
         ))}
-      </section>
-      <section>
+      </section> */}
+      {/* <section>
         <h2>Campaigns</h2>
         {campaigns.edges.map(({ node: { title, content } }) => (
           <div>
@@ -27,15 +36,15 @@ export default ({ pageContext: { newsletters, campaigns, team, events } }) => {
             <div dangerouslySetInnerHTML={{ __html: content }} />
           </div>
         ))}
-      </section>
-      <section>
+      </section> */}
+      {/* <section>
         <h2>Newsletters</h2>
         {newsletters.edges.map(({ node: { date, content } }) => (
           <div>
             <h3>{date}</h3>
           </div>
         ))}
-      </section>
+      </section> */}
     </Layout>
   )
 }

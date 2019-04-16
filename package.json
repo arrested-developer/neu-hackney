@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/arrested-developer/neu-hackney/issues"
   },
-  "homepage": "https://github.com/arrested-developer/neu-hackney#readme"
+  "homepage": "https://github.com/arrested-developer/neu-hackney#readme",
+  "dependencies": {
+    "styled-components": "^4.2.0"
+  }
 }
