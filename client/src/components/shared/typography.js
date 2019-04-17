@@ -26,6 +26,7 @@ export const H2 = styled.h2`
   margin-top: 0.5em;
   margin-bottom: 1em;
   background: ${props => props.theme[props.background] || "transparent"};
+  color: ${props => props.theme[props.color] || "black"};
   padding: ${props => (props.background ? props.theme.s : 0)};
   @media ${({ theme }) => theme.m} {
     font-size: 2rem;
