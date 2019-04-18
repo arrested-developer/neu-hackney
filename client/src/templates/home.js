@@ -5,6 +5,7 @@ import { HomePageSection, Content } from "./home.styles"
 import { H1, H2 } from "../components/shared/typography"
 import { NextGeneralMeeting } from "../components/generalMeeting/generalMeeting"
 import CampaignCarousel from "../components/campaignCarousel/campaignCarousel"
+import TwitterFeed from "../components/twitterEmbed/twitterEmbed"
 
 const Section = ({
   title,
@@ -33,6 +34,13 @@ export default ({ pageContext: { newsletters, campaigns, team, events } }) => {
       </Section>
       <Section title="Our Campaigns" titleBackground="pink" titleColor="white">
         <CampaignCarousel campaigns={campaigns} />
+      </Section>
+      <Section
+        title="Latest News"
+        titleBackground="light_green"
+        titleColor="black"
+      >
+        <TwitterFeed tweetLimit="5" width="280" height="auto" />
       </Section>
     </Layout>
   )

@@ -21,6 +21,7 @@
     "gatsby-plugin-react-helmet": "^3.0.10",
     "gatsby-plugin-sharp": "^2.0.35",
     "gatsby-plugin-styled-components": "^3.0.7",
+    "gatsby-plugin-twitter": "^2.0.13",
     "gatsby-source-filesystem": "^2.0.27",
     "gatsby-source-wordpress": "^3.0.48",
     "gatsby-transformer-sharp": "^2.1.17",
@@ -50,7 +51,8 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
-    "css": "tachyons src/css/app.css > src/index.css --minify"
+    "css": "tachyons src/css/app.css > src/index.css --minify",
+    "cache-clear": "rm -rf .cache"
   },
   "repository": {
     "type": "git",
