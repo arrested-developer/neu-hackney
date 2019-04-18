@@ -76,7 +76,7 @@ export const P = styled.p`
   text-overflow: ellipsis;
   margin-bottom: 1em;
   font-weight: ${props => (props.bold ? 700 : 400)};
-  color: ${({ color, theme }) => (color ? theme[color] : "black")};
+  color: ${({ color, theme }) => (color ? theme[color] : theme.white)};
   @media ${({ theme }) => theme.ns} {
     line-height: 1.375em;
   }

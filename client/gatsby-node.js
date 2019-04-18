@@ -126,11 +126,14 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
+            title
             date
             content
             meta {
               neuhack_attachment_url {
-                source_url
+                localFile {
+                  publicURL
+                }
               }
             }
           }

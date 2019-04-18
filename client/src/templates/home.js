@@ -6,6 +6,7 @@ import { H1, H2 } from "../components/shared/typography"
 import { NextGeneralMeeting } from "../components/generalMeeting/generalMeeting"
 import CampaignCarousel from "../components/campaignCarousel/campaignCarousel"
 import TwitterFeed from "../components/twitterEmbed/twitterEmbed"
+import Newsletters from "../components/newsletters/newsletters"
 
 const Section = ({
   title,
@@ -41,6 +42,9 @@ export default ({ pageContext: { newsletters, campaigns, team, events } }) => {
         titleColor="black"
       >
         <TwitterFeed tweetLimit="5" width="280" height="auto" />
+      </Section>
+      <Section title="Newsletter" titleBackground="purple" titleColor="white">
+        <Newsletters newsletters={newsletters} />
       </Section>
     </Layout>
   )
