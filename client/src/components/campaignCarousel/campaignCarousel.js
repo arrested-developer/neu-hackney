@@ -1,6 +1,6 @@
 import React from "react"
 import { H3, P } from "../shared/typography"
-import { CampaignCard, CampaignCardImage } from "./campaignCarousel.styles.js"
+import { CampaignCard } from "./campaignCarousel.styles.js"
 import Img from "gatsby-image"
 import { Link } from "gatsby"
 
@@ -44,7 +44,7 @@ export default ({ campaigns, ...props }) => {
   return (
     <ul {...props}>
       {campaigns.edges.map(campaign => (
-        <Campaign campaign={campaign} key={campaign.node.id} />
+        <Campaign key={campaign.node.id} campaign={campaign} />
       ))}
     </ul>
   )

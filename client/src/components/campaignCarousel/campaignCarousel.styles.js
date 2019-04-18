@@ -5,6 +5,7 @@ export const CampaignCard = styled.li`
   color: ${({ theme }) => theme.black};
   padding: ${({ theme }) => theme.m};
   margin-bottom: ${({ theme }) => theme.m};
+  width: "100%;
 `
 
 export const CampaignCardImage = styled.div`
