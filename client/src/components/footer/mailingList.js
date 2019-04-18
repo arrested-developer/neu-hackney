@@ -1,12 +1,7 @@
 import React, { useState } from "react"
 import addToMailchimp from "gatsby-plugin-mailchimp"
 import { Form, FormGroup, Label, Input, Button } from "reactstrap"
-import {
-  FormP as P,
-  SecondaryP,
-  FormMessage,
-  ExternalLink,
-} from "./footer.styles"
+import { SecondaryP, FormMessage, ExternalLink } from "./footer.styles"
 
 import theme from "../../theme"
 
@@ -90,7 +85,7 @@ export default props => {
             onChange={e => setLastName(e.target.value)}
           />
         </FormGroup>
-        <P>
+        <div>
           <Label style={{ marginBottom: "0.25em" }}>
             Please select all the ways you would like to hear from NEU Hackney:
           </Label>
@@ -101,7 +96,7 @@ export default props => {
                 id="gdpr_20951"
                 name="gdpr[20951]"
                 value="Y"
-                class="av-checkbox gdpr"
+                className="av-checkbox gdpr"
                 onChange={e => setEmailConsent(e.target.checked ? true : false)}
               />{" "}
               Email Newsletter
@@ -114,7 +109,7 @@ export default props => {
                 id="gdpr_20975"
                 name="gdpr[20975]"
                 value="Y"
-                class="av-checkbox gdpr"
+                className="av-checkbox gdpr"
                 onChange={e =>
                   setEventsConsent(e.target.checked ? true : false)
                 }
@@ -122,12 +117,12 @@ export default props => {
               Information about events
             </Label>
           </FormGroup>
-        </P>
-        <P>
+        </div>
+        <div>
           You can unsubscribe at any time by clicking the link in the footer of
           our emails. For any other privacy requests, please contact us by email
           and we will be happy to help.
-        </P>
+        </div>
         <Button style={{ background: theme.cyan }}>Submit</Button>
         {message.show ? (
           <FormMessage
@@ -147,11 +142,11 @@ export default props => {
           acknowledge that your information will be transferred to Mailchimp for
           processing.
         </SecondaryP>
-        <P>
+        <div>
           <ExternalLink href="https://mailchimp.com/legal/">
             Learn more about Mailchimp's privacy practices here.
           </ExternalLink>
-        </P>
+        </div>
       </Form>
     </>
   )

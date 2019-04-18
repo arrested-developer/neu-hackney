@@ -21,18 +21,18 @@
     "gatsby-plugin-react-helmet": "^3.0.10",
     "gatsby-plugin-sharp": "^2.0.35",
     "gatsby-plugin-styled-components": "^3.0.7",
-    "gatsby-source-eventbrite": "^1.1.0",
     "gatsby-source-filesystem": "^2.0.27",
     "gatsby-source-wordpress": "^3.0.48",
     "gatsby-transformer-sharp": "^2.1.17",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
-    "react-dom": "^16.8.4",
+    "react-dom": "^16.8.6",
     "react-fontawesome": "^1.6.1",
     "react-helmet": "^5.2.0",
     "react-menu-button": "^0.2.0",
     "reactstrap": "^7.1.0",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "prettier": "^1.16.4"
