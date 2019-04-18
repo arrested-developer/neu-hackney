@@ -27,7 +27,9 @@ const Section = ({
   )
 }
 
-export default ({ pageContext: { newsletters, campaigns, team, events } }) => {
+export default ({
+  pageContext: { newsletters, campaigns, team, events, positions },
+}) => {
   return (
     <Layout>
       <SEO title="Home" />
@@ -44,7 +46,7 @@ export default ({ pageContext: { newsletters, campaigns, team, events } }) => {
           <CampaignCarousel campaigns={campaigns} />
         </Section>
         <Section title="Our Team" titleBackground="purple" titleColor="white">
-          <Team team={team} />
+          <Team team={team} positions={positions} />
         </Section>
       </Main>
       <Aside>
