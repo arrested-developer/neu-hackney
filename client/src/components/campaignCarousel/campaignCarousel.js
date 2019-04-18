@@ -1,6 +1,11 @@
 import React from "react"
 import { H3, P } from "../shared/typography"
-import { CampaignCard } from "./campaignCarousel.styles.js"
+import {
+  CampaignCard,
+  FlickityContainer,
+  WhiteBackground,
+} from "./campaignCarousel.styles.js"
+import Flickity from "../flickityCarousel/flickityCarousel"
 import Img from "gatsby-image"
 import { Link } from "gatsby"
 
@@ -22,8 +27,10 @@ const Campaign = ({ campaign, ...props }) => {
   } = campaign
   return (
     <CampaignCard {...props}>
-      <H3>{title}</H3>
-      <P bold>{neuhack_headline}</P>
+      <H3 color="white">{title}</H3>
+      <P bold color="white">
+        {neuhack_headline}
+      </P>
       <Img fluid={fluid} />
       <Link
         to={`campaigns/${id}`}
@@ -42,10 +49,19 @@ const Campaign = ({ campaign, ...props }) => {
 
 export default ({ campaigns, ...props }) => {
   return (
-    <ul {...props}>
-      {campaigns.edges.map(campaign => (
-        <Campaign key={campaign.node.id} campaign={campaign} />
-      ))}
-    </ul>
+    <FlickityContainer>
+      <Flickity>
+        {campaigns.edges.map(campaign => (
+          <div
+            style={{
+              width: "100%",
+              height: "auto",
+            }}
+          >
+            <Campaign campaign={campaign} />
+          </div>
+        ))}
+      </Flickity>
+    </FlickityContainer>
   )
 }

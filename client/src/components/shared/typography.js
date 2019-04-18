@@ -9,6 +9,7 @@ export const H1 = styled.h1`
   line-height: 1.25em;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
+  color: ${({ color, theme }) => (color ? theme[color] : "black")};
   @media ${({ theme }) => theme.break_m} {
     font-size: 2.5rem;
     line-height: 1.125em;
@@ -44,6 +45,7 @@ export const H3 = styled.h3`
   line-height: 1.13636364em;
   margin-top: 0.5em;
   margin-bottom: 0.75em;
+  color: ${({ color, theme }) => (color ? theme[color] : "black")};
   @media ${({ theme }) => theme.m} {
     font-size: 1.5rem;
     line-height: 1.25em;
@@ -58,6 +60,7 @@ export const H4 = styled.h4`
   ${({ theme }) => theme.heading};
   font-size: 1.125rem;
   line-height: 1.11111111em;
+  color: ${({ color, theme }) => (color ? theme[color] : "black")};
   @media ${({ theme }) => theme.ns} {
     line-height: 1.22222222em;
   }
@@ -73,6 +76,7 @@ export const P = styled.p`
   text-overflow: ellipsis;
   margin-bottom: 1em;
   font-weight: ${props => (props.bold ? 700 : 400)};
+  color: ${({ color, theme }) => (color ? theme[color] : "black")};
   @media ${({ theme }) => theme.ns} {
     line-height: 1.375em;
   }
