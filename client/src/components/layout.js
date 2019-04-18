@@ -58,7 +58,7 @@ const Layout = ({ children }) => (
             paddingTop: 0,
           }}
         >
-          <main>{children}</main>
+          {children}
         </div>
         <Footer navLinks={navLinks} />
       </div>
