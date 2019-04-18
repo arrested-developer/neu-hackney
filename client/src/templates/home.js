@@ -8,6 +8,7 @@ import CampaignCarousel from "../components/campaignCarousel/campaignCarousel"
 import TwitterFeed from "../components/twitterEmbed/twitterEmbed"
 import Newsletters from "../components/newsletters/newsletters"
 import Join from "../components/join/join"
+import Team from "../components/team/team"
 
 const Section = ({
   title,
@@ -41,6 +42,9 @@ export default ({ pageContext: { newsletters, campaigns, team, events } }) => {
           titleColor="white"
         >
           <CampaignCarousel campaigns={campaigns} />
+        </Section>
+        <Section title="Our Team" titleBackground="purple" titleColor="white">
+          <Team team={team} />
         </Section>
       </Main>
       <Aside>
