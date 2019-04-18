@@ -1,4 +1,5 @@
 import React from "react"
+import uuidv4 from "uuid/v4"
 
 import MailingList from "./mailingList"
 import LocationMap from "./locationMap"
@@ -8,7 +9,6 @@ import {
   Footer,
   FooterSection,
   LinkList,
-  FooterHeading,
   LinkItem,
   Link,
   FooterSocials,
@@ -23,28 +23,28 @@ const Section = ({ title, children, ...props }) => (
   </FooterSection>
 )
 
-export default ({ navLinks }) => {
+export default ({ navLinks, ...props }) => {
   return (
-    <Footer>
+    <Footer {...props}>
       <Section title="Links" maxWidth="14rem">
         <LinkList>
           {navLinks.map(link => {
             if (Array.isArray(link.to)) {
               return (
-                <>
-                  <LinkItem>{link.name}</LinkItem>
+                <div key={uuidv4()}>
+                  {link.name}
                   <LinkList indent>
                     {link.to.map(innerLink => (
-                      <LinkItem>
+                      <LinkItem key={uuidv4()}>
                         <Link to={innerLink.to}>{innerLink.name}</Link>
                       </LinkItem>
                     ))}
                   </LinkList>
-                </>
+                </div>
               )
             } else {
               return (
-                <LinkItem>
+                <LinkItem key={uuidv4()}>
                   <Link to={link.to}>{link.name}</Link>
                 </LinkItem>
               )

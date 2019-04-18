@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { StaticQuery, graphql } from "gatsby"
+import uuidv4 from "uuid/v4"
 import Img from "gatsby-image"
 
 import {
@@ -67,13 +68,18 @@ const Header = ({ siteTitle, navLinks, data }) => {
               {navLinks.map(link => {
                 if (Array.isArray(link.to)) {
                   return (
-                    <UncontrolledDropdown nav inNavbar className="mr-2 ml-0">
-                      <DropdownToggle nav caret light>
+                    <UncontrolledDropdown
+                      nav
+                      inNavbar
+                      className="mr-2 ml-0"
+                      key={uuidv4()}
+                    >
+                      <DropdownToggle nav caret light="true">
                         {link.name}
                       </DropdownToggle>
                       <DropdownMenu>
                         {link.to.map(innerLink => (
-                          <DropdownItem>
+                          <DropdownItem key={uuidv4()}>
                             <NavLink to={innerLink.to}>
                               {innerLink.name}
                             </NavLink>
@@ -84,7 +90,10 @@ const Header = ({ siteTitle, navLinks, data }) => {
                   )
                 } else {
                   return (
-                    <NavItem className="my-1 my-md-0">
+                    <NavItem
+                      className="my-1 my-md-0"
+                      key={link.name.toLowerCase()}
+                    >
                       <NavLink to={link.to}>{link.name}</NavLink>
                     </NavItem>
                   )

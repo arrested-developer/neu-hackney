@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 import { faFacebookF, faTwitter } from "@fortawesome/free-brands-svg-icons"
 
-export const ExternalNavLink = styled.a.attrs({})`
+export const ExternalNavLink = styled.a`
   color: white;
 `
 

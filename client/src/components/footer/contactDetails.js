@@ -1,4 +1,5 @@
 import React from "react"
+import uuidv4 from "uuid/v4"
 import { ExternalLink, ContactP } from "./footer.styles.js"
 
 const emails = ["dave.davies@neu.org.uk", "sandra.hall@neu.org.uk"]
@@ -9,7 +10,9 @@ const ContactDetails = props => {
   return (
     <div {...props}>
       {emails.map(email => (
-        <ExternalLink href={`mailto:${email}`}>{email}</ExternalLink>
+        <ExternalLink key={uuidv4()} href={`mailto:${email}`}>
+          {email}
+        </ExternalLink>
       ))}
       <ContactP>
         <ExternalLink href={`tel:${phone}`}>{phone}</ExternalLink>

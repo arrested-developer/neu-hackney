@@ -1,5 +1,5 @@
 import React from "react"
-import { P } from "../shared/typography"
+import { P, H3 } from "../shared/typography"
 import { ImgShadow } from "./generalMeeting.styles"
 import { ExternalLink } from "../shared/links"
 
@@ -37,10 +37,10 @@ export const GeneralMeeting = ({ meeting, ...props }) => {
   } = meeting
   return (
     <article {...props}>
-      {/* <H3 visuallyHidden>{title}</H3> */}
       <ImgShadow fluid={childImageSharp.fluid} alt={neuhack_image_alt} />
-      <P>{getReadableDateTime(neuhack_date_time)}</P>
-      <P dangerouslySetInnerHTML={{ __html: neuhack_details }} />
+      <H3 color="white">{title}</H3>
+      <P color="white">{getReadableDateTime(neuhack_date_time)}</P>
+      <P color="white" dangerouslySetInnerHTML={{ __html: neuhack_details }} />
       <ExternalLink href={publicURL}>
         View / download agenda and minutes
       </ExternalLink>
