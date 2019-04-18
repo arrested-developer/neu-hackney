@@ -27,7 +27,7 @@ export default ({ pageContext: { newsletters, campaigns, team, events } }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      <H1>Home</H1>
+      <H1 color="white">Home</H1>
       <Section title="Next General Meeting" titleBackground="light_green">
         <NextGeneralMeeting events={events} />
       </Section>

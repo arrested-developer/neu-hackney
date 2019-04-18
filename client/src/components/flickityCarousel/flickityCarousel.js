@@ -2,18 +2,12 @@ import React from "react"
 import Flickity from "react-flickity-component"
 import styled from "styled-components"
 
-const FlickityContainer = styled.div`
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-`
-
 const defaultOptions = {
   initialIndex: 2,
   setGallerySize: true,
   wrapAround: false,
   contain: true,
-  prevNextButtons: true,
+  prevNextButtons: false,
   autoPlay: true,
 }
 

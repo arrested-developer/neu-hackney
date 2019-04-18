@@ -2,8 +2,8 @@ import styled from "styled-components"
 
 export const CampaignCard = styled.div`
   color: ${({ theme }) => theme.black};
-  margin-bottom: ${({ theme }) => theme.m};
   width: 100%;
+  padding: ${({ theme }) => theme.m};
 `
 
 export const CampaignCardImage = styled.div`
@@ -13,10 +13,11 @@ export const CampaignCardImage = styled.div`
   background-url: ${props => props.background};
 `
 
-export const FlickityContainer = styled.div`
-  width: 100%;
+export const CarouselContainer = styled.div`
+  width: 90%;
   height: auto;
-  overflow: hidden;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.25);
 `
 
 export const WhiteBackground = styled.span`

@@ -38,9 +38,9 @@ export const GeneralMeeting = ({ meeting, ...props }) => {
   return (
     <article {...props}>
       <ImgShadow fluid={childImageSharp.fluid} alt={neuhack_image_alt} />
-      <H3 visuallyHidden>{title}</H3>
-      <P>{getReadableDateTime(neuhack_date_time)}</P>
-      <P dangerouslySetInnerHTML={{ __html: neuhack_details }} />
+      <H3 color="white">{title}</H3>
+      <P color="white">{getReadableDateTime(neuhack_date_time)}</P>
+      <P color="white" dangerouslySetInnerHTML={{ __html: neuhack_details }} />
       <ExternalLink href={publicURL}>
         View / download agenda and minutes
       </ExternalLink>
