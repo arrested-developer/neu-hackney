@@ -1,13 +1,16 @@
 import React from "react"
-import Img from "gatsby-image"
 import { H3, P } from "../shared/typography"
+import { CampaignCard, CampaignCardImage } from "./campaignCarousel.styles.js"
+import Img from "gatsby-image"
+import { Link } from "gatsby"
 
 const Campaign = ({ campaign, ...props }) => {
   const {
     node: {
+      id,
       title,
       meta: {
-        neuhack_details,
+        neuhack_headline,
         neuhack_image_alt,
         neuhack_image_url: {
           localFile: {
@@ -18,11 +21,22 @@ const Campaign = ({ campaign, ...props }) => {
     },
   } = campaign
   return (
-    <li {...props}>
+    <CampaignCard {...props}>
       <H3>{title}</H3>
-      <Img fluid={fluid} alt={neuhack_image_alt} />
-      <P dangerouslySetInnerHtml={{ __html: neuhack_details }} />
-    </li>
+      <P bold>{neuhack_headline}</P>
+      <Img fluid={fluid} />
+      <Link
+        to={`campaigns/${id}`}
+        style={{
+          display: "block",
+          margin: "0.5rem 0",
+          width: "100%",
+          textAlign: "right",
+        }}
+      >
+        Read more
+      </Link>
+    </CampaignCard>
   )
 }
 

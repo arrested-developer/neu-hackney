@@ -65,13 +65,14 @@ export const H4 = styled.h4`
 
 export const P = styled.p`
   ${({ theme }) => theme.body};
-  font-size: ${props => (props.small ? "0.8rem" : "1rem")};
+  font-size: ${props =>
+    props.small ? "0.8rem" : props.large ? "1.2rem" : "1rem"};
   opacity: ${props => (props.secondary ? "0.6" : "1")};
   line-height: 1.25em;
   max-width: 38em;
   text-overflow: ellipsis;
   margin-bottom: 1em;
-  font-weight: 300;
+  font-weight: ${props => (props.bold ? 700 : 400)};
   @media ${({ theme }) => theme.ns} {
     line-height: 1.375em;
   }
