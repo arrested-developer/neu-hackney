@@ -1,9 +1,12 @@
 import React from "react"
-import { H3 } from "../shared/typography"
+import { H3, P } from "../shared/typography"
 
 const TeamCard = ({ teamMember, ...props }) => (
   <li {...props}>
     <H3>{teamMember.node.title}</H3>
+    <a href={`mailto:${teamMember.node.meta.neuhack_team_member_email}`}>
+      {teamMember.node.meta.neuhack_team_member_email}
+    </a>
   </li>
 )
 
