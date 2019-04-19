@@ -37,4 +37,5 @@ export default {
 
   // decoration
   box_shadow: "box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.25)",
+  box_shadow_small: "box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25)",
 }

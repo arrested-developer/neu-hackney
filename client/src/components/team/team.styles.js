@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { H3, P } from "../shared/typography"
+import Img from "gatsby-image"
 
 export const Card = styled.li`
   background: white;
@@ -24,6 +25,13 @@ export const Photo = styled.div`
   border-radius: 50%;
   background: ${({ theme }) => theme.dark_blue};
   margin-right: ${({ theme }) => theme.m};
+  overflow: hidden;
+  ${({ theme }) => theme.box_shadow_small}
+`
+
+export const TeamMemberPhoto = styled(Img)`
+  height: 100px;
+  width: 100px;
 `
 
 export const Details = styled.div``
