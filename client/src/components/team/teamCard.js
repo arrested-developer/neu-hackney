@@ -47,8 +47,8 @@ export default ({
             )}
           </Photo>
           <Details>
-            <Heading>{title}</Heading>
-            <Position color="black" bold>
+            <Heading color="blue">{title}</Heading>
+            <Position color="blue_grey" bold>
               {position}
             </Position>
             <a href={`mailto:${neuhack_team_member_email}`}>

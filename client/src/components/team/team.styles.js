@@ -12,6 +12,7 @@ export const Card = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;
+  border-radius: ${({ theme }) => theme.s};
 `
 
 export const Heading = styled(H3)`
