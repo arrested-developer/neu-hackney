@@ -52,7 +52,7 @@ const Header = ({ siteTitle, navLinks, data }) => {
           // match the left margin of the logo
           // 2 rem, minus 8px for the left pad on the first nav link
           style={{
-            paddingLeft: "calc(2rem - 8px)",
+            paddingLeft: "calc(1rem - 8px)",
             background: theme.cyan,
           }}
         >
@@ -105,7 +105,7 @@ const Header = ({ siteTitle, navLinks, data }) => {
             className="mr-0 ml-auto"
             style={{
               position: "absolute",
-              right: "2rem",
+              right: "1.5rem",
               top: "1rem",
               fontSize: "1rem",
               color: "white",

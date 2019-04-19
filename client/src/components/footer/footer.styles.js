@@ -8,7 +8,7 @@ export const Footer = styled.footer`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: ${({ theme }) => theme.l};
+  padding: ${({ theme }) => theme.m};
   @media screen and (min-width: 550px) {
     padding: ${({ theme }) => theme.xl};
   }

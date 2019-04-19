@@ -20,7 +20,7 @@ export const Logo = styled.div`
   display: block;
   width: ${({ theme }) => theme.xl};
   height: ${({ theme }) => theme.xl};
-  margin-left: ${({ theme }) => theme.l};
+  margin-left: ${({ theme }) => theme.m};
 `
 
 export const BackgroundImageContainer = styled.div`
