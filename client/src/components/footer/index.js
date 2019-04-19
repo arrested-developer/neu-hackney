@@ -1,12 +1,11 @@
 import React from "react"
-import uuidv4 from "uuid/v4"
 
 import MailingList from "./mailingList"
 import LocationMap from "./locationMap"
 import ContactDetails from "./contactDetails"
+import FooterLinks from "./footerLinks"
 
 import { Footer, FooterSection, FooterSocials } from "./footer.styles"
-import { LinkList, LinkItem, Link } from "../shared/linksAndButtons"
 import { H2 } from "../shared/text"
 import { Facebook, Twitter } from "../shared/social"
 
@@ -21,30 +20,7 @@ export default ({ navLinks, ...props }) => {
   return (
     <Footer {...props}>
       <Section title="Links" maxWidth="14rem">
-        <LinkList>
-          {navLinks.map(link => {
-            if (Array.isArray(link.to)) {
-              return (
-                <div key={uuidv4()}>
-                  {link.name}
-                  <LinkList indent>
-                    {link.to.map(innerLink => (
-                      <LinkItem key={uuidv4()}>
-                        <Link to={innerLink.to}>{innerLink.name}</Link>
-                      </LinkItem>
-                    ))}
-                  </LinkList>
-                </div>
-              )
-            } else {
-              return (
-                <LinkItem key={uuidv4()}>
-                  <Link to={link.to}>{link.name}</Link>
-                </LinkItem>
-              )
-            }
-          })}
-        </LinkList>
+        <FooterLinks navLinks={navLinks} />
       </Section>
       <Section title="Mailing List" maxWidth="300px">
         <MailingList />
