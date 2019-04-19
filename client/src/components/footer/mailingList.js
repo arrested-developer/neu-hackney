@@ -1,9 +1,8 @@
 import React, { useState } from "react"
 import addToMailchimp from "gatsby-plugin-mailchimp"
-import { Form, FormGroup, Label, Input } from "reactstrap"
+import { Form, FormGroup, Label, Input, FormMessage } from "../shared/forms"
 import { P } from "../shared/text"
 import { ExternalLink, Button } from "../shared/linksAndButtons"
-import { FormMessage } from "./footer.styles"
 
 import theme from "../../theme"
 

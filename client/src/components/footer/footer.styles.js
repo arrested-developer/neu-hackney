@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import Img from "gatsby-image"
-import { Alert } from "reactstrap"
 
 export const Footer = styled.footer`
   background: ${({ theme }) => theme.dark_blue};
@@ -32,13 +31,6 @@ export const FooterSection = styled.section`
     width: calc(25% - ${({ theme }) => theme.s});
     max-width: ${props => props.maxWidth};
   }
-`
-
-export const FormMessage = styled(Alert).attrs({
-  role: "alert",
-  "aria-live": "assertive",
-})`
-  margin-top: ${({ theme }) => theme.m};
 `
 
 export const MapImg = styled(Img)`
