@@ -139,6 +139,16 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allWordpressWpPosition {
+        edges {
+          node {
+            id
+            name
+            slug
+            wordpress_id
+          }
+        }
+      }
     }
   `)
 
@@ -153,6 +163,7 @@ exports.createPages = async ({ graphql, actions }) => {
     allWordpressWpCampaigns,
     allWordpressWpTeam,
     allWordpressWpNewsletters,
+    allWordpressWpPosition,
   } = result.data
 
   // create home page with graphQL data from meetings, campaigns and officers
@@ -164,6 +175,7 @@ exports.createPages = async ({ graphql, actions }) => {
       campaigns: allWordpressWpCampaigns,
       team: allWordpressWpTeam,
       newsletters: allWordpressWpNewsletters,
+      positions: allWordpressWpPosition,
     },
   })
 

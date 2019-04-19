@@ -18,6 +18,7 @@ export const CarouselContainer = styled.div`
   height: auto;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.25);
+  ${({ theme }) => theme.box_shadow}
 `
 
 export const WhiteBackground = styled.span`
