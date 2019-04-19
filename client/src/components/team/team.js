@@ -22,16 +22,21 @@ export default ({ team, positions, ...props }) => {
     pos => (positionReference[pos.node.wordpress_id] = pos.node.name)
   )
   return (
-    <TeamList {...props}>
-      {sortByPosition(team.edges).map(teamMember => (
-        <TeamCard
-          key={teamMember.node.id}
-          teamMember={teamMember}
-          position={
-            positionReference[teamMember.node.meta.neuhack_team_member_position]
-          }
-        />
-      ))}
-    </TeamList>
+    <>
+      <TeamList {...props}>
+        {sortByPosition(team.edges).map(teamMember => (
+          <TeamCard
+            key={teamMember.node.id}
+            teamMember={teamMember}
+            position={
+              positionReference[
+                teamMember.node.meta.neuhack_team_member_position
+              ]
+            }
+          />
+        ))}
+      </TeamList>
+      <ElectionInfo />
+    </>
   )
 }
