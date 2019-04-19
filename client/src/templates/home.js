@@ -2,13 +2,13 @@ import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { HomePageSection, Content, Main, Aside } from "./home.styles"
-import { H1, H2 } from "../components/shared/typography"
-import { NextGeneralMeeting } from "../components/generalMeeting/generalMeeting"
-import CampaignCarousel from "../components/campaignCarousel/campaignCarousel"
-import TwitterFeed from "../components/twitterEmbed/twitterEmbed"
-import Newsletters from "../components/newsletters/newsletters"
-import Join from "../components/join/join"
-import Team from "../components/team/team"
+import { H1, H2 } from "../components/shared/text"
+import NextGeneralMeeting from "../components/generalMeeting/nextGeneralMeeting"
+import CampaignCarousel from "../components/campaigns"
+import TwitterFeed from "../components/twitter"
+import Newsletters from "../components/newsletters"
+import Join from "../components/join"
+import Team from "../components/team"
 
 const Section = ({
   title,
@@ -35,7 +35,11 @@ export default ({
       <SEO title="Home" />
       <H1 color="white">Home</H1>
       <Main>
-        <Section title="Next General Meeting" titleBackground="light_green">
+        <Section
+          title="Next General Meeting"
+          titleBackground="light_green"
+          titleColor="black"
+        >
           <NextGeneralMeeting events={events} />
         </Section>
         <Section
@@ -52,18 +56,23 @@ export default ({
       <Aside>
         <Section
           title="Latest News"
-          titleBackground="light_green"
-          titleColor="black"
+          titleBackground="purple"
+          titleColor="white"
         >
-          <TwitterFeed tweetLimit="5" width="100%" height="auto" />
+          <TwitterFeed
+            tweetLimit="5"
+            width="100%"
+            height="auto"
+            timeline="https://twitter.com/hackneynut?ref_src=twsrc%5Etfw"
+          />
         </Section>
-        <Section title="Newsletter" titleBackground="purple" titleColor="white">
+        <Section title="Newsletter" titleBackground="pink" titleColor="white">
           <Newsletters newsletters={newsletters} />
         </Section>
         <Section
           title="Join the NEU"
-          titleBackground="green"
-          titleColor="white"
+          titleBackground="light_green"
+          titleColor="black"
         >
           <Join />
         </Section>

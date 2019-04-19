@@ -1,15 +1,23 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 
 // ratios taken from http://typecast.com/blog/a-more-modern-scale-for-web-typography
 
-export const H1 = styled.h1`
-  color: white;
+const headerStyles = css`
   ${({ theme }) => theme.heading};
+  color: ${({ color, theme }) => (color ? theme[color] : theme.white)};
+  background: ${props => props.theme[props.background] || "transparent"};
+  ${props => {
+    if (props.background) return props.theme.box_shadow
+  }};
+  padding: ${props => (props.background ? props.theme.s : 0)};
+`
+
+export const H1 = styled.h1`
+  ${headerStyles}
   font-size: 2rem;
   line-height: 1.25em;
   margin-top: 0.75em;
   margin-bottom: 0.75em;
-  color: ${({ color, theme }) => (color ? theme[color] : theme.white)};
   @media ${({ theme }) => theme.break_m} {
     font-size: 2.5rem;
     line-height: 1.125em;
@@ -21,17 +29,11 @@ export const H1 = styled.h1`
 `
 
 export const H2 = styled.h2`
-  ${({ theme }) => theme.heading};
+  ${headerStyles}
   font-size: 1.625rem;
   line-height: 1.15384615em;
   margin-top: 0.5em;
   margin-bottom: 1em;
-  background: ${props => props.theme[props.background] || "transparent"};
-  ${props => {
-    if (props.background) return props.theme.box_shadow
-  }};
-  color: ${({ color, theme }) => theme[color] || theme.white};
-  padding: ${props => (props.background ? props.theme.s : 0)};
   @media ${({ theme }) => theme.m} {
     font-size: 2rem;
     line-height: 1.25em;
@@ -43,12 +45,11 @@ export const H2 = styled.h2`
 `
 
 export const H3 = styled.h3`
-  ${({ theme }) => theme.heading};
+  ${headerStyles}
   font-size: 1.375rem;
   line-height: 1.13636364em;
   margin-top: 0.5em;
   margin-bottom: 0.75em;
-  color: ${({ color, theme }) => (color ? theme[color] : theme.white)};
   @media ${({ theme }) => theme.m} {
     font-size: 1.5rem;
     line-height: 1.25em;
@@ -60,10 +61,9 @@ export const H3 = styled.h3`
 `
 
 export const H4 = styled.h4`
-  ${({ theme }) => theme.heading};
+  ${headerStyles}
   font-size: 1.125rem;
   line-height: 1.11111111em;
-  color: ${({ color, theme }) => (color ? theme[color] : theme.white)};
   @media ${({ theme }) => theme.ns} {
     line-height: 1.22222222em;
   }

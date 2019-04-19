@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import addToMailchimp from "gatsby-plugin-mailchimp"
-import { Form, FormGroup, Label, Input, Button } from "reactstrap"
-import { SecondaryP, FormMessage, ExternalLink } from "./footer.styles"
+import { Form, FormGroup, Label, Input, FormMessage } from "../shared/forms"
+import { P } from "../shared/text"
+import { ExternalLink, Button } from "../shared/linksAndButtons"
 
 import theme from "../../theme"
 
@@ -118,11 +119,19 @@ export default props => {
             </Label>
           </FormGroup>
         </div>
-        <div>
+        <P small>
           You can unsubscribe at any time by clicking the link in the footer of
           our emails. For any other privacy requests, please contact us by email
           and we will be happy to help.
-        </div>
+        </P>
+        <P small secondary>
+          We use Mailchimp as our marketing platform. By clicking subscribe, you
+          acknowledge that your information will be transferred to Mailchimp for
+          processing.
+          <ExternalLink href="https://mailchimp.com/legal/">
+            Learn more about Mailchimp's privacy practices here.
+          </ExternalLink>
+        </P>
         <Button style={{ background: theme.cyan }}>Submit</Button>
         {message.show ? (
           <FormMessage
@@ -137,16 +146,6 @@ export default props => {
             {message.text}
           </FormMessage>
         ) : null}
-        <SecondaryP>
-          We use Mailchimp as our marketing platform. By clicking subscribe, you
-          acknowledge that your information will be transferred to Mailchimp for
-          processing.
-        </SecondaryP>
-        <div>
-          <ExternalLink href="https://mailchimp.com/legal/">
-            Learn more about Mailchimp's privacy practices here.
-          </ExternalLink>
-        </div>
       </Form>
     </>
   )

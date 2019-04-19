@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { H3, P } from "../shared/typography"
+import { H3, P } from "../shared/text"
 import Img from "gatsby-image"
 
 export const TeamList = styled.ul``
@@ -12,6 +12,7 @@ export const Card = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;
+  border-radius: ${({ theme }) => theme.s};
 `
 
 export const Heading = styled(H3)`
@@ -19,7 +20,10 @@ export const Heading = styled(H3)`
   margin-bottom: 0.25em;
 `
 
-export const Position = styled(P)``
+export const Position = styled(P).attrs({
+  marginTop: 0,
+  marginBottom: 0,
+})``
 
 export const Photo = styled.div`
   width: 100px;

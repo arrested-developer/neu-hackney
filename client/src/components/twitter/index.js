@@ -1,13 +1,15 @@
 import React from "react"
 
-export default ({ width, height, tweetLimit, ...props }) => {
+// Twitter embed, depends on gatsby-plugin-twitter
+
+export default ({ width, height, tweetLimit, timeline, ...props }) => {
   return (
     <a
       className="twitter-timeline"
       data-lang="en"
       data-width={width}
       data-height={height}
-      href="https://twitter.com/hackneynut?ref_src=twsrc%5Etfw"
+      href={timeline}
       data-tweet-limit={tweetLimit}
       {...props}
     >

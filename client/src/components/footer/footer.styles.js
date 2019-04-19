@@ -1,8 +1,5 @@
 import styled from "styled-components"
 import Img from "gatsby-image"
-import { Link as GatsbyLink } from "gatsby"
-import { P } from "../shared/typography"
-import { Alert } from "reactstrap"
 
 export const Footer = styled.footer`
   background: ${({ theme }) => theme.dark_blue};
@@ -36,67 +33,8 @@ export const FooterSection = styled.section`
   }
 `
 
-export const FooterHeading = styled.header`
-  margin-bottom: 2rem;
-  background: ${({ theme }) => theme.cyan};
-  color: white;
-  padding: ${({ theme }) => theme.xs};
-`
-
-export const LinkList = styled.ul`
-  ${props => (props.indent ? `margin-left: ${props.theme.l}` : null)};
-`
-
-export const LinkItem = styled.li`
-  margin: ${({ theme }) => theme.m} 0;
-  font-family: ${({ theme }) => theme.body};
-`
-
-export const Link = styled(GatsbyLink)`
-  display: block;
-  margin: ${({ theme }) => theme.s} 0;
-  text-decoration: underline;
-  font-family: ${({ theme }) => theme.body};
-  &:hover,
-  &:focus {
-    color: ${({ theme }) => theme.cyan};
-  }
-`
-
-export const ExternalLink = styled.a`
-  display: block;
-  margin: ${({ theme }) => theme.s} 0;
-  text-decoration: underline;
-  font-family: ${({ theme }) => theme.body};
-  &:hover,
-  &:focus {
-    color: ${({ theme }) => theme.cyan};
-  }
-`
-
-export const ContactP = styled(P)`
-  margin-top: ${({ theme }) => theme.l};
-`
-
-export const FormP = styled(P)`
-  margin-top: ${({ theme }) => theme.m};
-`
-
-export const SecondaryP = styled(P)`
-  margin-top: ${({ theme }) => theme.m};
-  opacity: 0.6;
-`
-
-export const FormMessage = styled(Alert).attrs({
-  role: "alert",
-  "aria-live": "assertive",
-})`
-  margin-top: ${({ theme }) => theme.m};
-`
-
-export const MapImg = styled(Img)`
-  width: 100%;
-  aspect-ratio: 4/3;
+export const MapContainer = styled.div`
+  text-align: right;
 `
 
 export const FooterSocials = styled.nav`

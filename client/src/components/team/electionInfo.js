@@ -1,7 +1,7 @@
 import React from "react"
 
-import { P, H3 } from "../shared/typography"
-import { ButtonLink } from "../shared/buttons"
+import { P, H3 } from "../shared/text"
+import { ExternalLinkButton } from "../shared/linksAndButtons"
 
 export default props => (
   <>
@@ -11,8 +11,14 @@ export default props => (
       colleagues, stand for election to attend national conference, or stand for
       election as an officer or committee member.
     </P>
-    <ButtonLink href="/a/file/">Download Election Calendar</ButtonLink>
-    <ButtonLink href="/a/file/">Download Nomination Form</ButtonLink>
-    <ButtonLink href="/a/file/">Download Conference Nomination</ButtonLink>
+    <ExternalLinkButton href="/a/file/">
+      Download Election Calendar
+    </ExternalLinkButton>
+    <ExternalLinkButton href="/a/file/">
+      Download Nomination Form
+    </ExternalLinkButton>
+    <ExternalLinkButton href="/a/file/">
+      Download Conference Nomination
+    </ExternalLinkButton>
   </>
 )

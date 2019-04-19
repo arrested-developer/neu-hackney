@@ -1,6 +1,7 @@
 import React from "react"
 import uuidv4 from "uuid/v4"
-import { ExternalLink, ContactP } from "./footer.styles.js"
+import { P } from "../shared/text"
+import { ExternalLink } from "../shared/linksAndButtons"
 
 const emails = ["dave.davies@neu.org.uk", "sandra.hall@neu.org.uk"]
 const phone = "0208 958 2056"
@@ -14,10 +15,10 @@ const ContactDetails = props => {
           {email}
         </ExternalLink>
       ))}
-      <ContactP>
+      <P>
         <ExternalLink href={`tel:${phone}`}>{phone}</ExternalLink>
-      </ContactP>
-      <ContactP dangerouslySetInnerHTML={{ __html: address }} />
+      </P>
+      <P dangerouslySetInnerHTML={{ __html: address }} />
     </div>
   )
 }
