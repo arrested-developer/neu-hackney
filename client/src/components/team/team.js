@@ -1,7 +1,5 @@
 import React from "react"
 
-import { StaticQuery, graphql } from "gatsby"
-
 import TeamCard from "./teamCard"
 import ElectionInfo from "./electionInfo"
 
@@ -18,7 +16,7 @@ const sortByPosition = team => {
   return sortedTeam
 }
 
-export const AllTeamMembers = ({ team, positions, placeholder, ...props }) => {
+export default ({ team, positions, ...props }) => {
   const positionReference = {}
   positions.edges.forEach(
     pos => (positionReference[pos.node.wordpress_id] = pos.node.name)
@@ -32,35 +30,8 @@ export const AllTeamMembers = ({ team, positions, placeholder, ...props }) => {
           position={
             positionReference[teamMember.node.meta.neuhack_team_member_position]
           }
-          placeholder={placeholder}
         />
       ))}
     </TeamList>
-  )
-}
-
-export default ({ team, positions, ...props }) => {
-  return (
-    <StaticQuery
-      query={graphql`
-        query teamQuery {
-          neuLogo: file(relativePath: { eq: "neu-logo-dark-transparent.png" }) {
-            childImageSharp {
-              fluid(maxWidth: 300) {
-                ...GatsbyImageSharpFluid_noBase64
-              }
-            }
-          }
-        }
-      `}
-      render={data => (
-        <AllTeamMembers
-          team={team}
-          positions={positions}
-          placeholder={data.neuLogo}
-          {...props}
-        />
-      )}
-    />
   )
 }

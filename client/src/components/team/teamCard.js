@@ -1,4 +1,6 @@
 import React from "react"
+import { StaticQuery, graphql } from "gatsby"
+
 import {
   Card,
   Heading,
@@ -16,27 +18,45 @@ export default ({
     },
   },
   position,
-  placeholder,
   ...props
-}) => (
-  <Card {...props}>
-    <Photo>
-      {neuhack_image_url ? (
-        <TeamMemberPhoto
-          fluid={neuhack_image_url.localFile.childImageSharp.fluid}
-        />
-      ) : (
-        <TeamMemberPhoto fluid={placeholder.childImageSharp.fluid} />
+}) => {
+  return (
+    <StaticQuery
+      query={graphql`
+        query teamQuery {
+          placeholder: file(
+            relativePath: { eq: "neu-logo-dark-transparent.png" }
+          ) {
+            childImageSharp {
+              fluid(maxWidth: 300) {
+                ...GatsbyImageSharpFluid_noBase64
+              }
+            }
+          }
+        }
+      `}
+      render={({ placeholder }) => (
+        <Card {...props}>
+          <Photo>
+            {neuhack_image_url ? (
+              <TeamMemberPhoto
+                fluid={neuhack_image_url.localFile.childImageSharp.fluid}
+              />
+            ) : (
+              <TeamMemberPhoto fluid={placeholder.childImageSharp.fluid} />
+            )}
+          </Photo>
+          <Details>
+            <Heading>{title}</Heading>
+            <Position color="black" bold>
+              {position}
+            </Position>
+            <a href={`mailto:${neuhack_team_member_email}`}>
+              {neuhack_team_member_email}
+            </a>
+          </Details>
+        </Card>
       )}
-    </Photo>
-    <Details>
-      <Heading>{title}</Heading>
-      <Position color="black" bold>
-        {position}
-      </Position>
-      <a href={`mailto:${neuhack_team_member_email}`}>
-        {neuhack_team_member_email}
-      </a>
-    </Details>
-  </Card>
-)
+    />
+  )
+}
