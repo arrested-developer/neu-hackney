@@ -1,7 +1,7 @@
 import React from "react"
 import { P, H3 } from "../shared/typography"
 import { ImgShadow } from "./generalMeeting.styles"
-import { ExternalLink } from "../shared/links"
+import { ExternalLink } from "../shared/linksAndButtons"
 
 export default ({ meeting, ...props }) => {
   const getReadableDateTime = dateTime => {
