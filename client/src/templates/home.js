@@ -55,7 +55,12 @@ export default ({
           titleBackground="light_green"
           titleColor="black"
         >
-          <TwitterFeed tweetLimit="5" width="100%" height="auto" />
+          <TwitterFeed
+            tweetLimit="5"
+            width="100%"
+            height="auto"
+            timeline="https://twitter.com/hackneynut?ref_src=twsrc%5Etfw"
+          />
         </Section>
         <Section title="Newsletter" titleBackground="purple" titleColor="white">
           <Newsletters newsletters={newsletters} />
