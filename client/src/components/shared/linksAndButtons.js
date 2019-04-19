@@ -17,7 +17,8 @@ margin-bottom: ${({ theme }) => theme.s};
 margin-right: ${({ theme }) => theme.s};
 `
 
-export const Link = styled(GatsbyLink)`
+const linkStyle = css`
+  color: white;
   display: block;
   margin: ${({ theme }) => theme.s} 0;
   text-decoration: underline;
@@ -28,18 +29,14 @@ export const Link = styled(GatsbyLink)`
   }
 `
 
+export const Link = styled(GatsbyLink)`
+  ${linkStyle}
+`
+
 export const ExternalLink = styled.a.attrs({
   target: "_blank",
 })`
-  color: white;
-  display: block;
-  margin: ${({ theme }) => theme.s} 0;
-  text-decoration: underline;
-  font-family: ${({ theme }) => theme.body};
-  &:hover,
-  &:focus {
-    color: ${({ theme }) => theme.cyan};
-  }
+  ${linkStyle}
 `
 
 export const Button = styled.button`
