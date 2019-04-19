@@ -27,7 +27,7 @@ export default ({ campaign, ...props }) => {
       <P bold color="white">
         {neuhack_headline}
       </P>
-      <Img fluid={fluid} alt={neuhack_image_alt} />
+      <Img fluid={{ ...fluid, aspectRatio: 16 / 9 }} alt={neuhack_image_alt} />
       <Link
         to={`/campaigns/${id}`}
         style={{
