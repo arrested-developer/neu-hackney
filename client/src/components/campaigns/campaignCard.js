@@ -2,8 +2,8 @@ import React from "react"
 
 import Img from "gatsby-image"
 import { Link } from "gatsby"
-import { H3, P } from "../shared/typography"
-import { Card } from "./campaigns.styles"
+import { H3, P } from "../shared/text"
+import { Card } from "../shared/containers"
 
 export default ({ campaign, ...props }) => {
   const {

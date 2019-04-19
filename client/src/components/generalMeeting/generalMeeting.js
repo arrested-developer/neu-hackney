@@ -1,5 +1,5 @@
 import React from "react"
-import { P, H3 } from "../shared/typography"
+import { P, H3 } from "../shared/text"
 import { ImgShadow } from "./generalMeeting.styles"
 import { ExternalLink } from "../shared/linksAndButtons"
 

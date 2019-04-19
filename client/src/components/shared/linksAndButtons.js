@@ -53,3 +53,12 @@ export const ExternalLinkButton = styled.a.attrs({
 })`
   ${buttonStyle}
 `
+
+export const LinkList = styled.ul`
+  ${props => (props.indent ? `margin-left: ${props.theme.l}` : null)};
+`
+
+export const LinkItem = styled.li`
+  margin: ${({ theme }) => theme.m} 0;
+  font-family: ${({ theme }) => theme.body};
+`

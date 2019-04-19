@@ -5,15 +5,9 @@ import MailingList from "./mailingList"
 import LocationMap from "./locationMap"
 import ContactDetails from "./contactDetails"
 
-import {
-  Footer,
-  FooterSection,
-  LinkList,
-  LinkItem,
-  Link,
-  FooterSocials,
-} from "./footer.styles"
-import { H2 } from "../shared/typography"
+import { Footer, FooterSection, FooterSocials } from "./footer.styles"
+import { LinkList, LinkItem, Link } from "../shared/linksAndButtons"
+import { H2 } from "../shared/text"
 import { Facebook, Twitter } from "../shared/social"
 
 const Section = ({ title, children, ...props }) => (

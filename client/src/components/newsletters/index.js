@@ -1,5 +1,5 @@
 import React from "react"
-import { P } from "../shared/typography"
+import { P } from "../shared/text"
 
 export default ({ newsletters, limit = 10, ...props }) => (
   <>

@@ -1,6 +1,6 @@
 import React from "react"
 
-import { P, H3 } from "../shared/typography"
+import { P, H3 } from "../shared/text"
 import { ExternalLinkButton } from "../shared/linksAndButtons"
 
 export default props => (

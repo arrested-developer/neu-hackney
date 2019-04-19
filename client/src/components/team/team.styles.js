@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { H3, P } from "../shared/typography"
+import { H3, P } from "../shared/text"
 import Img from "gatsby-image"
 
 export const TeamList = styled.ul``
