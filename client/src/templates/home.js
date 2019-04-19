@@ -3,12 +3,12 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { HomePageSection, Content, Main, Aside } from "./home.styles"
 import { H1, H2 } from "../components/shared/typography"
-import { NextGeneralMeeting } from "../components/generalMeeting/generalMeeting"
-import CampaignCarousel from "../components/campaignCarousel/campaignCarousel"
-import TwitterFeed from "../components/twitterEmbed/twitterEmbed"
-import Newsletters from "../components/newsletters/newsletters"
-import Join from "../components/join/join"
-import Team from "../components/team/team"
+import NextGeneralMeeting from "../components/generalMeeting/nextGeneralMeeting"
+import CampaignCarousel from "../components/campaigns"
+import TwitterFeed from "../components/twitter"
+import Newsletters from "../components/newsletters"
+import Join from "../components/join"
+import Team from "../components/team"
 
 const Section = ({
   title,
