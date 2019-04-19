@@ -23,8 +23,8 @@ export default ({ campaign, ...props }) => {
   } = campaign
   return (
     <Card {...props}>
-      <H3 color="white">{title}</H3>
-      <P bold color="white">
+      <H3 color="blue">{title}</H3>
+      <P bold color="black">
         {neuhack_headline}
       </P>
       <Img fluid={{ ...fluid, aspectRatio: 16 / 9 }} alt={neuhack_image_alt} />
