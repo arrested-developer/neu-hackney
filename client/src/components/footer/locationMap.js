@@ -19,17 +19,22 @@ export default props => (
       }
     `}
     render={data => (
-      <MapContainer {...props}>
-        <Img
-          fluid={{
-            ...data.locationMap.childImageSharp.fluid,
-            aspectRatio: 4 / 3,
-          }}
-        />
-        <ExternalLinkButton href="https://www.google.com/maps/place/14+Florfield+Rd,+London/@51.54409,-0.0586262,18z/data=!3m1!4b1!4m5!3m4!1s0x48761ce574c1bc9f:0x6ef4e4a647573dbc!8m2!3d51.54409!4d-0.0575292">
-          View larger map
-        </ExternalLinkButton>
-      </MapContainer>
+      <>
+        <MapContainer {...props}>
+          <Img
+            fluid={{
+              ...data.locationMap.childImageSharp.fluid,
+              aspectRatio: 4 / 3,
+            }}
+          />
+          <ExternalLinkButton
+            right
+            href="https://www.google.com/maps/place/14+Florfield+Rd,+London/@51.54409,-0.0586262,18z/data=!3m1!4b1!4m5!3m4!1s0x48761ce574c1bc9f:0x6ef4e4a647573dbc!8m2!3d51.54409!4d-0.0575292"
+          >
+            View larger map
+          </ExternalLinkButton>
+        </MapContainer>
+      </>
     )}
   />
 )

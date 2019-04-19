@@ -33,12 +33,6 @@ export const FooterSection = styled.section`
   }
 `
 
-export const MapImg = styled(Img)`
-  width: 100%;
-  aspect-ratio: 4/3;
-  margin-bottom: ${({ theme }) => theme.m};
-`
-
 export const MapContainer = styled.div`
   text-align: right;
 `

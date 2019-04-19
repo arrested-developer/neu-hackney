@@ -14,7 +14,12 @@ ${({ theme }) => theme.box_shadow_small};
 text-wrap: none;
 display: inline-block;
 margin-bottom: ${({ theme }) => theme.s};
-margin-right: ${({ theme }) => theme.s};
+margin-top: ${({ theme }) => theme.s};
+${props =>
+  props.right
+    ? `margin-left: ${props.theme.s};`
+    : `margin-right: ${props.theme.s};`}
+
 `
 
 const linkStyle = css`

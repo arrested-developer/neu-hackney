@@ -20,7 +20,10 @@ export const Heading = styled(H3)`
   margin-bottom: 0.25em;
 `
 
-export const Position = styled(P)``
+export const Position = styled(P).attrs({
+  marginTop: 0,
+  marginBottom: 0,
+})``
 
 export const Photo = styled.div`
   width: 100px;

@@ -1,7 +1,7 @@
 import React from "react"
 import { P, H3 } from "../shared/text"
 import { ImgShadow } from "./generalMeeting.styles"
-import { ExternalLink } from "../shared/linksAndButtons"
+import { ExternalLinkButton } from "../shared/linksAndButtons"
 
 export default ({ meeting, ...props }) => {
   const getReadableDateTime = dateTime => {
@@ -41,9 +41,9 @@ export default ({ meeting, ...props }) => {
       <H3 color="white">{title}</H3>
       <P color="white">{getReadableDateTime(neuhack_date_time)}</P>
       <P color="white" dangerouslySetInnerHTML={{ __html: neuhack_details }} />
-      <ExternalLink href={publicURL}>
-        View / download agenda and minutes
-      </ExternalLink>
+      <ExternalLinkButton href={publicURL}>
+        View agenda and minutes
+      </ExternalLinkButton>
     </article>
   )
 }
