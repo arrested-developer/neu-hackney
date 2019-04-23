@@ -6,6 +6,7 @@ export default ({
   return (
     <>
       <h1>{memberType.name}</h1>
+      <p>{memberType.description}</p>
       <h2>Represented by:</h2>
       <ul>
         {representedBy.map(teamMember => (
