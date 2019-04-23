@@ -39,20 +39,6 @@ registerBlockType( 'neu-hackney/useful-resource', {
 		__( 'create-guten-block' ),
 	],
 	attributes: {
-		mediaID: {
-			type: 'number',
-		},
-		mediaURL: {
-			type: 'string',
-			source: 'attribute',
-			selector: 'a',
-			attribute: 'href',
-		},
-		__mediaURL: {
-			type: 'string',
-			source: 'meta',
-			meta: 'neuhack_attachment_url',
-		},
 		resourceDetails: {
 			type: 'array',
 			source: 'children',
@@ -62,6 +48,9 @@ registerBlockType( 'neu-hackney/useful-resource', {
 			type: 'string',
 			source: 'meta',
 			meta: 'neuhack_details',
+		},
+		resourceID: {
+			type: 'number',
 		},
 		resourceURL: {
 			type: 'string',
@@ -90,18 +79,18 @@ registerBlockType( 'neu-hackney/useful-resource', {
 		className,
 		setAttributes,
 		attributes: {
-			mediaID,
 			__resourceIsExternal,
 			resourceDetails,
+			resourceID,
 			resourceURL,
 			warningShown,
 		},
 	} ) => {
 		const onSelectFile = file => {
 			setAttributes( {
-				mediaID: file.id,
-				mediaURL: file.url,
-				__mediaURL: file.url,
+				resourceID: file.id,
+				resourceURL: file.url,
+				__resourceURL: file.url,
 			} );
 		};
 		const onChangeResourceURL = text => {
@@ -115,11 +104,6 @@ registerBlockType( 'neu-hackney/useful-resource', {
 			setAttributes( {
 				resourceIsExternal: n,
 				__resourceIsExternal: n,
-				mediaID: '',
-				mediaURL: '',
-				__mediaURL: '',
-				resourceURL: '',
-				__resourceURL: '',
 			} );
 		};
 		const onChangeDetails = text => {
@@ -168,11 +152,11 @@ registerBlockType( 'neu-hackney/useful-resource', {
 						<MediaUpload
 							onSelect={ onSelectFile }
 							allowedTypes="image/*,.pdf,application/pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.zip,application/zip,.mp3,audio/mpeg"
-							value={ mediaID }
+							value={ resourceID }
 							id="media-upload"
 							render={ ( { open } ) => (
 								<Button className="button button-large" onClick={ open }>
-									{ ! mediaID ?
+									{ ! resourceID ?
 										'Upload file' :
 										'File Uploaded - click to choose again' }
 								</Button>
@@ -190,15 +174,10 @@ registerBlockType( 'neu-hackney/useful-resource', {
 		);
 	},
 
-	save: ( {
-		className,
-		attributes: { mediaURL, resourceURL, resourceDetails, resourceIsExternal },
-	} ) => {
+	save: ( { className, attributes: { resourceURL, resourceDetails } } ) => {
 		return (
 			<li className={ className }>
-				<a href={ resourceIsExternal ? resourceURL : mediaURL }>
-					{ resourceDetails }
-				</a>
+				<a href={ resourceURL }>{ resourceDetails }</a>
 			</li>
 		);
 	},
