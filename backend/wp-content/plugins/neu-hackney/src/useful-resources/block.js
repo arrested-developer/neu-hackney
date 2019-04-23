@@ -1,5 +1,5 @@
 /**
- * BLOCK: neu-hackney-newsletter
+ * BLOCK: neu-hackney-useful-resource
  *
  * Registering a basic block with Gutenberg.
  * Simple block, renders and saves the same content without any interactivity.
@@ -10,7 +10,6 @@ const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const { MediaUpload } = wp.editor;
 const { Button, BaseControl, TextControl, RadioControl } = wp.components;
-import richTextToString from '../utils/richTextToString';
 
 //  Import CSS.
 import './style.scss';
@@ -83,11 +82,20 @@ registerBlockType( 'neu-hackney/useful-resource', {
 			source: 'meta',
 			meta: 'neuhack_resource_is_external',
 		},
+		warningShown: {
+			type: 'boolean',
+		},
 	},
 	edit: ( {
 		className,
 		setAttributes,
-		attributes: { mediaID, __resourceIsExternal, resourceDetails, resourceURL },
+		attributes: {
+			mediaID,
+			__resourceIsExternal,
+			resourceDetails,
+			resourceURL,
+			warningShown,
+		},
 	} ) => {
 		const onSelectFile = file => {
 			setAttributes( {
@@ -120,7 +128,20 @@ registerBlockType( 'neu-hackney/useful-resource', {
 				__resourceDetails: text,
 			} );
 		};
-
+		if ( ! warningShown ) {
+			wp.data.dispatch( 'core/notices' ).createNotice(
+				'info', // Can be one of: success, info, warning, error.
+				'Don\'t forget to use Settings -> Document -> Categories to select which groups of members this resource is relevant to.', // Text string to display.
+				{
+					isDismissible: true, // Whether the user can dismiss the notice.
+					// Any actions the user can perform.
+					actions: [],
+				}
+			);
+			setAttributes( {
+				warningShown: true,
+			} );
+		}
 		return (
 			<section className={ className }>
 				<RadioControl

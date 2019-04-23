@@ -49,9 +49,9 @@ function neuhackney_custom_post_useful_resources() {
 		'pages'                 => true,
 		'feeds'                 => true,
 	);
-	// $template = array(
-	// 	array('neu-hackney/team-member')
-	// );
+	$template = array(
+    array('neu-hackney/useful-resource')
+	);
 	$args = array(
 		'label'                 => 'Useful Resource',
 		'description'           => 'NEU Hackney Useful Resources',
@@ -74,8 +74,8 @@ function neuhackney_custom_post_useful_resources() {
 		'capability_type'       => 'post',
 		'show_in_rest'          => true,
 		'rest_base'             => 'useful-resources',
-		// 'template'              => $template,
-		// 'template_lock'         => 'all',
+		'template'              => $template,
+		'template_lock'         => 'all',
 	);
 	register_post_type( 'Useful Resources', $args );
 
