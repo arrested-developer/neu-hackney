@@ -49,3 +49,4 @@ add_action('init', 'neuhack_register_common_meta');
 require_once plugin_dir_path( __FILE__ ) . 'events/meta.php';
 require_once plugin_dir_path( __FILE__ ) . 'team-members/meta.php';
 require_once plugin_dir_path( __FILE__ ) . 'campaigns/meta.php';
+require_once plugin_dir_path( __FILE__ ) . 'useful-resources/meta.php';
