@@ -29,11 +29,6 @@ function neuhack_register_common_meta() {
 		'single' => true,
 		'type' => 'string',
 	) );
-	register_meta( 'post', 'neuhack_resource_url', array(
-		'show_in_rest' => true,
-		'single' => true,
-		'type' => 'string',
-	) );
 	register_meta( 'post', 'neuhack_date_time', array(
 	'show_in_rest' => true,
 	'single' => true,
@@ -54,3 +49,4 @@ add_action('init', 'neuhack_register_common_meta');
 require_once plugin_dir_path( __FILE__ ) . 'events/meta.php';
 require_once plugin_dir_path( __FILE__ ) . 'team-members/meta.php';
 require_once plugin_dir_path( __FILE__ ) . 'campaigns/meta.php';
+require_once plugin_dir_path( __FILE__ ) . 'useful-resources/meta.php';

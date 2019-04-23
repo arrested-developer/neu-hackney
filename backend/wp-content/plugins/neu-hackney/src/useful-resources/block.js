@@ -8,8 +8,8 @@
 //  Import components
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
-const { MediaUpload, RichText } = wp.editor;
-const { Button, BaseControl, TextControl } = wp.components;
+const { MediaUpload } = wp.editor;
+const { Button, BaseControl, TextControl, RadioControl } = wp.components;
 import richTextToString from '../utils/richTextToString';
 
 //  Import CSS.
@@ -73,13 +73,21 @@ registerBlockType( 'neu-hackney/useful-resource', {
 		__resourceURL: {
 			type: 'string',
 			source: 'meta',
-			meta: 'neuhack_resource-url',
+			meta: 'neuhack_resource_url',
+		},
+		resourceIsExternal: {
+			type: 'number',
+		},
+		__resourceIsExternal: {
+			type: 'number',
+			source: 'meta',
+			meta: 'neuhack_resource_is_external',
 		},
 	},
 	edit: ( {
 		className,
 		setAttributes,
-		attributes: { mediaID, mediaURL, resourceDetails, resourceURL },
+		attributes: { mediaID, __resourceIsExternal, resourceDetails, resourceURL },
 	} ) => {
 		const onSelectFile = file => {
 			setAttributes( {
@@ -88,44 +96,64 @@ registerBlockType( 'neu-hackney/useful-resource', {
 				__mediaURL: file.url,
 			} );
 		};
-		const onChangeDetails = text => {
-			setAttributes( {
-				resourceDetails: text,
-				__resourceDetails: text,
-			} );
-		};
 		const onChangeResourceURL = text => {
 			setAttributes( {
 				resourceURL: text,
 				__resourceURL: text,
 			} );
 		};
+		const onResourceTypeChange = value => {
+			const n = Number( value );
+			setAttributes( {
+				resourceIsExternal: n,
+				__resourceIsExternal: n,
+			} );
+		};
+		const onChangeDetails = text => {
+			setAttributes( {
+				resourceDetails: text,
+				__resourceDetails: text,
+			} );
+		};
+
 		return (
 			<section className={ className }>
-				<BaseControl
-					label="Upload a resource (accepts images, PDFs, word documents, powerpoint, excel, zip files and mp3 audio)"
-					id="flyer-upload"
-				>
-					<MediaUpload
-						onSelect={ onSelectFile }
-						allowedTypes="image/*,.pdf,application/pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.zip,application/zip,.mp3,audio/mpeg"
-						value={ mediaID }
-						id="media-upload"
-						render={ ( { open } ) => (
-							<Button className="button button-large" onClick={ open }>
-								{ ! mediaID ?
-									'Upload file' :
-									'File Uploaded - click to choose again' }
-							</Button>
-						) }
-					/>
-				</BaseControl>
-				<TextControl
-					label="URL"
-					placeholder="URL to link to an external site or file"
-					value={ resourceURL }
-					onChange={ onChangeResourceURL }
+				<RadioControl
+					label="Select resource type"
+					selected={ __resourceIsExternal }
+					onChange={ onResourceTypeChange }
+					options={ [
+						{ label: 'File Upload', value: 0 },
+						{ label: 'External link URL', value: 1 },
+					] }
 				/>
+				{ __resourceIsExternal ? (
+					<TextControl
+						label="URL (including https:// or http://)"
+						placeholder="https://anotherwebsite.com"
+						value={ resourceURL }
+						onChange={ onChangeResourceURL }
+					/>
+				) : (
+					<BaseControl
+						label="Upload a resource (accepts images, PDFs, word documents, powerpoint, excel, zip files and mp3 audio)"
+						id="flyer-upload"
+					>
+						<MediaUpload
+							onSelect={ onSelectFile }
+							allowedTypes="image/*,.pdf,application/pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.zip,application/zip,.mp3,audio/mpeg"
+							value={ mediaID }
+							id="media-upload"
+							render={ ( { open } ) => (
+								<Button className="button button-large" onClick={ open }>
+									{ ! mediaID ?
+										'Upload file' :
+										'File Uploaded - click to choose again' }
+								</Button>
+							) }
+						/>
+					</BaseControl>
+				) }
 				<TextControl
 					label="Description"
 					placeholder="A short description of the file or resource"
