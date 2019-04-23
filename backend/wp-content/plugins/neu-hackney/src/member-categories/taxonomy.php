@@ -10,16 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // register member types in the standard category taxonomy
 
-// use placeholder text as description so there is something to render
-$default_description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-
 function neuhack_register_categories(){
 		wp_insert_term(
 			'Teachers', // the term
       'category', // the taxonomy
 			array(
         'slug' => 'teachers',
-        'description' => $default_description,
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 			)
 		);
 		wp_insert_term(
@@ -27,7 +24,7 @@ function neuhack_register_categories(){
 			'category', // the taxonomy
 			array(
         'slug' => 'support-staff',
-        'description' => $default_description,
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 			)
 		);
 		wp_insert_term(
@@ -35,7 +32,7 @@ function neuhack_register_categories(){
 			'category', // the taxonomy
 			array(
         'slug' => 'supply-teachers',
-        'description' => $default_description,
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 			)
 		);
 		wp_insert_term(
@@ -43,7 +40,7 @@ function neuhack_register_categories(){
 			'category', // the taxonomy
 			array(
         'slug' => 'school-leaders',
-        'description' => $default_description,
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 			)
 		);
 		wp_insert_term(
@@ -51,7 +48,7 @@ function neuhack_register_categories(){
 			'category', // the taxonomy
 			array(
         'slug' => 'reps',
-        'description' => $default_description,
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 			)
 		);
 		wp_insert_term(
@@ -59,7 +56,7 @@ function neuhack_register_categories(){
 			'category', // the taxonomy
 			array(
         'slug' => 'post-16',
-        'description' => $default_description,
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 			)
 		);
 		wp_insert_term(
@@ -67,7 +64,7 @@ function neuhack_register_categories(){
 			'category', // the taxonomy
 			array(
         'slug' => 'nqts',
-        'description' => $default_description,
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 			)
 		);
 		wp_insert_term(
@@ -75,7 +72,7 @@ function neuhack_register_categories(){
 			'category', // the taxonomy
 			array(
         'slug' => 'independent-sector',
-        'description' => $default_description,
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 			)
 		);
 		wp_insert_term(
@@ -83,7 +80,7 @@ function neuhack_register_categories(){
 			'category', // the taxonomy
 			array(
         'slug' => 'equalities',
-        'description' => $default_description,
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 			)
 		);
 		wp_insert_term(
@@ -91,7 +88,7 @@ function neuhack_register_categories(){
 			'category', // the taxonomy
 			array(
         'slug' => 'academy-staff',
-        'description' => $default_description,
+        'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 			)
 		);
 }
