@@ -90,6 +90,7 @@ module.exports = {
           "**/events",
           "**/campaigns",
           "**/team",
+          "**/useful-resources",
         ],
         // Blacklisted routes using glob patterns
         // excludedRoutes: ["**/posts/1456"],
