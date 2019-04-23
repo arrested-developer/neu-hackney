@@ -46,8 +46,8 @@ registerBlockType( 'neu-hackney/useful-resource', {
 		mediaURL: {
 			type: 'string',
 			source: 'attribute',
-			selector: 'img',
-			attribute: 'src',
+			selector: 'a',
+			attribute: 'href',
 		},
 		__mediaURL: {
 			type: 'string',
@@ -57,7 +57,7 @@ registerBlockType( 'neu-hackney/useful-resource', {
 		resourceDetails: {
 			type: 'array',
 			source: 'children',
-			selector: '.neu-hackney-resource-details',
+			selector: 'a',
 		},
 		__resourceDetails: {
 			type: 'string',
@@ -107,6 +107,11 @@ registerBlockType( 'neu-hackney/useful-resource', {
 			setAttributes( {
 				resourceIsExternal: n,
 				__resourceIsExternal: n,
+				mediaID: '',
+				mediaURL: '',
+				__mediaURL: '',
+				resourceURL: '',
+				__resourceURL: '',
 			} );
 		};
 		const onChangeDetails = text => {
@@ -164,5 +169,16 @@ registerBlockType( 'neu-hackney/useful-resource', {
 		);
 	},
 
-	save: () => null,
+	save: ( {
+		className,
+		attributes: { mediaURL, resourceURL, resourceDetails, resourceIsExternal },
+	} ) => {
+		return (
+			<li className={ className }>
+				<a href={ resourceIsExternal ? resourceURL : mediaURL }>
+					{ resourceDetails }
+				</a>
+			</li>
+		);
+	},
 } );
