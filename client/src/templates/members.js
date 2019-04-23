@@ -16,11 +16,11 @@ export default ({
       </ul>
       <h2>Useful Resources:</h2>
       <ul>
-        {usefulResources.map(resource => (
-          <li>
-            <h3>{resource.node.title}</h3>
-          </li>
-        ))}
+        {usefulResources.length ? (
+          usefulResources.map(resource => <li>{resource.node.title}</li>)
+        ) : (
+          <li>No resources found for this member type.</li>
+        )}
       </ul>
     </>
   )

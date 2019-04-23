@@ -152,11 +152,16 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allWordpressWpUsefulResources {
+      allWordpressWpUsefulResources(
+        filter: { categories: { elemMatch: { wordpress_id: { ne: null } } } }
+      ) {
         edges {
           node {
             id
             title
+            categories {
+              wordpress_id
+            }
             meta {
               neuhack_details
               neuhack_resource_url
@@ -209,31 +214,34 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   const getPostsInCategory = (posts, id) => {
-    // filter out uncategorised posts
     const postsWithCategory = posts.edges.filter(
       edge => edge.node.categories !== null
     )
     // filter down to posts which include the given WP category ID
-    const postsInCategory = postsWithCategory.filter(edge =>
-      edge.node.categories.map(cat => cat.wordpress_id).includes(id)
-    )
-    return postsInCategory
+    if (postsWithCategory && postsWithCategory.length) {
+      const postsInCategory = postsWithCategory.filter(edge =>
+        edge.node.categories.map(cat => cat.wordpress_id).includes(id)
+      )
+      return postsInCategory
+    } else {
+      return []
+    }
   }
 
   // create pages for each category
-  allWordpressCategory.edges.map(({ category }) => {
+  allWordpressCategory.edges.map(({ node }) => {
     createPage({
-      path: `/members/${category.slug}`,
+      path: `/members/${node.slug}`,
       component: path.resolve("./src/templates/members.js"),
       context: {
-        memberType: category,
+        memberType: node,
         usefulResources: getPostsInCategory(
           allWordpressWpUsefulResources,
-          category.wordpress_id
+          node.wordpress_id
         ),
         representedBy: getPostsInCategory(
           allWordpressWpTeam,
-          category.wordpress_id
+          node.wordpress_id
         ),
       },
     })
