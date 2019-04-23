@@ -97,6 +97,9 @@ exports.createPages = async ({ graphql, actions }) => {
             id
             title
             content
+            categories {
+              wordpress_id
+            }
             meta {
               neuhack_team_member_email
               neuhack_team_member_position
@@ -149,6 +152,30 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allWordpressWpUsefulResources {
+        edges {
+          node {
+            id
+            title
+            meta {
+              neuhack_details
+              neuhack_resource_url
+            }
+          }
+        }
+      }
+      allWordpressCategory(filter: { name: { ne: "Uncategorised" } }) {
+        edges {
+          node {
+            id
+            wordpress_id
+            name
+            slug
+            description
+            count
+          }
+        }
+      }
     }
   `)
 
@@ -164,6 +191,8 @@ exports.createPages = async ({ graphql, actions }) => {
     allWordpressWpTeam,
     allWordpressWpNewsletters,
     allWordpressWpPosition,
+    allWordpressWpUsefulResources,
+    allWordpressCategory,
   } = result.data
 
   // create home page with graphQL data from meetings, campaigns and officers
@@ -177,6 +206,37 @@ exports.createPages = async ({ graphql, actions }) => {
       newsletters: allWordpressWpNewsletters,
       positions: allWordpressWpPosition,
     },
+  })
+
+  const getPostsInCategory = (posts, id) => {
+    // filter out uncategorised posts
+    const postsWithCategory = posts.edges.filter(
+      edge => edge.node.categories !== null
+    )
+    // filter down to posts which include the given WP category ID
+    const postsInCategory = postsWithCategory.filter(edge =>
+      edge.node.categories.map(cat => cat.wordpress_id).includes(id)
+    )
+    return postsInCategory
+  }
+
+  // create pages for each category
+  allWordpressCategory.edges.map(({ category }) => {
+    createPage({
+      path: `/members/${category.slug}`,
+      component: path.resolve("./src/templates/members.js"),
+      context: {
+        memberType: category,
+        usefulResources: getPostsInCategory(
+          allWordpressWpUsefulResources,
+          category.wordpress_id
+        ),
+        representedBy: getPostsInCategory(
+          allWordpressWpTeam,
+          category.wordpress_id
+        ),
+      },
+    })
   })
 
   // createPage({
