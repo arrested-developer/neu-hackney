@@ -6,7 +6,6 @@ import { H1 } from "../components/shared/text"
 import NextGeneralMeeting from "../components/generalMeeting/nextGeneralMeeting"
 import CampaignCarousel from "../components/campaigns"
 import Team from "../components/team"
-import Sidebar from "../components/sidebar"
 import PageSection from "../components/pageSection"
 
 export default ({ pageContext: { campaigns, team, events, positions } }) => {
@@ -37,7 +36,6 @@ export default ({ pageContext: { campaigns, team, events, positions } }) => {
           <Team team={team} positions={positions} />
         </PageSection>
       </Main>
-      <Sidebar />
     </Layout>
   )
 }

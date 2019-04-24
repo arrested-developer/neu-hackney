@@ -7,8 +7,6 @@ import { H1, P } from "../components/shared/text"
 import TeamCard from "../components/team/teamCard"
 import PageSection from "../components/pageSection"
 
-import Sidebar from "../components/sidebar"
-
 export default ({
   pageContext: { memberType, usefulResources, representedBy, newsletters },
 }) => {
@@ -54,7 +52,6 @@ export default ({
             </ul>
           </PageSection>
         </Main>
-        <Sidebar />
       </Layout>
     </>
   )

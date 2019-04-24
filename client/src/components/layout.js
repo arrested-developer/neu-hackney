@@ -11,6 +11,7 @@ import { StaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
 import Footer from "./footer"
+import Sidebar from "../components/sidebar"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./layout.css"
@@ -59,6 +60,7 @@ const Layout = ({ children }) => (
           }}
         >
           {children}
+          <Sidebar />
         </div>
         <Footer navLinks={navLinks} />
       </div>
