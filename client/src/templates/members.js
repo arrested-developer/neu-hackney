@@ -45,7 +45,31 @@ export default ({
           >
             <ul>
               {usefulResources.length ? (
-                usefulResources.map(resource => <li>{resource.node.title}</li>)
+                usefulResources.map(
+                  ({
+                    node: {
+                      id,
+                      title,
+                      meta: {
+                        neuhack_resource_is_external,
+                        neuhack_resource_url,
+                        neuhack_resource_file,
+                      },
+                    },
+                  }) => (
+                    <li key={id}>
+                      <a
+                        href={
+                          neuhack_resource_is_external
+                            ? neuhack_resource_url
+                            : neuhack_resource_file.localFile.publicURL
+                        }
+                      >
+                        {title}
+                      </a>
+                    </li>
+                  )
+                )
               ) : (
                 <li>No resources found for this member type.</li>
               )}
