@@ -204,8 +204,6 @@ exports.createPages = async ({ graphql, actions }) => {
     allWordpressWpEvents,
     allWordpressWpCampaigns,
     allWordpressWpTeam,
-    allWordpressWpNewsletters,
-    allWordpressWpPosition,
     allWordpressWpUsefulResources,
     allWordpressCategory,
   } = result.data
@@ -218,8 +216,6 @@ exports.createPages = async ({ graphql, actions }) => {
       events: allWordpressWpEvents,
       campaigns: allWordpressWpCampaigns,
       team: allWordpressWpTeam,
-      newsletters: allWordpressWpNewsletters,
-      positions: allWordpressWpPosition,
     },
   })
 

@@ -1,4 +1,5 @@
 import React from "react"
+import { graphql, StaticQuery } from "gatsby"
 import { P } from "../shared/text"
 import { Card } from "../shared/containers"
 
@@ -6,28 +7,24 @@ export default ({ newsletters, limit = 10, ...props }) => {
   return (
     <StaticQuery
       query={graphql`
-    query newsletterQuery {
-      newsletters: {
-        allWordpressWpNewsletters {
-          edges {
-            node {
-              id
-              title
-              date
-              content
-              meta {
-                neuhack_attachment_url {
-                  localFile {
-                    publicURL
+        query newsletterQuery {
+          newsletters: allWordpressWpNewsletters {
+            edges {
+              node {
+                id
+                title
+                meta {
+                  neuhack_attachment_url {
+                    localFile {
+                      publicURL
+                    }
                   }
                 }
               }
             }
           }
         }
-      }
-    }
-  `}
+      `}
       render={({ newsletters }) => (
         <>
           <P color="white">
