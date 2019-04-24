@@ -14,10 +14,10 @@ export default ({
   teamMember: {
     node: {
       title,
+      positions,
       meta: { neuhack_team_member_email, neuhack_image_url },
     },
   },
-  position,
   ...props
 }) => {
   return (
@@ -49,7 +49,11 @@ export default ({
           <Details>
             <Heading color="blue">{title}</Heading>
             <Position color="blue_grey" bold>
-              {position}
+              {positions.map((pos, i) => (
+                <span key={pos.wordpress_id}>{`${pos.name}${
+                  i === 0 && positions.length > 1 ? ", " : ""
+                }`}</span>
+              ))}
             </Position>
             <a href={`mailto:${neuhack_team_member_email}`}>
               {neuhack_team_member_email}

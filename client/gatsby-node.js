@@ -100,6 +100,10 @@ exports.createPages = async ({ graphql, actions }) => {
             categories {
               wordpress_id
             }
+            positions {
+              wordpress_id
+              name
+            }
             meta {
               neuhack_team_member_email
               neuhack_team_member_position
@@ -249,6 +253,7 @@ exports.createPages = async ({ graphql, actions }) => {
           allWordpressWpTeam,
           node.wordpress_id
         ),
+        newsletters: allWordpressWpNewsletters,
       },
     })
   })

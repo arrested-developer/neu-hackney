@@ -1,3 +1,5 @@
+const customNormaliser = require("./src/normalise")
+
 module.exports = {
   siteMetadata: {
     title: `NEU Hackney`,
@@ -95,9 +97,7 @@ module.exports = {
         // Blacklisted routes using glob patterns
         // excludedRoutes: ["**/posts/1456"],
         // use a custom normalizer which is applied after the built-in ones.
-        normalizer: function({ entities }) {
-          return entities
-        },
+        normalizer: customNormaliser,
       },
     },
     {

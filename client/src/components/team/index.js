@@ -16,24 +16,12 @@ const sortByPosition = team => {
   return sortedTeam
 }
 
-export default ({ team, positions, ...props }) => {
-  const positionReference = {}
-  positions.edges.forEach(
-    pos => (positionReference[pos.node.wordpress_id] = pos.node.name)
-  )
+export default ({ team, ...props }) => {
   return (
     <>
       <TeamList {...props}>
         {sortByPosition(team.edges).map(teamMember => (
-          <TeamCard
-            key={teamMember.node.id}
-            teamMember={teamMember}
-            position={
-              positionReference[
-                teamMember.node.meta.neuhack_team_member_position
-              ]
-            }
-          />
+          <TeamCard key={teamMember.node.id} teamMember={teamMember} />
         ))}
       </TeamList>
       <ElectionInfo />
