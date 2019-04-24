@@ -30,19 +30,21 @@ import { Facebook, Twitter } from "../shared/social"
 
 import theme from "../../theme"
 
-const Header = ({ siteTitle, navLinks, data }) => {
+const Header = ({
+  siteTitle,
+  navLinks,
+  data: { headerBackground, headerLogo },
+}) => {
   const [opened, setOpened] = useState(false)
   return (
     <>
       <NEUHeader>
         <BackgroundImageContainer>
-          <BackgroundImage
-            fluid={data.headerBackground.childImageSharp.fluid}
-          />
+          <BackgroundImage fluid={headerBackground.childImageSharp.fluid} />
         </BackgroundImageContainer>
         <FlexRow>
           <Logo>
-            <Img fluid={data.headerLogo.childImageSharp.fluid} fadeIn={false} />
+            <Img fluid={headerLogo.childImageSharp.fluid} fadeIn={false} />
           </Logo>
           <Title>{siteTitle}</Title>
         </FlexRow>

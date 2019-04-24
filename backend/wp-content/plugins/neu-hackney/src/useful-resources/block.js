@@ -49,16 +49,27 @@ registerBlockType( 'neu-hackney/useful-resource', {
 			source: 'meta',
 			meta: 'neuhack_details',
 		},
-		resourceID: {
+		resourceFileID: {
 			type: 'number',
 		},
-		resourceURL: {
+		resourceFileURL: {
 			type: 'string',
 			source: 'attribute',
 			selector: 'a',
 			attribute: 'href',
 		},
-		__resourceURL: {
+		__resourceFileURL: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_resource_file',
+		},
+		resourceLink: {
+			type: 'string',
+			source: 'attribute',
+			selector: 'a',
+			attribute: 'href',
+		},
+		__resourceLink: {
 			type: 'string',
 			source: 'meta',
 			meta: 'neuhack_resource_url',
@@ -82,21 +93,21 @@ registerBlockType( 'neu-hackney/useful-resource', {
 			__resourceIsExternal,
 			resourceDetails,
 			resourceID,
-			resourceURL,
+			resourceLink,
 			warningShown,
 		},
 	} ) => {
 		const onSelectFile = file => {
 			setAttributes( {
-				resourceID: file.id,
-				resourceURL: file.url,
-				__resourceURL: file.url,
+				resourceFileID: file.id,
+				resourceFileURL: file.url,
+				__resourceFileURL: file.url,
 			} );
 		};
-		const onChangeResourceURL = text => {
+		const onChangeResourceLink = text => {
 			setAttributes( {
-				resourceURL: text,
-				__resourceURL: text,
+				resourceLink: text,
+				__resourceLink: text,
 			} );
 		};
 		const onResourceTypeChange = value => {
@@ -141,8 +152,8 @@ registerBlockType( 'neu-hackney/useful-resource', {
 					<TextControl
 						label="URL (including https:// or http://)"
 						placeholder="https://anotherwebsite.com"
-						value={ resourceURL }
-						onChange={ onChangeResourceURL }
+						value={ resourceLink }
+						onChange={ onChangeResourceLink }
 					/>
 				) : (
 					<BaseControl
@@ -174,10 +185,20 @@ registerBlockType( 'neu-hackney/useful-resource', {
 		);
 	},
 
-	save: ( { className, attributes: { resourceURL, resourceDetails } } ) => {
+	save: ( {
+		className,
+		attributes: {
+			resourceIsExternal,
+			resourceFileURL,
+			resourceLink,
+			resourceDetails,
+		},
+	} ) => {
 		return (
 			<li className={ className }>
-				<a href={ resourceURL }>{ resourceDetails }</a>
+				<a href={ resourceIsExternal ? resourceLink : resourceFileURL }>
+					{ resourceDetails }
+				</a>
 			</li>
 		);
 	},

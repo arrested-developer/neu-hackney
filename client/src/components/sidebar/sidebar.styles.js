@@ -1,9 +1,9 @@
 import styled from "styled-components"
 
-export const Main = styled.main`
+export const Aside = styled.aside`
   width: 100%;
   @media ${({ theme }) => theme.break_ns} {
-    width: calc(70% - ${({ theme }) => theme.m});
-    float: left;
+    width: calc(30% - ${({ theme }) => theme.m});
+    float: right;
   }
 `

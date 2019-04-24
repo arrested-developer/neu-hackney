@@ -100,6 +100,10 @@ exports.createPages = async ({ graphql, actions }) => {
             categories {
               wordpress_id
             }
+            positions {
+              wordpress_id
+              name
+            }
             meta {
               neuhack_team_member_email
               neuhack_team_member_position
@@ -119,23 +123,6 @@ exports.createPages = async ({ graphql, actions }) => {
                       originalName
                     }
                   }
-                }
-              }
-            }
-          }
-        }
-      }
-      allWordpressWpNewsletters {
-        edges {
-          node {
-            id
-            title
-            date
-            content
-            meta {
-              neuhack_attachment_url {
-                localFile {
-                  publicURL
                 }
               }
             }
@@ -164,7 +151,13 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             meta {
               neuhack_details
+              neuhack_resource_is_external
               neuhack_resource_url
+              neuhack_resource_file {
+                localFile {
+                  publicURL
+                }
+              }
             }
           }
         }
@@ -194,8 +187,6 @@ exports.createPages = async ({ graphql, actions }) => {
     allWordpressWpEvents,
     allWordpressWpCampaigns,
     allWordpressWpTeam,
-    allWordpressWpNewsletters,
-    allWordpressWpPosition,
     allWordpressWpUsefulResources,
     allWordpressCategory,
   } = result.data
@@ -208,8 +199,6 @@ exports.createPages = async ({ graphql, actions }) => {
       events: allWordpressWpEvents,
       campaigns: allWordpressWpCampaigns,
       team: allWordpressWpTeam,
-      newsletters: allWordpressWpNewsletters,
-      positions: allWordpressWpPosition,
     },
   })
 
