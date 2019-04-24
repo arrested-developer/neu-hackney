@@ -164,7 +164,11 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             meta {
               neuhack_details
-              neuhack_resource_url
+              neuhack_resource_url {
+                localFile {
+                  publicURL
+                }
+              }
             }
           }
         }
