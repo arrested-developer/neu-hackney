@@ -4,6 +4,7 @@ import SEO from "../components/seo"
 
 import { HomePageSection, Content, Main, Aside } from "./home.styles"
 import { H1, H2, P } from "../components/shared/text"
+import TeamCard from "../components/team/teamCard"
 
 import TwitterFeed from "../components/twitter"
 import Newsletters from "../components/newsletters"
@@ -53,9 +54,7 @@ export default ({
           >
             <ul>
               {representedBy.map(teamMember => (
-                <li>
-                  <h3>{teamMember.node.title}</h3>
-                </li>
+                <TeamCard key={teamMember.node.id} teamMember={teamMember} />
               ))}
             </ul>
           </Section>
