@@ -23,7 +23,7 @@ ${props =>
 `
 
 const linkStyle = css`
-  color: white;
+  color: ${({ theme, color }) => (color ? theme[color] : theme.white)};
   display: block;
   margin: ${({ theme }) => theme.s} 0;
   text-decoration: underline;
@@ -40,6 +40,7 @@ export const Link = styled(GatsbyLink)`
 
 export const ExternalLink = styled.a.attrs({
   target: "_blank",
+  rel: "noopener noreferrer",
 })`
   ${linkStyle}
 `

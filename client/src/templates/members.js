@@ -6,6 +6,8 @@ import { Main } from "./home.styles"
 import { H1, P } from "../components/shared/text"
 import TeamCard from "../components/team/teamCard"
 import PageSection from "../components/pageSection"
+import { ExternalLink } from "../components/shared/linksAndButtons"
+import { Card } from "../components/shared/containers"
 
 export default ({
   pageContext: { memberType, usefulResources, representedBy, newsletters },
@@ -58,15 +60,18 @@ export default ({
                     },
                   }) => (
                     <li key={id}>
-                      <a
-                        href={
-                          neuhack_resource_is_external
-                            ? neuhack_resource_url
-                            : neuhack_resource_file.localFile.publicURL
-                        }
-                      >
-                        {title}
-                      </a>
+                      <Card>
+                        <ExternalLink
+                          color="dark_blue"
+                          href={
+                            neuhack_resource_is_external
+                              ? neuhack_resource_url
+                              : neuhack_resource_file.localFile.publicURL
+                          }
+                        >
+                          {title}
+                        </ExternalLink>
+                      </Card>
                     </li>
                   )
                 )
