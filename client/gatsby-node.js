@@ -129,23 +129,6 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allWordpressWpNewsletters {
-        edges {
-          node {
-            id
-            title
-            date
-            content
-            meta {
-              neuhack_attachment_url {
-                localFile {
-                  publicURL
-                }
-              }
-            }
-          }
-        }
-      }
       allWordpressWpPosition {
         edges {
           node {
@@ -249,7 +232,6 @@ exports.createPages = async ({ graphql, actions }) => {
           allWordpressWpTeam,
           node.wordpress_id
         ),
-        newsletters: allWordpressWpNewsletters,
       },
     })
   })
