@@ -17,10 +17,5 @@ function neuhack_useful_resources_register_meta() {
 		'single' => true,
 		'type' => 'string',
   ) );
-  register_meta( 'post', 'neuhack_resource_is_external', array(
-		'show_in_rest' => true,
-		'single' => true,
-		'type' => 'number',
-	) );
 }
 add_action( 'init', 'neuhack_useful_resources_register_meta' );
