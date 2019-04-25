@@ -32,8 +32,27 @@ const mapResourcesToCategories = entities => {
   })
 }
 
+const mapTeamToCategories = entities => {
+  const team = entities.filter(e => e.__type === "wordpress__wp_team")
+
+  return entities.map(e => {
+    if (e.__type === `wordpress__CATEGORY`) {
+      e.team___NODE = team
+        .filter(
+          t =>
+            t.categories___NODE &&
+            t.categories___NODE.length &&
+            t.categories___NODE.includes(e.id)
+        )
+        .map(t => t.id)
+    }
+    return e
+  })
+}
+
 module.exports = ({ entities }) => {
   entities = mapPositionsToTeam(entities)
   entities = mapResourcesToCategories(entities)
+  entities = mapTeamToCategories(entities)
   return entities
 }

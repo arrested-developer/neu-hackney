@@ -12,11 +12,9 @@ import {
 
 export default ({
   teamMember: {
-    node: {
-      title,
-      positions,
-      meta: { neuhack_team_member_email, neuhack_image_url },
-    },
+    title,
+    positions,
+    meta: { neuhack_team_member_email, neuhack_image_url },
   },
   ...props
 }) => {

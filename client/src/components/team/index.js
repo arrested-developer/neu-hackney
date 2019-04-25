@@ -21,7 +21,7 @@ export default ({ team, ...props }) => {
     <>
       <TeamList {...props}>
         {sortByPosition(team.edges).map(teamMember => (
-          <TeamCard key={teamMember.node.id} teamMember={teamMember} />
+          <TeamCard key={teamMember.node.id} teamMember={teamMember.node} />
         ))}
       </TeamList>
       <ElectionInfo />

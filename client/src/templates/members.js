@@ -10,9 +10,7 @@ import { ExternalLink } from "../components/shared/linksAndButtons"
 import { Card } from "../components/shared/containers"
 import WordpressPageContent from "../components/wordpressPageContent"
 
-export default ({
-  pageContext: { memberType, representedBy, pageContent },
-}) => {
+export default ({ pageContext: { memberType, pageContent } }) => {
   return (
     <>
       <Layout>
@@ -34,7 +32,7 @@ export default ({
           </PageSection>
           <PageSection
             title={
-              representedBy.length > 1
+              memberType.team.length > 1
                 ? "Your representatives"
                 : "Your representative"
             }
@@ -42,8 +40,8 @@ export default ({
             titleColor="white"
           >
             <ul>
-              {representedBy.map(teamMember => (
-                <TeamCard key={teamMember.node.id} teamMember={teamMember} />
+              {memberType.team.map(teamMember => (
+                <TeamCard key={teamMember.id} teamMember={teamMember} />
               ))}
             </ul>
           </PageSection>

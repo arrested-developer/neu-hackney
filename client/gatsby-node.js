@@ -188,6 +188,40 @@ exports.createPages = async ({ graphql, actions }) => {
                 }
               }
             }
+            team {
+              id
+              title
+              content
+              categories {
+                wordpress_id
+              }
+              positions {
+                wordpress_id
+                name
+              }
+              meta {
+                neuhack_team_member_email
+                neuhack_team_member_position
+                neuhack_image_url {
+                  localFile {
+                    childImageSharp {
+                      fluid(maxWidth: 500) {
+                        base64
+                        tracedSVG
+                        aspectRatio
+                        src
+                        srcSet
+                        srcWebp
+                        srcSetWebp
+                        sizes
+                        originalImg
+                        originalName
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -258,7 +292,6 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   allWordpressCategory.edges.map(({ node }) => {
-    console.log(node)
     const pageContent = getPostsInCategory(allWordpressPage, node.wordpress_id)
     createPage({
       path: makeCategoryPath(node.slug, pageContent),
