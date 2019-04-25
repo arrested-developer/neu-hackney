@@ -10,7 +10,7 @@ import { ExternalLink } from "../components/shared/linksAndButtons"
 import { Card } from "../components/shared/containers"
 
 export default ({
-  pageContext: { memberType, usefulResources, representedBy, newsletters },
+  pageContext: { memberType, usefulResources, representedBy, pageContent },
 }) => {
   return (
     <>
@@ -23,7 +23,15 @@ export default ({
             titleBackground="light_green"
             titleColor="black"
           >
-            <P>{memberType.description}</P>
+            {pageContent && pageContent.length ? (
+              <P
+                dangerouslySetInnerHTML={{
+                  __html: pageContent[0].node.content,
+                }}
+              />
+            ) : (
+              <P>{memberType.description}</P>
+            )}
           </PageSection>
           <PageSection
             title={
