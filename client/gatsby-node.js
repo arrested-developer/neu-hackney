@@ -174,6 +174,18 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allWordpressPage {
+        edges {
+          node {
+            id
+            title
+            categories {
+              wordpress_id
+            }
+            content
+          }
+        }
+      }
     }
   `)
 
@@ -189,6 +201,7 @@ exports.createPages = async ({ graphql, actions }) => {
     allWordpressWpTeam,
     allWordpressWpUsefulResources,
     allWordpressCategory,
+    allWordpressPage,
   } = result.data
 
   // create home page with graphQL data from meetings, campaigns and officers
@@ -217,7 +230,7 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   }
 
-  // create pages for each category
+  // create member pages for each category
   allWordpressCategory.edges.map(({ node }) => {
     createPage({
       path: `/members/${node.slug}`,
@@ -232,6 +245,7 @@ exports.createPages = async ({ graphql, actions }) => {
           allWordpressWpTeam,
           node.wordpress_id
         ),
+        pageContent: getPostsInCategory(allWordpressPage, node.wordpress_id),
       },
     })
   })
