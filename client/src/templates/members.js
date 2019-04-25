@@ -8,6 +8,7 @@ import TeamCard from "../components/team/teamCard"
 import PageSection from "../components/pageSection"
 import { ExternalLink } from "../components/shared/linksAndButtons"
 import { Card } from "../components/shared/containers"
+import WordpressPageContent from "../components/wordpressPageContent"
 
 export default ({
   pageContext: { memberType, usefulResources, representedBy, pageContent },
@@ -24,11 +25,9 @@ export default ({
             titleColor="black"
           >
             {pageContent && pageContent.length ? (
-              <P
-                dangerouslySetInnerHTML={{
-                  __html: pageContent[0].node.content,
-                }}
-              />
+              <WordpressPageContent>
+                {pageContent[0].node.content}
+              </WordpressPageContent>
             ) : (
               <P>{memberType.description}</P>
             )}
