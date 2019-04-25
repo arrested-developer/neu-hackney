@@ -1,3 +1,7 @@
+/**
+ * Custom normalisation of Wordpress data to GraphQL
+ */
+
 const mapPositionsToTeam = entities => {
   const positions = entities.filter(e => e.__type === `wordpress__wp_position`)
 
@@ -25,7 +29,12 @@ const mapResourcesToCategories = entities => {
   return entities.map(e => {
     if (e.__type === `wordpress__CATEGORY`) {
       e.resources___NODE = resources
-        .filter(r => r.categories___NODE.includes(e.id))
+        .filter(
+          r =>
+            r.categories___NODE &&
+            r.categories___NODE.length &&
+            r.categories___NODE.includes(e.id)
+        )
         .map(r => r.id)
     }
     return e
@@ -50,9 +59,28 @@ const mapTeamToCategories = entities => {
   })
 }
 
+const mapPagesToCategories = entities => {
+  const pages = entities.filter(e => e.__type === "wordpress__PAGE")
+
+  return entities.map(e => {
+    if (e.__type === `wordpress__CATEGORY`) {
+      e.pageContent___NODE = pages
+        .filter(
+          p =>
+            p.categories___NODE &&
+            p.categories___NODE.length &&
+            p.categories___NODE.includes(e.id)
+        )
+        .map(t => t.id)
+    }
+    return e
+  })
+}
+
 module.exports = ({ entities }) => {
   entities = mapPositionsToTeam(entities)
   entities = mapResourcesToCategories(entities)
   entities = mapTeamToCategories(entities)
+  entities = mapPagesToCategories(entities)
   return entities
 }

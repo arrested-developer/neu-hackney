@@ -222,6 +222,10 @@ exports.createPages = async ({ graphql, actions }) => {
                 }
               }
             }
+            pageContent {
+              id
+              content
+            }
           }
         }
       }

@@ -10,7 +10,7 @@ import { ExternalLink } from "../components/shared/linksAndButtons"
 import { Card } from "../components/shared/containers"
 import WordpressPageContent from "../components/wordpressPageContent"
 
-export default ({ pageContext: { memberType, pageContent } }) => {
+export default ({ pageContext: { memberType } }) => {
   return (
     <>
       <Layout>
@@ -22,9 +22,9 @@ export default ({ pageContext: { memberType, pageContent } }) => {
             titleBackground="light_green"
             titleColor="black"
           >
-            {pageContent && pageContent.length ? (
+            {memberType.pageContent && memberType.pageContent.length ? (
               <WordpressPageContent>
-                {pageContent[0].node.content}
+                {memberType.pageContent[0].content}
               </WordpressPageContent>
             ) : (
               <P>{memberType.description}</P>
