@@ -11,7 +11,7 @@ import { Card } from "../components/shared/containers"
 import WordpressPageContent from "../components/wordpressPageContent"
 
 export default ({
-  pageContext: { memberType, usefulResources, representedBy, pageContent },
+  pageContext: { memberType, representedBy, pageContent },
 }) => {
   return (
     <>
@@ -53,17 +53,15 @@ export default ({
             titleColor="white"
           >
             <ul>
-              {usefulResources.length ? (
-                usefulResources.map(
+              {memberType.resources.length ? (
+                memberType.resources.map(
                   ({
-                    node: {
-                      id,
-                      title,
-                      meta: {
-                        neuhack_resource_is_external,
-                        neuhack_resource_url,
-                        neuhack_resource_file,
-                      },
+                    id,
+                    title,
+                    meta: {
+                      neuhack_resource_is_external,
+                      neuhack_resource_url,
+                      neuhack_resource_file,
                     },
                   }) => (
                     <li key={id}>

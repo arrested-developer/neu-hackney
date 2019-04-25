@@ -1,4 +1,4 @@
-module.exports = ({ entities }) => {
+const mapPositionsToTeam = entities => {
   const positions = entities.filter(e => e.__type === `wordpress__wp_position`)
 
   return entities.map(e => {
@@ -15,4 +15,25 @@ module.exports = ({ entities }) => {
     }
     return e
   })
+}
+
+const mapResourcesToCategories = entities => {
+  const resources = entities.filter(
+    e => e.__type === "wordpress__wp_useful_resources"
+  )
+
+  return entities.map(e => {
+    if (e.__type === `wordpress__CATEGORY`) {
+      e.resources___NODE = resources
+        .filter(r => r.categories___NODE.includes(e.id))
+        .map(r => r.id)
+    }
+    return e
+  })
+}
+
+module.exports = ({ entities }) => {
+  entities = mapPositionsToTeam(entities)
+  entities = mapResourcesToCategories(entities)
+  return entities
 }

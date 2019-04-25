@@ -171,6 +171,23 @@ exports.createPages = async ({ graphql, actions }) => {
             slug
             description
             count
+            resources {
+              id
+              title
+              categories {
+                wordpress_id
+              }
+              meta {
+                neuhack_details
+                neuhack_resource_is_external
+                neuhack_resource_url
+                neuhack_resource_file {
+                  localFile {
+                    publicURL
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -199,7 +216,6 @@ exports.createPages = async ({ graphql, actions }) => {
     allWordpressWpEvents,
     allWordpressWpCampaigns,
     allWordpressWpTeam,
-    allWordpressWpUsefulResources,
     allWordpressCategory,
     allWordpressPage,
   } = result.data
@@ -215,6 +231,9 @@ exports.createPages = async ({ graphql, actions }) => {
     },
   })
 
+  // generate pages from categories
+
+  // filter content to match category
   const getPostsInCategory = (posts, id) => {
     const postsWithCategory = posts.edges.filter(
       edge => edge.node.categories !== null
@@ -230,22 +249,27 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   }
 
-  // create member pages for each category
+  // categories get /members/:category path, unless there is a page
+  // for the category, in which case they get a direct link
+  const makeCategoryPath = (slug, pageContent) => {
+    const isStandalonePage = pageContent => pageContent && pageContent.length
+    if (isStandalonePage(pageContent)) return `/${slug}`
+    else return `/members/${slug}`
+  }
+
   allWordpressCategory.edges.map(({ node }) => {
+    console.log(node)
+    const pageContent = getPostsInCategory(allWordpressPage, node.wordpress_id)
     createPage({
-      path: `/members/${node.slug}`,
+      path: makeCategoryPath(node.slug, pageContent),
       component: path.resolve("./src/templates/members.js"),
       context: {
         memberType: node,
-        usefulResources: getPostsInCategory(
-          allWordpressWpUsefulResources,
-          node.wordpress_id
-        ),
         representedBy: getPostsInCategory(
           allWordpressWpTeam,
           node.wordpress_id
         ),
-        pageContent: getPostsInCategory(allWordpressPage, node.wordpress_id),
+        pageContent,
       },
     })
   })
