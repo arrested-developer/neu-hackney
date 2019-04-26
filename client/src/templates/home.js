@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { Main } from "./home.styles"
+import { Main } from "./components/shared/containers"
 import { H1 } from "../components/shared/text"
 import NextGeneralMeeting from "../components/generalMeeting/nextGeneralMeeting"
 import CampaignCarousel from "../components/campaigns"
