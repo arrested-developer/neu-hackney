@@ -30,17 +30,19 @@ export default ({ pageContext: { page } }) => {
               <P>{page.description}</P>
             )}
           </PageSection>
-          <PageSection
-            title={page.team.length > 1 ? "Contacts" : "Contact"}
-            titleBackground="purple"
-            titleColor="white"
-          >
-            <ul>
-              {page.team.map(teamMember => (
-                <TeamCard key={teamMember.id} teamMember={teamMember} />
-              ))}
-            </ul>
-          </PageSection>
+          {page.team && page.team.length > 0 && (
+            <PageSection
+              title={page.team.length > 1 ? "Contacts" : "Contact"}
+              titleBackground="purple"
+              titleColor="white"
+            >
+              <ul>
+                {page.team.map(teamMember => (
+                  <TeamCard key={teamMember.id} teamMember={teamMember} />
+                ))}
+              </ul>
+            </PageSection>
+          )}
           <PageSection
             title="Links and resources"
             titleBackground="blue"
