@@ -10,49 +10,45 @@ import { ExternalLink } from "../components/shared/linksAndButtons"
 import { Card } from "../components/shared/containers"
 import WordpressPageContent from "../components/wordpressPageContent"
 
-export default ({ pageContext: { memberType } }) => {
+export default ({ pageContext: { page } }) => {
   return (
     <>
       <Layout>
-        <SEO title={`Members - ${memberType.name}`} />
-        <H1>{memberType.name}</H1>
+        <SEO title={`Members - ${page.name}`} />
+        <H1>{page.name}</H1>
         <Main>
           <PageSection
             title="About"
             titleBackground="light_green"
             titleColor="black"
           >
-            {memberType.pageContent && memberType.pageContent.length ? (
+            {page.pageContent && page.pageContent.length ? (
               <WordpressPageContent>
-                {memberType.pageContent[0].content}
+                {page.pageContent[0].content}
               </WordpressPageContent>
             ) : (
-              <P>{memberType.description}</P>
+              <P>{page.description}</P>
             )}
           </PageSection>
           <PageSection
-            title={
-              memberType.team.length > 1
-                ? "Your representatives"
-                : "Your representative"
-            }
+            title={page.team.length > 1 ? "Contacts" : "Contact"}
             titleBackground="purple"
             titleColor="white"
           >
             <ul>
-              {memberType.team.map(teamMember => (
+              {page.team.map(teamMember => (
                 <TeamCard key={teamMember.id} teamMember={teamMember} />
               ))}
             </ul>
           </PageSection>
           <PageSection
-            title="Useful resources"
+            title="Links and resources"
             titleBackground="blue"
             titleColor="white"
           >
             <ul>
-              {memberType.resources.length ? (
-                memberType.resources.map(
+              {page.resources.length ? (
+                page.resources.map(
                   ({
                     id,
                     title,
