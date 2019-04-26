@@ -258,6 +258,15 @@ exports.createPages = async ({ graphql, actions }) => {
     },
   })
 
+  // generate events page to list all events
+  createPage({
+    path: `/events`,
+    component: path.resolve("./src/templates/events.js"),
+    context: {
+      events: allWordpressWpEvents,
+    },
+  })
+
   // generate pages from categories. If the category has a page, it is standalone
   // if the category has no page, it belongs in the members dropdown
 
