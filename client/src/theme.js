@@ -1,3 +1,7 @@
+/**
+ * Styled Components Site Theme
+ */
+
 export default {
   // colours
   cyan: "#00a9ce",
