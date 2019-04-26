@@ -62,6 +62,7 @@ const Layout = ({ children }) => (
       ].concat(
         data.memberCats.edges
           .filter(cat => isStandalonePage(cat.node))
+          .sort((a, b) => a.node.wordpress_id - b.node.wordpress_id)
           .map(cat => ({
             name: cat.node.name,
             to: `/${cat.node.slug}`,
