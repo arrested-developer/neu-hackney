@@ -1,6 +1,6 @@
 import React from "react"
 
-import GeneralMeeting from "./generalMeeting"
+import Event from "../event"
 
 export default ({ events, ...props }) => {
   const meetings = events.edges.filter(
@@ -23,5 +23,5 @@ export default ({ events, ...props }) => {
   const getNextMeeting = events =>
     getFutureMeetings(sortByDateAscending(events))[0]
 
-  return <GeneralMeeting meeting={getNextMeeting(meetings)} {...props} />
+  return <Event event={getNextMeeting(meetings)} {...props} />
 }

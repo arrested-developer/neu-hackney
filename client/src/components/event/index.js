@@ -1,9 +1,9 @@
 import React from "react"
 import { P, H3 } from "../shared/text"
-import { ImgShadow } from "./generalMeeting.styles"
+import { ImgShadow } from "../shared/images"
 import { ExternalLinkButton } from "../shared/linksAndButtons"
 
-export default ({ meeting, ...props }) => {
+export default ({ event, ...props }) => {
   const getReadableDateTime = dateTime => {
     const d = new Date(dateTime)
     const date = d.toLocaleDateString("en-GB", {
@@ -26,24 +26,31 @@ export default ({ meeting, ...props }) => {
         neuhack_image_alt,
         neuhack_date_time,
         neuhack_details,
-        neuhack_image_url: {
-          localFile: { childImageSharp },
-        },
-        neuhack_attachment_url: {
-          localFile: { publicURL },
-        },
+        neuhack_image_url,
+        neuhack_attachment_url,
+        neuhack_event_is_general_meeting,
       },
     },
-  } = meeting
+  } = event
   return (
     <article {...props}>
-      <ImgShadow fluid={childImageSharp.fluid} alt={neuhack_image_alt} />
+      {neuhack_image_url && neuhack_image_url.localFile && (
+        <ImgShadow
+          fluid={neuhack_image_url.localFile.childImageSharp.fluid}
+          alt={neuhack_image_alt}
+        />
+      )}
+
       <H3 color="white">{title}</H3>
       <P color="white">{getReadableDateTime(neuhack_date_time)}</P>
       <P color="white" dangerouslySetInnerHTML={{ __html: neuhack_details }} />
-      <ExternalLinkButton href={publicURL}>
-        View agenda and minutes
-      </ExternalLinkButton>
+      {neuhack_event_is_general_meeting === 1 &&
+        neuhack_attachment_url &&
+        neuhack_attachment_url.localFile && (
+          <ExternalLinkButton href={neuhack_attachment_url.localFile.publicURL}>
+            View agenda and minutes
+          </ExternalLinkButton>
+        )}
     </article>
   )
 }
