@@ -42,11 +42,7 @@ export default ({
               titleBackground="purple"
               titleColor="white"
             >
-              <ul>
-                {team.map(teamMember => (
-                  <TeamCard key={teamMember.id} teamMember={teamMember} />
-                ))}
-              </ul>
+              <Team team={team} noInfo />
             </PageSection>
           )}
           <PageSection
