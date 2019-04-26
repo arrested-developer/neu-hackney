@@ -22,7 +22,7 @@ export default ({ events, ...props }) => {
   return (
     <EventsList {...props}>
       {futureEvents.map(event => (
-        <EventsListItem>
+        <EventsListItem key={event.node.id}>
           <Event event={event} />
         </EventsListItem>
       ))}
