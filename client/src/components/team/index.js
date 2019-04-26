@@ -16,7 +16,7 @@ const sortByPosition = team => {
   return sortedTeam
 }
 
-export default ({ team, ...props }) => {
+export default ({ team, noInfo = false, ...props }) => {
   return (
     <>
       <TeamList {...props}>
@@ -24,7 +24,7 @@ export default ({ team, ...props }) => {
           <TeamCard key={teamMember.node.id} teamMember={teamMember.node} />
         ))}
       </TeamList>
-      <ElectionInfo />
+      {noInfo === false && <ElectionInfo />}
     </>
   )
 }
