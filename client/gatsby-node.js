@@ -289,16 +289,15 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // categories get /members/:category path, unless there is a page
   // for the category, in which case they get a direct link
-  const makeCategoryPath = (slug, pageContent) => {
-    const isStandalonePage = pageContent => pageContent && pageContent.length
-    if (isStandalonePage(pageContent)) return `/${slug}`
-    else return `/members/${slug}`
+  const makeCategoryPath = node => {
+    const isStandalonePage = node => node.pageContent && node.pageContent.length
+    if (isStandalonePage(node)) return `/${node.slug}`
+    else return `/members/${node.slug}`
   }
 
   allWordpressCategory.edges.map(({ node }) => {
-    const pageContent = getPostsInCategory(allWordpressPage, node.wordpress_id)
     createPage({
-      path: makeCategoryPath(node.slug, pageContent),
+      path: makeCategoryPath(node),
       component: path.resolve("./src/templates/members.js"),
       context: {
         memberType: node,
@@ -306,7 +305,6 @@ exports.createPages = async ({ graphql, actions }) => {
           allWordpressWpTeam,
           node.wordpress_id
         ),
-        pageContent,
       },
     })
   })
