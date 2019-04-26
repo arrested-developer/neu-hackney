@@ -18,7 +18,7 @@ export default props => (
           tweetLimit="5"
           width="100%"
           height="auto"
-          timeline="https://twitter.com/hackneynut?ref_src=twsrc%5Etfw"
+          timeline="https://twitter.com/hackneyneu?ref_src=twsrc%5Etfw"
         />
       </PageSection>
       <PageSection title="Newsletter" titleBackground="pink" titleColor="white">
