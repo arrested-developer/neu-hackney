@@ -4,40 +4,46 @@ import SEO from "../components/seo"
 
 import { Main } from "./home.styles"
 import { H1, P } from "../components/shared/text"
+import Team from "../components/team"
 import TeamCard from "../components/team/teamCard"
 import PageSection from "../components/pageSection"
 import { ExternalLink } from "../components/shared/linksAndButtons"
 import { Card } from "../components/shared/containers"
 import WordpressPageContent from "../components/wordpressPageContent"
 
-export default ({ pageContext: { page } }) => {
+export default ({
+  pageContext: {
+    page: { name, pageContent, description, team, resources },
+  },
+}) => {
+  const pageHas = data => data && data.length > 0
   return (
     <>
       <Layout>
-        <SEO title={`Members - ${page.name}`} />
-        <H1>{page.name}</H1>
+        <SEO title={`Members - ${name}`} />
+        <H1>{name}</H1>
         <Main>
           <PageSection
             title="About"
             titleBackground="light_green"
             titleColor="black"
           >
-            {page.pageContent && page.pageContent.length ? (
+            {pageHas(pageContent) ? (
               <WordpressPageContent>
-                {page.pageContent[0].content}
+                {pageContent[0].content}
               </WordpressPageContent>
             ) : (
-              <P>{page.description}</P>
+              <P>{description}</P>
             )}
           </PageSection>
-          {page.team && page.team.length > 0 && (
+          {pageHas(team) && (
             <PageSection
-              title={page.team.length > 1 ? "Contacts" : "Contact"}
+              title={team.length > 1 ? "Contacts" : "Contact"}
               titleBackground="purple"
               titleColor="white"
             >
               <ul>
-                {page.team.map(teamMember => (
+                {team.map(teamMember => (
                   <TeamCard key={teamMember.id} teamMember={teamMember} />
                 ))}
               </ul>
@@ -49,8 +55,8 @@ export default ({ pageContext: { page } }) => {
             titleColor="white"
           >
             <ul>
-              {page.resources.length ? (
-                page.resources.map(
+              {pageHas(resources) &&
+                resources.map(
                   ({
                     id,
                     title,
@@ -75,10 +81,7 @@ export default ({ pageContext: { page } }) => {
                       </Card>
                     </li>
                   )
-                )
-              ) : (
-                <li>No resources found for this member type.</li>
-              )}
+                )}
             </ul>
           </PageSection>
         </Main>
