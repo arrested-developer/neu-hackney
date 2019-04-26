@@ -5,21 +5,10 @@
 //  */
 
 const path = require(`path`)
-//const slash = require(`slash`)
 
-// Implement the Gatsby API “createPages”. This is
-// called after the Gatsby bootstrap is finished so you have
-// access to any information necessary to programmatically
-// create pages.
-// Will create pages for WordPress pages (route : /{slug})
-// Will create pages for WordPress posts (route : /post/{slug})
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  // The “graphql” function allows us to run arbitrary
-  // queries against the local Gatsby GraphQL schema. Think of
-  // it like the site has a built-in database constructed
-  // from the fetched data that you can run queries against.
   const result = await graphql(`
     {
       allWordpressWpEvents {
@@ -171,6 +160,73 @@ exports.createPages = async ({ graphql, actions }) => {
             slug
             description
             count
+            resources {
+              id
+              title
+              categories {
+                wordpress_id
+              }
+              meta {
+                neuhack_details
+                neuhack_resource_is_external
+                neuhack_resource_url
+                neuhack_resource_file {
+                  localFile {
+                    publicURL
+                  }
+                }
+              }
+            }
+            team {
+              id
+              title
+              content
+              categories {
+                wordpress_id
+              }
+              positions {
+                wordpress_id
+                name
+              }
+              meta {
+                neuhack_team_member_email
+                neuhack_team_member_position
+                neuhack_image_url {
+                  localFile {
+                    childImageSharp {
+                      fluid(maxWidth: 500) {
+                        base64
+                        tracedSVG
+                        aspectRatio
+                        src
+                        srcSet
+                        srcWebp
+                        srcSetWebp
+                        sizes
+                        originalImg
+                        originalName
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            pageContent {
+              id
+              content
+            }
+          }
+        }
+      }
+      allWordpressPage {
+        edges {
+          node {
+            id
+            title
+            categories {
+              wordpress_id
+            }
+            content
           }
         }
       }
@@ -187,8 +243,8 @@ exports.createPages = async ({ graphql, actions }) => {
     allWordpressWpEvents,
     allWordpressWpCampaigns,
     allWordpressWpTeam,
-    allWordpressWpUsefulResources,
     allWordpressCategory,
+    allWordpressPage,
   } = result.data
 
   // create home page with graphQL data from meetings, campaigns and officers
@@ -202,59 +258,22 @@ exports.createPages = async ({ graphql, actions }) => {
     },
   })
 
-  const getPostsInCategory = (posts, id) => {
-    const postsWithCategory = posts.edges.filter(
-      edge => edge.node.categories !== null
-    )
-    // filter down to posts which include the given WP category ID
-    if (postsWithCategory && postsWithCategory.length) {
-      const postsInCategory = postsWithCategory.filter(edge =>
-        edge.node.categories.map(cat => cat.wordpress_id).includes(id)
-      )
-      return postsInCategory
-    } else {
-      return []
-    }
+  // generate pages from categories. If the category has a page, it is standalone
+  // if the category has no page, it belongs in the members dropdown
+
+  const makeCategoryPath = node => {
+    const isStandalonePage = node => node.pageContent && node.pageContent.length
+    if (isStandalonePage(node)) return `/${node.slug}`
+    else return `/members/${node.slug}`
   }
 
-  // create pages for each category
   allWordpressCategory.edges.map(({ node }) => {
     createPage({
-      path: `/members/${node.slug}`,
-      component: path.resolve("./src/templates/members.js"),
+      path: makeCategoryPath(node),
+      component: path.resolve("./src/templates/page.js"),
       context: {
-        memberType: node,
-        usefulResources: getPostsInCategory(
-          allWordpressWpUsefulResources,
-          node.wordpress_id
-        ),
-        representedBy: getPostsInCategory(
-          allWordpressWpTeam,
-          node.wordpress_id
-        ),
+        page: node,
       },
     })
   })
-
-  // createPage({
-  //   path: `/generalmeetings/`,
-  //   component: path.resolve("./src/templates/generalMeetings.js"),
-  //   context: {
-  //     generalMeetings: allWordpressWpGeneralmeeting,
-  //   },
-  // })
-
-  // const postTemplate = path.resolve(`./src/templates/post.js`)
-  // // We want to create a detailed page for each
-  // // post node. We'll just use the WordPress Slug for the slug.
-  // // The Post ID is prefixed with 'POST_'
-  // allWordpressPost.edges.forEach(edge => {
-  //   createPage({
-  //     path: `/${edge.node.slug}/`,
-  //     component: slash(postTemplate),
-  //     context: {
-  //       id: edge.node.id,
-  //     },
-  //   })
-  // })
 }

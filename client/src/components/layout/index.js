@@ -35,27 +35,39 @@ const Layout = ({ children }) => (
               name
               slug
               count
+              pageContent {
+                id
+              }
             }
           }
         }
       }
     `}
     render={data => {
+      const isStandalonePage = node =>
+        node.pageContent && node.pageContent.length
       const navLinks = [
         { name: "Home", to: "/" },
         { name: "Events", to: "/events" },
         {
           name: "Members",
-          to: data.memberCats.edges.map(cat => ({
-            name: cat.node.name,
-            to: `/members/${cat.node.slug}`,
-          })),
+          to: data.memberCats.edges
+            .filter(cat => !isStandalonePage(cat.node))
+            .sort((a, b) => a.node.wordpress_id - b.node.wordpress_id)
+            .map(cat => ({
+              name: cat.node.name,
+              to: `/members/${cat.node.slug}`,
+            })),
         },
-        { name: "Equalities", to: "/equalities" },
-        { name: "Reps", to: "/reps" },
-        { name: "Gallery", to: "/gallery" },
-        { name: "Affiliations", to: "/affiliation" },
-      ]
+      ].concat(
+        data.memberCats.edges
+          .filter(cat => isStandalonePage(cat.node))
+          .sort((a, b) => a.node.wordpress_id - b.node.wordpress_id)
+          .map(cat => ({
+            name: cat.node.name,
+            to: `/${cat.node.slug}`,
+          }))
+      )
       return (
         <div style={{ background: "teal" }}>
           <Header

@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import Img from "gatsby-image"
 
 export const Footer = styled.footer`
   background: ${({ theme }) => theme.dark_blue};

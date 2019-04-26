@@ -40,3 +40,22 @@ require_once plugin_dir_path( __FILE__ ) . 'events/post-type.php';
 require_once plugin_dir_path( __FILE__ ) . 'campaigns/post-type.php';
 require_once plugin_dir_path( __FILE__ ) . 'team-members/post-type.php';
 require_once plugin_dir_path( __FILE__ ) . 'useful-resources/post-type.php';
+
+add_filter( 'allowed_block_types', 'neuhack_allowed_block_types', 10, 2 );
+ 
+function neuhack_allowed_block_types( $allowed_blocks, $post ) {
+
+ 
+	if( $post->post_type === 'page' ) {
+        $allowed_blocks = array(
+            'core/image',
+            'core/paragraph',
+            'core/heading',
+            'core/list'
+        );
+        return $allowed_blocks;
+	}
+ 
+    return array();
+ 
+}

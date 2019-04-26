@@ -4,59 +4,61 @@ import SEO from "../components/seo"
 
 import { Main } from "./home.styles"
 import { H1, P } from "../components/shared/text"
-import TeamCard from "../components/team/teamCard"
+import Team from "../components/team"
 import PageSection from "../components/pageSection"
 import { ExternalLink } from "../components/shared/linksAndButtons"
 import { Card } from "../components/shared/containers"
+import WordpressPageContent from "../components/wordpressPageContent"
 
 export default ({
-  pageContext: { memberType, usefulResources, representedBy, newsletters },
+  pageContext: {
+    page: { name, pageContent, description, team, resources },
+  },
 }) => {
+  const pageHas = data => data && data.length > 0
   return (
     <>
       <Layout>
-        <SEO title={`Members - ${memberType.name}`} />
-        <H1>{memberType.name}</H1>
+        <SEO title={`Members - ${name}`} />
+        <H1>{name}</H1>
         <Main>
           <PageSection
             title="About"
             titleBackground="light_green"
             titleColor="black"
           >
-            <P>{memberType.description}</P>
+            {pageHas(pageContent) ? (
+              <WordpressPageContent>
+                {pageContent[0].content}
+              </WordpressPageContent>
+            ) : (
+              <P>{description}</P>
+            )}
           </PageSection>
+          {pageHas(team) && (
+            <PageSection
+              title={team.length > 1 ? "Contacts" : "Contact"}
+              titleBackground="purple"
+              titleColor="white"
+            >
+              <Team team={team} noInfo />
+            </PageSection>
+          )}
           <PageSection
-            title={
-              representedBy.length > 1
-                ? "Your representatives"
-                : "Your representative"
-            }
-            titleBackground="purple"
-            titleColor="white"
-          >
-            <ul>
-              {representedBy.map(teamMember => (
-                <TeamCard key={teamMember.node.id} teamMember={teamMember} />
-              ))}
-            </ul>
-          </PageSection>
-          <PageSection
-            title="Useful resources"
+            title="Links and resources"
             titleBackground="blue"
             titleColor="white"
           >
             <ul>
-              {usefulResources.length ? (
-                usefulResources.map(
+              {pageHas(resources) &&
+                resources.map(
                   ({
-                    node: {
-                      id,
-                      title,
-                      meta: {
-                        neuhack_resource_is_external,
-                        neuhack_resource_url,
-                        neuhack_resource_file,
-                      },
+                    id,
+                    title,
+                    meta: {
+                      neuhack_resource_is_external,
+                      neuhack_resource_url,
+                      neuhack_resource_file,
                     },
                   }) => (
                     <li key={id}>
@@ -74,10 +76,7 @@ export default ({
                       </Card>
                     </li>
                   )
-                )
-              ) : (
-                <li>No resources found for this member type.</li>
-              )}
+                )}
             </ul>
           </PageSection>
         </Main>
