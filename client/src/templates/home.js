@@ -7,6 +7,7 @@ import NextGeneralMeeting from "../components/nextGeneralMeeting"
 import CampaignCarousel from "../components/campaigns"
 import Team from "../components/team"
 import PageSection from "../components/pageSection"
+import Gallery from "../components/gallery"
 
 export default ({ pageContext: { campaigns, team, events, positions } }) => {
   return (
@@ -14,6 +15,12 @@ export default ({ pageContext: { campaigns, team, events, positions } }) => {
       <SEO title="Home" />
       <H1 color="white">Home</H1>
       <Main>
+        <PageSection
+          title="Gallery"
+          titleBackground="blue"
+          titleColor="white"
+        />
+        <Gallery />
         <PageSection
           title="Next General Meeting"
           titleBackground="light_green"
