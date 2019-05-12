@@ -14,3 +14,4 @@ import './events/block.js';
 import './campaigns/block.js';
 import './team-members/block.js';
 import './useful-resources/block.js';
+import './gallery/block.js';

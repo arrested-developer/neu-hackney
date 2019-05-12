@@ -28,6 +28,10 @@ import './editor.scss';
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
+
+// ensure information notice is shown each time editor is opened
+let warningShown = false;
+
 registerBlockType( 'neu-hackney/newsletter', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'NEU Hackney - Newsletter Block' ), // Block title.
@@ -53,15 +57,17 @@ registerBlockType( 'neu-hackney/newsletter', {
 			source: 'meta',
 			meta: 'neuhack_attachment_url',
 		},
-		warningShown: {
-			type: 'boolean',
-		},
 	},
 	edit: ( {
-		attributes: { newsletterID, newsletterURL, warningShown },
+		attributes: { newsletterID, newsletterURL },
 		className,
 		setAttributes,
 	} ) => {
+		// remove the title, which is set automatically from the publish date
+		window.addEventListener( 'load', () => {
+			document.querySelector( '.editor-post-title__input' ).style.display =
+				'none';
+		} );
 		const onSelectFile = file => {
 			setAttributes( {
 				newsletterID: file.id,
@@ -69,19 +75,19 @@ registerBlockType( 'neu-hackney/newsletter', {
 				__newsletterURL: file.url,
 			} );
 		};
+
+		// show notice to assist with completing the fields correctly
 		if ( ! warningShown ) {
 			wp.data.dispatch( 'core/notices' ).createNotice(
 				'warning', // Can be one of: success, info, warning, error.
-				'Newsletter will be published with the current month and year. To publish with a different date, change the publish settings from "Immediately" to your chosen date in the "Status & Visibility" options at the top right of the screen.', // Text string to display.
+				'Newsletter will be published with the current month and year. To publish with a different date, change the publish settings from "Immediately" to your chosen date in the "Status & Visibility" options at the top right of the screen. There is no need to add a title, as this will be set using the selected date', // Text string to display.
 				{
 					isDismissible: true, // Whether the user can dismiss the notice.
 					// Any actions the user can perform.
 					actions: [],
 				}
 			);
-			setAttributes( {
-				warningShown: true,
-			} );
+			warningShown = true;
 		}
 
 		return (

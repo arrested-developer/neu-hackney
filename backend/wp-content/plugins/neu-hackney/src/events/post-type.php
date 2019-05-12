@@ -53,7 +53,7 @@ function neuhack_custom_post_events() {
 		'description'           => 'Events',
 		'labels'                => $labels,
 		'supports'              => array( 'title', 'editor', 'custom-fields' ),
-		'taxonomies'            => array( 'category', 'post_tag' ),
+		'taxonomies'            => array( 'post_tag' ),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,

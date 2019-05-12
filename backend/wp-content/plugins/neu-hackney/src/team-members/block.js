@@ -17,20 +17,23 @@ import './editor.scss';
 
 //  Fetch Team Member Positions
 //  Happens aynchronously on script load, before the editor loads (I hope)
-const positions = [];
-const positionNames = [];
-wp.apiFetch( { path: '/wp/v2/position?per_page=99' } ).then( posts => {
-	positions.push( { label: 'No Position', value: 0 } );
-	posts
-		.sort( ( a, b ) => a.id > b.id )
-		.forEach( post => {
-			positions.push( { label: post.name, value: post.id } );
-			positionNames[ post.id ] = post.name;
-		} );
-} );
+// const positions = [];
+// const positionNames = [];
+// wp.apiFetch( { path: '/wp/v2/position?per_page=99' } ).then( posts => {
+// 	positions.push( { label: 'No Position', value: 0 } );
+// 	posts
+// 		.sort( ( a, b ) => a.id > b.id )
+// 		.forEach( post => {
+// 			positions.push( { label: post.name, value: post.id } );
+// 			positionNames[ post.id ] = post.name;
+// 		} );
+// } );
 
 const host = window.location.href.split( '/wp-admin' )[ 0 ];
 const teamPlaceholder = `${ host }/wp-content/plugins/neu-hackney/assets/img/team-member.png`;
+
+// ensure information notice is shown each time editor is opened
+let warningShown = false;
 
 /**
  * Register: aa Gutenberg Block.
@@ -127,6 +130,19 @@ registerBlockType( 'neu-hackney/team-member', {
 				/>
 			);
 		};
+		// show notice to assist with completing the fields correctly
+		if ( ! warningShown ) {
+			wp.data.dispatch( 'core/notices' ).createNotice(
+				'warning', // Can be one of: success, info, warning, error.
+				'Make sure to select the team member\'s position(s) and the page(s) to show them on from the Document settings on the right hand side', // Text string to display.
+				{
+					isDismissible: true, // Whether the user can dismiss the notice.
+					// Any actions the user can perform.
+					actions: [],
+				}
+			);
+			warningShown = true;
+		}
 		return (
 			<section className={ className }>
 				<TextControl
@@ -154,12 +170,12 @@ registerBlockType( 'neu-hackney/team-member', {
 						) }
 					/>
 				</BaseControl>
-				<SelectControl
+				{ /* <SelectControl
 					label={ __( 'Select a Position' ) }
 					options={ positions }
 					value={ selectedPosition }
 					onChange={ onChangePosition }
-				/>
+				/> */ }
 			</section>
 		);
 	},

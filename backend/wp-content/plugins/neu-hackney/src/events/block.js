@@ -9,6 +9,9 @@ const {
 } = wp.components;
 import richTextToString from '../utils/richTextToString';
 
+// ensure information notice is shown each time editor is opened
+let warningShown = false;
+
 registerBlockType( 'neu-hackney/event', {
 	title: 'Event Details',
 	icon: 'format-image',
@@ -159,10 +162,24 @@ registerBlockType( 'neu-hackney/event', {
 			} );
 		};
 
+		// show notice to assist with completing the fields correctly
+		if ( ! warningShown ) {
+			wp.data.dispatch( 'core/notices' ).createNotice(
+				'warning', // Can be one of: success, info, warning, error.
+				'Please make sure that all text information contained in the flyer is added either in the image alt text field to be read out by screen readers, or in the event details field where it can be read by all users.', // Text string to display.
+				{
+					isDismissible: true, // Whether the user can dismiss the notice.
+					// Any actions the user can perform.
+					actions: [],
+				}
+			);
+			warningShown = true;
+		}
+
 		return (
 			<section className={ className }>
 				<BaseControl
-					label="Add a flyer for the event, which should include the event details"
+					label="Add a flyer for the event, which can include the event details."
 					id="flyer-upload"
 				>
 					<MediaUpload
@@ -184,6 +201,12 @@ registerBlockType( 'neu-hackney/event', {
 						) }
 					/>
 				</BaseControl>
+				<TextareaControl
+					label="Flyer Alt Text"
+					placeholder="Describe the important details from the flyer for those who cannot see the image. This will be read out for visually impaired users."
+					value={ imageAlt }
+					onChange={ onChangeAlt }
+				/>
 				<BaseControl
 					label="Enter date and time for the event, using 24 hour time (e.g. 18:00)"
 					id="date-time"
@@ -209,60 +232,43 @@ registerBlockType( 'neu-hackney/event', {
 						} }
 					/>
 				</BaseControl>
-				<div
-					className="neuhack-event-settings"
-					style={ {
-						background: '#ccc',
-						padding: '0 1rem 1rem 1rem',
-						borderRadius: '5px',
-						paddingTop: '1rem !important',
-					} }
-				>
-					<h4>Event Settings</h4>
-					<TextareaControl
-						label="Flyer Alt Text"
-						placeholder="Describe the important details from the flyer for those who cannot see the image. This will be read out for visually impaired users."
-						value={ imageAlt }
-						onChange={ onChangeAlt }
-					/>
-					<RadioControl
-						label="Select event type"
-						selected={ __eventIsGeneralMeeting }
-						onChange={ onEventTypeChange }
-						options={ [
-							{ label: 'Other', value: 0 },
-							{ label: 'General Meeting', value: 1 },
-						] }
-					/>
-					{ __eventIsGeneralMeeting ? (
-						<BaseControl
-							label="Upload a full flyer with agenda and previous meeting's minutes, as a pdf"
+				<RadioControl
+					label="Select event type"
+					selected={ __eventIsGeneralMeeting }
+					onChange={ onEventTypeChange }
+					options={ [
+						{ label: 'Other', value: 0 },
+						{ label: 'General Meeting', value: 1 },
+					] }
+				/>
+				{ __eventIsGeneralMeeting ? (
+					<BaseControl
+						label="Upload a full flyer with agenda and previous meeting's minutes, as a pdf"
+						id="agenda-upload"
+					>
+						<MediaUpload
+							onSelect={ onSelectFile }
+							allowedTypes="application/pdf"
+							value={ agendaID }
 							id="agenda-upload"
-						>
-							<MediaUpload
-								onSelect={ onSelectFile }
-								allowedTypes="application/pdf"
-								value={ agendaID }
-								id="agenda-upload"
-								render={ ( { open } ) => (
-									<div style={ { width: '100%' } }>
-										{ agendaID && (
-											<embed
-												src={ __agendaURL }
-												type="application/pdf"
-												width="100%"
-												height="600px"
-											/>
-										) }
-										<Button className="button button-large" onClick={ open }>
-											{ ! agendaID ? 'Upload agenda' : 'Choose again' }
-										</Button>
-									</div>
-								) }
-							/>
-						</BaseControl>
-					) : null }
-				</div>
+							render={ ( { open } ) => (
+								<div style={ { width: '100%' } }>
+									{ agendaID && (
+										<embed
+											src={ __agendaURL }
+											type="application/pdf"
+											width="100%"
+											height="600px"
+										/>
+									) }
+									<Button className="button button-large" onClick={ open }>
+										{ ! agendaID ? 'Upload agenda' : 'Choose again' }
+									</Button>
+								</div>
+							) }
+						/>
+					</BaseControl>
+				) : null }
 			</section>
 		);
 	},
