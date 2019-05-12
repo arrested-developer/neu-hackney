@@ -16,6 +16,14 @@ import richTextToString from '../utils/richTextToString';
 import './style.scss';
 import './editor.scss';
 
+// Import helper functions
+import makeValidator, {
+	passValidation,
+	failValidation,
+} from '../utils/validator';
+
+const validator = makeValidator();
+
 /**
  * Register: aa Gutenberg Block.
  *
@@ -99,6 +107,21 @@ registerBlockType( 'neu-hackney/campaign', {
 				__headline: text,
 			} );
 		};
+		const validatePostAttributes = () => {
+			if ( ! mediaID ) {
+				return failValidation(
+					'An image is required, please upload an image for the campaign.'
+				);
+			} else if ( ! campaignDetails ) {
+				return failValidation( 'Please add details about this campaign.' );
+			} else if ( ! headline ) {
+				return failValidation(
+					'A headline is required, please enter a short description of the campaign.'
+				);
+			}
+			return passValidation();
+		};
+		validator( validatePostAttributes );
 		return (
 			<section className={ className }>
 				<BaseControl label="Add a photo for the campaign" id="flyer-upload">
