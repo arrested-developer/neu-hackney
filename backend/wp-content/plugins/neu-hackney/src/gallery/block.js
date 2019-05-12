@@ -28,6 +28,9 @@ import './editor.scss';
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
+
+let firstLoad = true;
+
 registerBlockType( 'neu-hackney/gallery', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'NEU Hackney - Gallery Photo Block' ), // Block title.
@@ -70,6 +73,42 @@ registerBlockType( 'neu-hackney/gallery', {
 		setAttributes,
 		attributes: { mediaID, mediaURL, __alt },
 	} ) => {
+		const validateInputs = () => {
+			if ( ! mediaID ) {
+				return {
+					isValid: false,
+					message: 'An image is required',
+				};
+			} else if ( ! __alt ) {
+				return {
+					isValid: false,
+					message:
+						'Please add a short description of the image for screen readers',
+				};
+			}
+			return {
+				isValid: true,
+			};
+		};
+		const checkValidation = () => {
+			if ( ! firstLoad ) {
+				wp.data.dispatch( 'core/notices' ).removeNotice( 'LOCK_NOTICE' );
+				const postCheck = validateInputs();
+				if ( postCheck.isValid ) {
+					wp.data.dispatch( 'core/editor' ).unlockPostSaving( 'my_lock_key' );
+				} else {
+					wp.data.dispatch( 'core/editor' ).lockPostSaving( 'my_lock_key' );
+					wp.data
+						.dispatch( 'core/notices' )
+						.createErrorNotice( postCheck.message, {
+							id: 'LOCK_NOTICE',
+							isDismissible: true,
+						} );
+				}
+			} else {
+				firstLoad = false;
+			}
+		};
 		const onSelectImage = image => {
 			setAttributes( {
 				mediaID: image.id,
@@ -83,6 +122,7 @@ registerBlockType( 'neu-hackney/gallery', {
 				__alt: text,
 			} );
 		};
+		checkValidation();
 		return (
 			<section className={ className }>
 				<BaseControl label="Add a photo for the gallery" id="flyer-upload">
