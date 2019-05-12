@@ -34,3 +34,9 @@ export const failValidation = message => ( {
 export const passValidation = () => ( {
 	isValid: true,
 } );
+
+export const emailIsValid = email => {
+	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( email );
+};
+
+export const emailIsInvalid = email => ! emailIsValid( email );

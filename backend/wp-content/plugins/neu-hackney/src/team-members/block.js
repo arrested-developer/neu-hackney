@@ -11,6 +11,13 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
 const { MediaUpload } = wp.editor;
 const { Button, BaseControl, TextControl, SelectControl } = wp.components;
 
+// Import helper functions
+import makeValidator, {
+	passValidation,
+	failValidation,
+	emailIsInvalid,
+} from '../utils/validator';
+
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
@@ -34,6 +41,8 @@ const teamPlaceholder = `${ host }/wp-content/plugins/neu-hackney/assets/img/tea
 
 // ensure information notice is shown each time editor is opened
 let warningShown = false;
+
+const validator = makeValidator();
 
 /**
  * Register: aa Gutenberg Block.
@@ -133,7 +142,7 @@ registerBlockType( 'neu-hackney/team-member', {
 		// show notice to assist with completing the fields correctly
 		if ( ! warningShown ) {
 			wp.data.dispatch( 'core/notices' ).createNotice(
-				'warning', // Can be one of: success, info, warning, error.
+				'info', // Can be one of: success, info, warning, error.
 				'Make sure to select the team member\'s position(s) and the page(s) to show them on from the Document settings on the right hand side', // Text string to display.
 				{
 					isDismissible: true, // Whether the user can dismiss the notice.
@@ -143,6 +152,17 @@ registerBlockType( 'neu-hackney/team-member', {
 			);
 			warningShown = true;
 		}
+		const validatePostAttributes = () => {
+			if ( ! email ) {
+				return failValidation(
+					'Please enter an email address for this team member'
+				);
+			} else if ( emailIsInvalid( email ) ) {
+				return failValidation( 'Please enter a valid email address' );
+			}
+			return passValidation();
+		};
+		validator( validatePostAttributes );
 		return (
 			<section className={ className }>
 				<TextControl
