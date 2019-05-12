@@ -57,7 +57,7 @@ function neuhackney_custom_post_useful_resources() {
 		'description'           => 'NEU Hackney Useful Resources',
 		'labels'                => $labels,
 		'supports'              => array( 'title', 'editor', 'custom-fields' ),
-		'taxonomies'            => array( 'category' ),
+		'taxonomies'            => array( 'member-page' ),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,

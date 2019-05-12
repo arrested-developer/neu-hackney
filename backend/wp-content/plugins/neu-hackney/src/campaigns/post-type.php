@@ -57,7 +57,7 @@ function neuhackney_custom_post_campaigns() {
 		'description'           => 'NEU Hackney Campaigns',
 		'labels'                => $labels,
 		'supports'              => array( 'title', 'editor', 'custom-fields' ),
-		'taxonomies'            => array( 'category', 'post_tag' ),
+		'taxonomies'            => array( 'post_tag' ),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
