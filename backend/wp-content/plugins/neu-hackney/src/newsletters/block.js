@@ -28,6 +28,8 @@ import './editor.scss';
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
+
+// ensure information notice is shown each time editor is opened
 let warningShown = false;
 
 registerBlockType( 'neu-hackney/newsletter', {
@@ -61,6 +63,11 @@ registerBlockType( 'neu-hackney/newsletter', {
 		className,
 		setAttributes,
 	} ) => {
+		// remove the title, which is set automatically from the publish date
+		window.addEventListener( 'load', () => {
+			document.querySelector( '.editor-post-title__input' ).style.display =
+				'none';
+		} );
 		const onSelectFile = file => {
 			setAttributes( {
 				newsletterID: file.id,
@@ -69,6 +76,7 @@ registerBlockType( 'neu-hackney/newsletter', {
 			} );
 		};
 
+		// show notice to assist with completing the fields correctly
 		if ( ! warningShown ) {
 			wp.data.dispatch( 'core/notices' ).createNotice(
 				'warning', // Can be one of: success, info, warning, error.
