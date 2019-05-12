@@ -5,11 +5,11 @@
 // of a validation function which must be passed in
 
 export default () => {
-	let firstLoad = true;
-	const validator = validationCheck => {
-		if ( ! firstLoad ) {
+	let editorHasLoadedOnce = false;
+	const validator = validatePost => {
+		if ( editorHasLoadedOnce ) {
 			wp.data.dispatch( 'core/notices' ).removeNotice( 'LOCK_NOTICE' );
-			const check = validationCheck();
+			const check = validatePost();
 			if ( check.isValid ) {
 				wp.data.dispatch( 'core/editor' ).unlockPostSaving( 'my_lock_key' );
 			} else {
@@ -20,8 +20,17 @@ export default () => {
 				} );
 			}
 		} else {
-			firstLoad = false;
+			editorHasLoadedOnce = true;
 		}
 	};
 	return validator;
 };
+
+export const failValidation = message => ( {
+	isValid: false,
+	message,
+} );
+
+export const passValidation = () => ( {
+	isValid: true,
+} );

@@ -12,7 +12,10 @@ const { MediaUpload } = wp.editor;
 const { Button, BaseControl, TextControl } = wp.components;
 
 // Import helper functions
-import makeValidator from '../utils/makeValidator';
+import makeValidator, {
+	passValidation,
+	failValidation,
+} from '../utils/validator';
 
 //  Import CSS.
 import './style.scss';
@@ -33,7 +36,7 @@ import './editor.scss';
  */
 
 // create the validator function for this post
-const checkValidation = makeValidator();
+const validator = makeValidator();
 
 registerBlockType( 'neu-hackney/gallery', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
@@ -90,26 +93,18 @@ registerBlockType( 'neu-hackney/gallery', {
 				__alt: text,
 			} );
 		};
-		// validate each attribute passed in, and return a helpful message if the input is not correct
-		const validateInputs = () => {
+		const validatePostAttributes = () => {
 			if ( ! mediaID ) {
-				return {
-					isValid: false,
-					message: 'An image is required',
-				};
+				return failValidation( 'An image is required, please upload an image.' );
 			} else if ( ! __alt ) {
-				return {
-					isValid: false,
-					message:
-						'Please add a short description of the image for screen readers',
-				};
+				return failValidation(
+					'Please add a short description of the image for screen readers'
+				);
 			}
-			return {
-				isValid: true,
-			};
+			return passValidation();
 		};
-		// uses validation function above to lock and unlock post publishing, and return an error message
-		checkValidation( validateInputs );
+		// upon each render, run validator to lock/unlock publishing and/or show helpful error message
+		validator( validatePostAttributes );
 		return (
 			<section className={ className }>
 				<BaseControl label="Add a photo for the gallery" id="flyer-upload">
