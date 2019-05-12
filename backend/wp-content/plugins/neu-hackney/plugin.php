@@ -87,3 +87,27 @@ function neuhack_remove_wp_nodes()
     $wp_admin_bar->remove_node( 'new-page' );
     $wp_admin_bar->remove_node( 'new-media' );
 }
+
+/**
+ * Remove 'view' option from posts
+ */
+
+add_filter( 'post_row_actions', 'remove_row_actions', 10, 1 );
+
+function remove_row_actions( $actions )
+{
+    unset( $actions['view'] );
+    return $actions;
+}
+
+/**
+ * Remove 'view' option from pages
+ */
+
+add_filter( 'page_row_actions', 'remove_page_row_actions', 10, 1 );
+
+function remove_page_row_actions( $actions )
+{
+    unset( $actions['view'] );
+    return $actions;
+}
