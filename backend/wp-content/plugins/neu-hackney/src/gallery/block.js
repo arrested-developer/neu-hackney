@@ -11,6 +11,9 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
 const { MediaUpload } = wp.editor;
 const { Button, BaseControl, TextControl } = wp.components;
 
+// Import helper functions
+import makeValidator from '../utils/makeValidator';
+
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
@@ -29,7 +32,8 @@ import './editor.scss';
  *                             registered; otherwise `undefined`.
  */
 
-let firstLoad = true;
+// create the validator function for this post
+const checkValidation = makeValidator();
 
 registerBlockType( 'neu-hackney/gallery', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
@@ -73,6 +77,20 @@ registerBlockType( 'neu-hackney/gallery', {
 		setAttributes,
 		attributes: { mediaID, mediaURL, __alt },
 	} ) => {
+		const onSelectImage = image => {
+			setAttributes( {
+				mediaID: image.id,
+				mediaURL: image.url,
+				__mediaURL: image.url,
+			} );
+		};
+		const onChangeAltText = text => {
+			setAttributes( {
+				alt: text,
+				__alt: text,
+			} );
+		};
+		// validate each attribute passed in, and return a helpful message if the input is not correct
 		const validateInputs = () => {
 			if ( ! mediaID ) {
 				return {
@@ -90,39 +108,8 @@ registerBlockType( 'neu-hackney/gallery', {
 				isValid: true,
 			};
 		};
-		const checkValidation = () => {
-			if ( ! firstLoad ) {
-				wp.data.dispatch( 'core/notices' ).removeNotice( 'LOCK_NOTICE' );
-				const postCheck = validateInputs();
-				if ( postCheck.isValid ) {
-					wp.data.dispatch( 'core/editor' ).unlockPostSaving( 'my_lock_key' );
-				} else {
-					wp.data.dispatch( 'core/editor' ).lockPostSaving( 'my_lock_key' );
-					wp.data
-						.dispatch( 'core/notices' )
-						.createErrorNotice( postCheck.message, {
-							id: 'LOCK_NOTICE',
-							isDismissible: true,
-						} );
-				}
-			} else {
-				firstLoad = false;
-			}
-		};
-		const onSelectImage = image => {
-			setAttributes( {
-				mediaID: image.id,
-				mediaURL: image.url,
-				__mediaURL: image.url,
-			} );
-		};
-		const onChangeAltText = text => {
-			setAttributes( {
-				alt: text,
-				__alt: text,
-			} );
-		};
-		checkValidation();
+		// uses validation function above to lock and unlock post publishing, and return an error message
+		checkValidation( validateInputs );
 		return (
 			<section className={ className }>
 				<BaseControl label="Add a photo for the gallery" id="flyer-upload">
