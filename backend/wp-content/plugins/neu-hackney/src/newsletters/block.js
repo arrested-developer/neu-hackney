@@ -9,7 +9,7 @@
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const { MediaUpload } = wp.editor;
-const { Button, BaseControl, Notice } = wp.components;
+const { Button, BaseControl } = wp.components;
 
 // Import helper functions
 import makeValidator, {
