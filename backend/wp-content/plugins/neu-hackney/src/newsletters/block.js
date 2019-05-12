@@ -38,6 +38,9 @@ import './editor.scss';
 // ensure information notice is shown each time editor is opened
 let noticeShown = false;
 
+// create the validator function for this post
+const validator = makeValidator();
+
 registerBlockType( 'neu-hackney/newsletter', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'NEU Hackney - Newsletter Block' ), // Block title.
@@ -95,7 +98,16 @@ registerBlockType( 'neu-hackney/newsletter', {
 			);
 			noticeShown = true;
 		}
-
+		const validatePostAttributes = () => {
+			if ( ! newsletterID ) {
+				return failValidation(
+					'A newsletter is required, please upload a file in pdf format'
+				);
+			}
+			return passValidation();
+		};
+		// upon each render, run validator to lock/unlock publishing and/or show helpful error message
+		validator( validatePostAttributes );
 		return (
 			<div className={ className }>
 				<BaseControl
