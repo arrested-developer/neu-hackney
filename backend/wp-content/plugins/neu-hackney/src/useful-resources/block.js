@@ -28,6 +28,10 @@ import './editor.scss';
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
+
+// ensure information notice is shown each time editor is opened
+let warningShown = false;
+
 registerBlockType( 'neu-hackney/useful-resource', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'NEU Hackney - Useful Resource Block' ), // Block title.
@@ -82,9 +86,6 @@ registerBlockType( 'neu-hackney/useful-resource', {
 			source: 'meta',
 			meta: 'neuhack_resource_is_external',
 		},
-		warningShown: {
-			type: 'boolean',
-		},
 	},
 	edit: ( {
 		className,
@@ -94,7 +95,6 @@ registerBlockType( 'neu-hackney/useful-resource', {
 			resourceDetails,
 			resourceID,
 			resourceLink,
-			warningShown,
 		},
 	} ) => {
 		const onSelectFile = file => {
@@ -126,16 +126,14 @@ registerBlockType( 'neu-hackney/useful-resource', {
 		if ( ! warningShown ) {
 			wp.data.dispatch( 'core/notices' ).createNotice(
 				'info', // Can be one of: success, info, warning, error.
-				'Don\'t forget to use Settings -> Document -> Categories to select which groups of members this resource is relevant to.', // Text string to display.
+				'Don\'t forget to use Settings -> Document -> Show On Page(s) to select where this resource should be displayed.', // Text string to display.
 				{
 					isDismissible: true, // Whether the user can dismiss the notice.
 					// Any actions the user can perform.
 					actions: [],
 				}
 			);
-			setAttributes( {
-				warningShown: true,
-			} );
+			warningShown = true;
 		}
 		return (
 			<section className={ className }>

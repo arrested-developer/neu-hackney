@@ -45,8 +45,8 @@ function neuhack_member_pages() {
 		'rest_base'                  => 'member-page',
 		// prevent users from changing the taxonomy as the site will rely on it
 		'capabilities' => array(
-			'manage_terms' => 'edit_posts',
-			'edit_terms'   => 'edit_posts',
+			'manage_terms' => 'edit_users',
+			'edit_terms'   => 'edit_users',
 			'delete_terms' => 'edit_users',
 			'assign_terms' => 'edit_posts',
 		),
@@ -64,7 +64,6 @@ function neuhack_register_member_pages(){
 		'member-page', // the taxonomy
 		array(
 			'slug' => 'teachers',
-			'description' => 'This description is the text that will appear on the member page. Use this description to give a little information about what you do for this member type, or provide information specific to their needs. If this member type has its own page, this description will not be seen.',
 		)
 	);
 	wp_insert_term(
@@ -72,7 +71,6 @@ function neuhack_register_member_pages(){
 		'member-page', // the taxonomy
 		array(
 			'slug' => 'support-staff',
-			'description' => 'This description is the text that will appear on the member page. Use this description to give a little information about what you do for this member type, or provide information specific to their needs. If this member type has its own page, this description will not be seen.',
 		)
 	);
 	wp_insert_term(
@@ -80,7 +78,6 @@ function neuhack_register_member_pages(){
 		'member-page', // the taxonomy
 		array(
 			'slug' => 'supply-teachers',
-			'description' => 'This description is the text that will appear on the member page. Use this description to give a little information about what you do for this member type, or provide information specific to their needs. If this member type has its own page, this description will not be seen.',
 		)
 	);
 	wp_insert_term(
@@ -88,7 +85,6 @@ function neuhack_register_member_pages(){
 		'member-page', // the taxonomy
 		array(
 			'slug' => 'school-leaders',
-			'description' => 'This description is the text that will appear on the member page. Use this description to give a little information about what you do for this member type, or provide information specific to their needs. If this member type has its own page, this description will not be seen.',
 		)
 	);
 	wp_insert_term(
@@ -96,7 +92,6 @@ function neuhack_register_member_pages(){
 		'member-page', // the taxonomy
 		array(
 			'slug' => 'reps',
-			'description' => 'This description is the text that will appear on the member page. Use this description to give a little information about what you do for this member type, or provide information specific to their needs. If this member type has its own page, this description will not be seen.',
 		)
 	);
 	wp_insert_term(
@@ -104,7 +99,6 @@ function neuhack_register_member_pages(){
 		'member-page', // the taxonomy
 		array(
 			'slug' => 'post-16',
-			'description' => 'This description is the text that will appear on the member page. Use this description to give a little information about what you do for this member type, or provide information specific to their needs. If this member type has its own page, this description will not be seen.',
 		)
 	);
 	wp_insert_term(
@@ -112,7 +106,6 @@ function neuhack_register_member_pages(){
 		'member-page', // the taxonomy
 		array(
 			'slug' => 'nqts',
-			'description' => 'This description is the text that will appear on the member page. Use this description to give a little information about what you do for this member type, or provide information specific to their needs. If this member type has its own page, this description will not be seen.',
 		)
 	);
 	wp_insert_term(
@@ -120,7 +113,6 @@ function neuhack_register_member_pages(){
 		'member-page', // the taxonomy
 		array(
 			'slug' => 'independent-sector',
-			'description' => 'This description is the text that will appear on the member page. Use this description to give a little information about what you do for this member type, or provide information specific to their needs. If this member type has its own page, this description will not be seen.',
 		)
 	);
 	wp_insert_term(
@@ -128,7 +120,6 @@ function neuhack_register_member_pages(){
 		'member-page', // the taxonomy
 		array(
 			'slug' => 'equalities',
-			'description' => 'This description is the text that will appear on the member page. Use this description to give a little information about what you do for this member type, or provide information specific to their needs. If this member type has its own page, this description will not be seen.',
 		)
 	);
 	wp_insert_term(
@@ -136,7 +127,6 @@ function neuhack_register_member_pages(){
 		'member-page', // the taxonomy
 		array(
 			'slug' => 'academy-staff',
-			'description' => 'This description is the text that will appear on the member page. Use this description to give a little information about what you do for this member type, or provide information specific to their needs. If this member type has its own page, this description will not be seen.',
 		)
 	);
 	wp_insert_term(
@@ -144,7 +134,6 @@ function neuhack_register_member_pages(){
 		'member-page', // the taxonomy
 		array(
 			'slug' => 'affiliations',
-			'description' => 'This description is the text that will appear on the member page. Use this description to give a little information about what you do for this member type, or provide information specific to their needs. If this member type has its own page, this description will not be seen.',
 		)
 	);
 }
