@@ -11,6 +11,12 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
 const { MediaUpload } = wp.editor;
 const { Button, BaseControl, TextControl, RadioControl } = wp.components;
 
+// Import helper functions
+import makeValidator, {
+	passValidation,
+	failValidation,
+} from '../utils/validator';
+
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
@@ -31,6 +37,9 @@ import './editor.scss';
 
 // ensure information notice is shown each time editor is opened
 let warningShown = false;
+
+const validator = makeValidator();
+let postTitle = '';
 
 registerBlockType( 'neu-hackney/useful-resource', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
@@ -93,7 +102,7 @@ registerBlockType( 'neu-hackney/useful-resource', {
 		attributes: {
 			__resourceIsExternal,
 			resourceDetails,
-			resourceID,
+			resourceFileID,
 			resourceLink,
 		},
 	} ) => {
@@ -135,6 +144,28 @@ registerBlockType( 'neu-hackney/useful-resource', {
 			);
 			warningShown = true;
 		}
+		const validatePostAttributes = () => {
+			console.log( 'link attribute: ', resourceLink );
+			if ( ! postTitle ) {
+				return failValidation( 'Please enter a title for this resource' );
+			} else if ( ! __resourceIsExternal && ! resourceFileID ) {
+				return failValidation( 'Please upload a file for this resource' );
+			} else if ( __resourceIsExternal && ! resourceLink ) {
+				return failValidation( 'Please enter a link for this resource' );
+			} else if ( ! resourceDetails ) {
+				return failValidation( 'Please enter a description of the resource' );
+			}
+			return passValidation();
+		};
+		const validateTitle = title => {
+			postTitle = title.value;
+			validator( validatePostAttributes );
+		};
+		window.addEventListener( 'load', () => {
+			const title = document.querySelector( '.editor-post-title__input' );
+			title.addEventListener( 'input', () => validateTitle( title ) );
+		} );
+		validator( validatePostAttributes );
 		return (
 			<section className={ className }>
 				<RadioControl
@@ -161,11 +192,11 @@ registerBlockType( 'neu-hackney/useful-resource', {
 						<MediaUpload
 							onSelect={ onSelectFile }
 							allowedTypes="image/*,.pdf,application/pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.zip,application/zip,.mp3,audio/mpeg"
-							value={ resourceID }
+							value={ resourceFileID }
 							id="media-upload"
 							render={ ( { open } ) => (
 								<Button className="button button-large" onClick={ open }>
-									{ ! resourceID ?
+									{ ! resourceFileID ?
 										'Upload file' :
 										'File Uploaded - click to choose again' }
 								</Button>
