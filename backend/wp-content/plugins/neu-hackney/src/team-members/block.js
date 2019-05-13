@@ -42,6 +42,9 @@ const teamPlaceholder = `${ host }/wp-content/plugins/neu-hackney/assets/img/tea
 // ensure information notice is shown each time editor is opened
 let warningShown = false;
 
+// create a variable to store the post title
+let postTitle = '';
+
 const validator = makeValidator();
 
 /**
@@ -106,10 +109,6 @@ registerBlockType( 'neu-hackney/team-member', {
 		setAttributes,
 		attributes: { mediaID, mediaURL, email, selectedPosition },
 	} ) => {
-		// change placeholder text for the title
-		window.addEventListener( 'load', () => {
-			document.querySelector( '.editor-post-title__input' ).placeholder = 'Name';
-		} );
 		const onSelectImage = image => {
 			setAttributes( {
 				mediaID: image.id,
@@ -123,12 +122,12 @@ registerBlockType( 'neu-hackney/team-member', {
 				__email: e,
 			} );
 		};
-		const onChangePosition = e => {
-			setAttributes( {
-				selectedPosition: e,
-				positionName: positionNames[ e ],
-			} );
-		};
+		// const onChangePosition = e => {
+		// 	setAttributes( {
+		// 		selectedPosition: e,
+		// 		positionName: positionNames[ e ],
+		// 	} );
+		// };
 		const TeamPhoto = ( { src } ) => {
 			return (
 				<div
@@ -153,16 +152,26 @@ registerBlockType( 'neu-hackney/team-member', {
 			warningShown = true;
 		}
 		const validatePostAttributes = () => {
-			if ( ! email ) {
+			if ( ! postTitle ) {
+				return failValidation( 'Please enter a name' );
+			} else if ( ! email || emailIsInvalid( email ) ) {
 				return failValidation(
-					'Please enter an email address for this team member'
+					'Please enter a valid email address for this team member'
 				);
-			} else if ( emailIsInvalid( email ) ) {
-				return failValidation( 'Please enter a valid email address' );
 			}
 			return passValidation();
 		};
 		validator( validatePostAttributes );
+		window.addEventListener( 'load', () => {
+			const title = document.querySelector( '.editor-post-title__input' );
+			// rename the title placeholder
+			title.placeholder = 'Name';
+			// listen for changes to the title and validate
+			title.addEventListener( 'input', () => {
+				postTitle = title.value;
+				validator( validatePostAttributes );
+			} );
+		} );
 		return (
 			<section className={ className }>
 				<TextControl
