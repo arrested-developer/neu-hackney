@@ -152,6 +152,7 @@ registerBlockType( 'neu-hackney/team-member', {
 			warningShown = true;
 		}
 		const validatePostAttributes = () => {
+			const email = document.querySelector( '#emailInput' ).value;
 			if ( ! postTitle ) {
 				return failValidation( 'Please enter a name' );
 			} else if ( ! email || emailIsInvalid( email ) ) {
@@ -161,17 +162,18 @@ registerBlockType( 'neu-hackney/team-member', {
 			}
 			return passValidation();
 		};
-		validator( validatePostAttributes );
+		const validateTitle = title => {
+			postTitle = title.value;
+			validator( validatePostAttributes );
+		};
 		window.addEventListener( 'load', () => {
 			const title = document.querySelector( '.editor-post-title__input' );
 			// rename the title placeholder
 			title.placeholder = 'Name';
 			// listen for changes to the title and validate
-			title.addEventListener( 'input', () => {
-				postTitle = title.value;
-				validator( validatePostAttributes );
-			} );
+			title.addEventListener( 'input', () => validateTitle( title ) );
 		} );
+		validator( validatePostAttributes );
 		return (
 			<section className={ className }>
 				<TextControl
@@ -179,6 +181,7 @@ registerBlockType( 'neu-hackney/team-member', {
 					placeholder="someone@neu.org.uk"
 					value={ email }
 					onChange={ onChangeEmail }
+					id="emailInput"
 				/>
 				<BaseControl
 					label="Add a photo for the team member (if no photo is selected, a placeholder will be used)"
