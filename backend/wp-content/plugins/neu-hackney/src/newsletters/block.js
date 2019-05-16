@@ -12,10 +12,7 @@ const { MediaUpload } = wp.editor;
 const { Button, BaseControl } = wp.components;
 
 // Import helper functions
-import makeValidator, {
-	passValidation,
-	failValidation,
-} from '../utils/validator';
+import makeValidator from '../utils/validator';
 
 //  Import CSS.
 import './style.scss';
@@ -40,6 +37,15 @@ let noticeShown = false;
 
 // create the validator function for this post
 const validator = makeValidator();
+validator.use( () => {
+	const newsletter = validator.get( 'newsletter' );
+	if ( ! newsletter ) {
+		return validator.fail(
+			'A newsletter is required, please upload a file in pdf format'
+		);
+	}
+	return validator.pass();
+} );
 
 registerBlockType( 'neu-hackney/newsletter', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
@@ -72,10 +78,11 @@ registerBlockType( 'neu-hackney/newsletter', {
 		className,
 		setAttributes,
 	} ) => {
-		// remove the title, which is set automatically from the publish date
 		window.addEventListener( 'load', () => {
+			// remove the title, which is set automatically from the publish date
 			document.querySelector( '.editor-post-title__input' ).style.display =
 				'none';
+			validator.set( 'newsletter', newsletterID );
 		} );
 		const onSelectFile = file => {
 			setAttributes( {
@@ -83,6 +90,7 @@ registerBlockType( 'neu-hackney/newsletter', {
 				newsletterURL: file.url,
 				__newsletterURL: file.url,
 			} );
+			validator.check( 'newsletter', file.id );
 		};
 
 		// show notice to assist with completing the fields correctly
@@ -98,16 +106,6 @@ registerBlockType( 'neu-hackney/newsletter', {
 			);
 			noticeShown = true;
 		}
-		const validatePostAttributes = () => {
-			if ( ! newsletterID ) {
-				return failValidation(
-					'A newsletter is required, please upload a file in pdf format'
-				);
-			}
-			return passValidation();
-		};
-		// upon each render, run validator to lock/unlock publishing and/or show helpful error message
-		validator( validatePostAttributes );
 		return (
 			<div className={ className }>
 				<BaseControl
