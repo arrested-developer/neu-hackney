@@ -12,10 +12,7 @@ const { MediaUpload } = wp.editor;
 const { Button, BaseControl, TextControl } = wp.components;
 
 // Import helper functions
-import makeValidator, {
-	passValidation,
-	failValidation,
-} from '../utils/validator';
+import makeValidator from '../utils/validator';
 
 //  Import CSS.
 import './style.scss';
@@ -37,6 +34,20 @@ import './editor.scss';
 
 // create the validator function for this post
 const validator = makeValidator();
+// set validator logic
+validator.use( () => {
+	const { title, image, alt } = validator.getAll();
+	if ( ! title ) {
+		return validator.fail( 'Please enter a title' );
+	} else if ( ! image ) {
+		return validator.fail( 'An image is required, please upload an image.' );
+	} else if ( ! alt ) {
+		return validator.fail(
+			'Please add a short description of the image for screen readers'
+		);
+	}
+	return validator.pass();
+} );
 
 registerBlockType( 'neu-hackney/gallery', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
@@ -80,31 +91,32 @@ registerBlockType( 'neu-hackney/gallery', {
 		setAttributes,
 		attributes: { mediaID, mediaURL, __alt },
 	} ) => {
+		// set initial values for validator
+		window.addEventListener( 'load', () => {
+			validator.set( 'image', mediaID );
+			validator.set( 'alt', __alt );
+			// set initial value for title, and validate on change
+			const title = document.querySelector( '.editor-post-title__input' );
+			validator.set( 'title', title.value );
+			title.addEventListener( 'input', () => {
+				validator.check( 'title', title.value );
+			} );
+		} );
 		const onSelectImage = image => {
 			setAttributes( {
 				mediaID: image.id,
 				mediaURL: image.url,
 				__mediaURL: image.url,
 			} );
+			validator.check( 'image', image.id );
 		};
 		const onChangeAltText = text => {
 			setAttributes( {
 				alt: text,
 				__alt: text,
 			} );
+			validator.check( 'alt', text );
 		};
-		const validatePostAttributes = () => {
-			if ( ! mediaID ) {
-				return failValidation( 'An image is required, please upload an image.' );
-			} else if ( ! __alt ) {
-				return failValidation(
-					'Please add a short description of the image for screen readers'
-				);
-			}
-			return passValidation();
-		};
-		// upon each render, run validator to lock/unlock publishing and/or show helpful error message
-		validator( validatePostAttributes );
 		return (
 			<section className={ className }>
 				<BaseControl label="Add a photo for the gallery" id="flyer-upload">
