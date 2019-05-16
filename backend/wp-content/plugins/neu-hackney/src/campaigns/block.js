@@ -87,7 +87,7 @@ registerBlockType( 'neu-hackney/campaign', {
 		attributes: { mediaID, mediaURL, campaignDetails, headline },
 	} ) => {
 		const validatePostAttributes = () => {
-			const { image, headline, details, title } = validator.getAllInputs();
+			const { image, headline, details, title } = validator.getAll();
 			if ( ! title ) {
 				return validator.fail( 'Please enter a title' );
 			} else if ( ! image ) {
@@ -99,13 +99,12 @@ registerBlockType( 'neu-hackney/campaign', {
 			}
 			return validator.pass();
 		};
-		const validateTitle = title => {
-			validator.setInput( 'title', title.value );
-			validator.run( validatePostAttributes );
-		};
 		window.addEventListener( 'load', () => {
 			const title = document.querySelector( '.editor-post-title__input' );
-			title.addEventListener( 'input', () => validateTitle( title ) );
+			title.addEventListener( 'input', () => {
+				validator.set( 'title', title.value );
+				validator.run( validatePostAttributes );
+			} );
 		} );
 		const onSelectImage = image => {
 			setAttributes( {
@@ -113,7 +112,7 @@ registerBlockType( 'neu-hackney/campaign', {
 				mediaURL: image.url,
 				__mediaURL: image.url,
 			} );
-			validator.setInput( 'image', image.id );
+			validator.set( 'image', image.id );
 			validator.run( validatePostAttributes );
 		};
 		const onChangeDetails = text => {
@@ -121,7 +120,7 @@ registerBlockType( 'neu-hackney/campaign', {
 				campaignDetails: text,
 				__campaignDetails: richTextToString( text ),
 			} );
-			validator.setInput( 'details', richTextToString( text ) );
+			validator.set( 'details', richTextToString( text ) );
 			validator.run( validatePostAttributes );
 		};
 		const onChangeHeadline = text => {
@@ -129,7 +128,7 @@ registerBlockType( 'neu-hackney/campaign', {
 				headline: text,
 				__headline: text,
 			} );
-			validator.setInput( 'headline', text );
+			validator.set( 'headline', text );
 			validator.run( validatePostAttributes );
 		};
 		return (

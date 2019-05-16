@@ -31,9 +31,9 @@ export default () => {
 		isValid: true,
 	} );
 	const inputs = {};
-	const getInput = key => inputs[ key ];
-	const setInput = ( key, value ) => ( inputs[ key ] = value );
-	const getAllInputs = () => inputs;
+	const get = key => inputs[ key ];
+	const set = ( key, value ) => ( inputs[ key ] = value );
+	const getAll = () => inputs;
 	const emailIsValid = email => {
 		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( email );
 	};
@@ -44,8 +44,8 @@ export default () => {
 		pass,
 		emailIsValid,
 		emailIsInvalid,
-		getInput,
-		setInput,
-		getAllInputs,
+		get,
+		set,
+		getAll,
 	};
 };
