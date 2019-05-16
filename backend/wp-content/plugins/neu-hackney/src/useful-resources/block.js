@@ -12,10 +12,7 @@ const { MediaUpload } = wp.editor;
 const { Button, BaseControl, TextControl, RadioControl } = wp.components;
 
 // Import helper functions
-import makeValidator, {
-	passValidation,
-	failValidation,
-} from '../utils/validator';
+import makeValidator from '../utils/validator';
 
 //  Import CSS.
 import './style.scss';
@@ -39,7 +36,19 @@ import './editor.scss';
 let warningShown = false;
 
 const validator = makeValidator();
-let postTitle = '';
+validator.use( () => {
+	const { title, resourceIsExternal, file, link, details } = validator.getAll();
+	if ( ! title ) {
+		return validator.fail( 'Please enter a title for this resource' );
+	} else if ( resourceIsExternal && ! link ) {
+		return validator.fail( 'Please enter a link for this resource' );
+	} else if ( ! resourceIsExternal && ! file ) {
+		return validator.fail( 'Please upload a file for this resource' );
+	} else if ( ! details || ( Array.isArray( details ) && details.length === 0 ) ) {
+		return validator.fail( 'Please enter a description of the resource' );
+	}
+	return validator.pass();
+} );
 
 registerBlockType( 'neu-hackney/useful-resource', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
@@ -112,12 +121,14 @@ registerBlockType( 'neu-hackney/useful-resource', {
 				resourceFileURL: file.url,
 				__resourceFileURL: file.url,
 			} );
+			validator.check( 'file', file.id );
 		};
-		const onChangeResourceLink = text => {
+		const onChangeResourceLink = link => {
 			setAttributes( {
-				resourceLink: text,
-				__resourceLink: text,
+				resourceLink: link,
+				__resourceLink: link,
 			} );
+			validator.check( 'link', link );
 		};
 		const onResourceTypeChange = value => {
 			const n = Number( value );
@@ -125,12 +136,14 @@ registerBlockType( 'neu-hackney/useful-resource', {
 				resourceIsExternal: n,
 				__resourceIsExternal: n,
 			} );
+			validator.check( 'resourceIsExternal', n );
 		};
-		const onChangeDetails = text => {
+		const onChangeDetails = details => {
 			setAttributes( {
-				resourceDetails: text,
-				__resourceDetails: text,
+				resourceDetails: details,
+				__resourceDetails: details,
 			} );
+			validator.check( 'details', details );
 		};
 		if ( ! warningShown ) {
 			wp.data.dispatch( 'core/notices' ).createNotice(
@@ -144,28 +157,17 @@ registerBlockType( 'neu-hackney/useful-resource', {
 			);
 			warningShown = true;
 		}
-		const validatePostAttributes = () => {
-			console.log( 'link attribute: ', resourceLink );
-			if ( ! postTitle ) {
-				return failValidation( 'Please enter a title for this resource' );
-			} else if ( ! __resourceIsExternal && ! resourceFileID ) {
-				return failValidation( 'Please upload a file for this resource' );
-			} else if ( __resourceIsExternal && ! resourceLink ) {
-				return failValidation( 'Please enter a link for this resource' );
-			} else if ( ! resourceDetails ) {
-				return failValidation( 'Please enter a description of the resource' );
-			}
-			return passValidation();
-		};
-		const validateTitle = title => {
-			postTitle = title.value;
-			validator( validatePostAttributes );
-		};
 		window.addEventListener( 'load', () => {
 			const title = document.querySelector( '.editor-post-title__input' );
-			title.addEventListener( 'input', () => validateTitle( title ) );
+			validator.set( 'title', title.value );
+			validator.set( 'link', resourceLink );
+			validator.set( 'file', resourceFileID );
+			validator.set( 'resourceIsExternal', __resourceIsExternal );
+			validator.set( 'details', resourceDetails );
+			title.addEventListener( 'input', () =>
+				validator.check( 'title', title.value )
+			);
 		} );
-		validator( validatePostAttributes );
 		return (
 			<section className={ className }>
 				<RadioControl
