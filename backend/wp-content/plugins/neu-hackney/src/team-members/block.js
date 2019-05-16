@@ -12,11 +12,7 @@ const { MediaUpload } = wp.editor;
 const { Button, BaseControl, TextControl, SelectControl } = wp.components;
 
 // Import helper functions
-import makeValidator, {
-	passValidation,
-	failValidation,
-	emailIsInvalid,
-} from '../utils/validator';
+import makeValidator from '../utils/validator';
 
 //  Import CSS.
 import './style.scss';
@@ -42,10 +38,18 @@ const teamPlaceholder = `${ host }/wp-content/plugins/neu-hackney/assets/img/tea
 // ensure information notice is shown each time editor is opened
 let warningShown = false;
 
-// create a variable to store the post title
-let postTitle = '';
-
 const validator = makeValidator();
+validator.use( () => {
+	const { name, email } = validator.getAll();
+	if ( ! name ) {
+		return validator.fail( 'Please enter a name' );
+	} else if ( ! email || validator.emailIsInvalid( email ) ) {
+		return validator.fail(
+			'Please enter a valid email address for this team member'
+		);
+	}
+	return validator.pass();
+} );
 
 /**
  * Register: aa Gutenberg Block.
@@ -115,12 +119,14 @@ registerBlockType( 'neu-hackney/team-member', {
 				mediaURL: image.url,
 				__mediaURL: image.url,
 			} );
+			// image is optional, no validation needed
 		};
 		const onChangeEmail = e => {
 			setAttributes( {
 				email: e,
 				__email: e,
 			} );
+			validator.check( 'email', e );
 		};
 		// const onChangePosition = e => {
 		// 	setAttributes( {
@@ -151,29 +157,18 @@ registerBlockType( 'neu-hackney/team-member', {
 			);
 			warningShown = true;
 		}
-		const validatePostAttributes = () => {
-			const email = document.querySelector( '#emailInput' ).value;
-			if ( ! postTitle ) {
-				return failValidation( 'Please enter a name' );
-			} else if ( ! email || emailIsInvalid( email ) ) {
-				return failValidation(
-					'Please enter a valid email address for this team member'
-				);
-			}
-			return passValidation();
-		};
-		const validateTitle = title => {
-			postTitle = title.value;
-			validator( validatePostAttributes );
-		};
 		window.addEventListener( 'load', () => {
 			const title = document.querySelector( '.editor-post-title__input' );
 			// rename the title placeholder
 			title.placeholder = 'Name';
+			// set initial values for validator
+			validator.set( 'name', title.value );
+			validator.set( 'email', email );
 			// listen for changes to the title and validate
-			title.addEventListener( 'input', () => validateTitle( title ) );
+			title.addEventListener( 'input', () =>
+				validator.check( 'name', title.value )
+			);
 		} );
-		validator( validatePostAttributes );
 		return (
 			<section className={ className }>
 				<TextControl
