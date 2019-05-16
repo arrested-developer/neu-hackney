@@ -101,7 +101,7 @@ registerBlockType( 'neu-hackney/campaign', {
 			} else if ( ! details ) {
 				return failValidation( 'Please enter the campaign details' );
 			}
-			passValidation();
+			return passValidation();
 		};
 		const validateTitle = title => {
 			validatorInputs.postTitle = title.value;
@@ -125,7 +125,7 @@ registerBlockType( 'neu-hackney/campaign', {
 				campaignDetails: text,
 				__campaignDetails: richTextToString( text ),
 			} );
-			validatorInputs.details = text;
+			validatorInputs.details = richTextToString( text );
 			validator( validatePostAttributes );
 		};
 		const onChangeHeadline = text => {
