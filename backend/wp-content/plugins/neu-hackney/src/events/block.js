@@ -9,6 +9,27 @@ const {
 } = wp.components;
 import richTextToString from '../utils/richTextToString';
 
+import makeValidator from '../utils/validator';
+
+const validator = makeValidator();
+validator.use( () => {
+	const { title, image, alt, isGeneralMeeting, agenda } = validator.getAll();
+	if ( ! title ) {
+		return validator.fail( 'Please enter a title for the event' );
+	} else if ( ! image ) {
+		return validator.fail( 'Please upload a flyer for the event' );
+	} else if ( ! alt ) {
+		return validator.fail(
+			'Please enter alt text to describe the image for screen readers'
+		);
+	} else if ( isGeneralMeeting && ! agenda ) {
+		return validator.fail(
+			'General meetings require an agenda, please upload a pdf file'
+		);
+	}
+	return validator.pass();
+} );
+
 // ensure information notice is shown each time editor is opened
 let warningShown = false;
 
@@ -104,12 +125,24 @@ registerBlockType( 'neu-hackney/event', {
 		},
 		setAttributes,
 	} ) => {
+		window.addEventListener( 'load', () => {
+			const title = document.querySelector( '.editor-post-title__input' );
+			validator.set( 'title', title.value );
+			validator.set( 'image', mediaID );
+			validator.set( 'alt', imageAlt );
+			validator.set( 'isGeneralMeeting', __eventIsGeneralMeeting );
+			validator.set( 'agenda', agendaID );
+			title.addEventListener( 'input', () => {
+				validator.check( 'title', title.value );
+			} );
+		} );
 		const onSelectImage = media => {
 			setAttributes( {
 				mediaID: media.id,
 				mediaURL: media.url,
 				__mediaURL: media.url,
 			} );
+			validator.check( 'image', media.id );
 		};
 
 		const onChangeAlt = text => {
@@ -117,6 +150,7 @@ registerBlockType( 'neu-hackney/event', {
 				imageAlt: text,
 				__imageAlt: text,
 			} );
+			validator.check( 'alt', text );
 		};
 
 		const onChangeDateTime = newDateTime => {
@@ -152,6 +186,7 @@ registerBlockType( 'neu-hackney/event', {
 				eventIsGeneralMeeting: n,
 				__eventIsGeneralMeeting: n,
 			} );
+			validator.check( 'isGeneralMeeting', n );
 		};
 
 		const onSelectFile = file => {
@@ -160,13 +195,14 @@ registerBlockType( 'neu-hackney/event', {
 				agendaURL: file.url,
 				__agendaURL: file.url,
 			} );
+			validator.check( 'agenda', file.id );
 		};
 
 		// show notice to assist with completing the fields correctly
 		if ( ! warningShown ) {
 			wp.data.dispatch( 'core/notices' ).createNotice(
 				'warning', // Can be one of: success, info, warning, error.
-				'Please make sure that all text information contained in the flyer is added either in the image alt text field to be read out by screen readers, or in the event details field where it can be read by all users.', // Text string to display.
+				'For accessibility, please make sure that all text information contained in the flyer is added either in the image alt text field to be read out by screen readers, or in the event details field where it can be read by all users.', // Text string to display.
 				{
 					isDismissible: true, // Whether the user can dismiss the notice.
 					// Any actions the user can perform.
@@ -217,7 +253,7 @@ registerBlockType( 'neu-hackney/event', {
 						onChange={ onChangeDateTime }
 					/>
 				</BaseControl>
-				<BaseControl label="Event Details" id="event-details">
+				<BaseControl label="Event Details (optional)" id="event-details">
 					<RichText
 						tagName="div"
 						// multiline="br"
