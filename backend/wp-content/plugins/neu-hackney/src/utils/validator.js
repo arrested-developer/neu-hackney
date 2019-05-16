@@ -1,15 +1,10 @@
-// validator function includes a closure to prevent unhelpful display of error message
-// on first page load of editor.
-
-// function returned will lock and unlock post publishing, depending on the result
-// of a validation function which must be passed in
-
 export default () => {
 	let editorHasLoadedOnce = false;
-	const run = validatePost => {
+	let validatorFunction = () => null;
+	const run = () => {
 		if ( editorHasLoadedOnce ) {
 			wp.data.dispatch( 'core/notices' ).removeNotice( 'LOCK_NOTICE' );
-			const check = validatePost();
+			const check = validatorFunction();
 			if ( check.isValid ) {
 				wp.data.dispatch( 'core/editor' ).unlockPostSaving( 'my_lock_key' );
 			} else {
@@ -23,6 +18,7 @@ export default () => {
 			editorHasLoadedOnce = true;
 		}
 	};
+	const use = f => ( validatorFunction = f );
 	const fail = message => ( {
 		isValid: false,
 		message,
@@ -32,7 +28,13 @@ export default () => {
 	} );
 	const inputs = {};
 	const get = key => inputs[ key ];
-	const set = ( key, value ) => ( inputs[ key ] = value );
+	const set = ( key, value ) => {
+		inputs[ key ] = value;
+	};
+	const check = ( key, value ) => {
+		set( key, value );
+		run();
+	};
 	const getAll = () => inputs;
 	const emailIsValid = email => {
 		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( email );
@@ -40,12 +42,14 @@ export default () => {
 	const emailIsInvalid = email => ! emailIsValid( email );
 	return {
 		run,
+		use,
 		fail,
 		pass,
 		emailIsValid,
 		emailIsInvalid,
 		get,
 		set,
+		check,
 		getAll,
 	};
 };
