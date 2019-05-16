@@ -17,10 +17,7 @@ import './style.scss';
 import './editor.scss';
 
 // Import helper functions
-import makeValidator, {
-	passValidation,
-	failValidation,
-} from '../utils/validator';
+import makeValidator from '../utils/validator';
 
 const validator = makeValidator();
 
@@ -93,19 +90,19 @@ registerBlockType( 'neu-hackney/campaign', {
 		const validatePostAttributes = () => {
 			const { image, headline, details, postTitle } = validatorInputs;
 			if ( ! postTitle ) {
-				return failValidation( 'Please enter a title' );
+				return validator.fail( 'Please enter a title' );
 			} else if ( ! image ) {
-				return failValidation( 'Please upload an image' );
+				return validator.fail( 'Please upload an image' );
 			} else if ( ! headline ) {
-				return failValidation( 'Please enter a short description' );
+				return validator.fail( 'Please enter a short description' );
 			} else if ( ! details ) {
-				return failValidation( 'Please enter the campaign details' );
+				return validator.fail( 'Please enter the campaign details' );
 			}
-			return passValidation();
+			return validator.pass();
 		};
 		const validateTitle = title => {
 			validatorInputs.postTitle = title.value;
-			validator( validatePostAttributes );
+			validator.run( validatePostAttributes );
 		};
 		window.addEventListener( 'load', () => {
 			const title = document.querySelector( '.editor-post-title__input' );
@@ -118,7 +115,7 @@ registerBlockType( 'neu-hackney/campaign', {
 				__mediaURL: image.url,
 			} );
 			validatorInputs.image = image.id;
-			validator( validatePostAttributes );
+			validator.run( validatePostAttributes );
 		};
 		const onChangeDetails = text => {
 			setAttributes( {
@@ -126,7 +123,7 @@ registerBlockType( 'neu-hackney/campaign', {
 				__campaignDetails: richTextToString( text ),
 			} );
 			validatorInputs.details = richTextToString( text );
-			validator( validatePostAttributes );
+			validator.run( validatePostAttributes );
 		};
 		const onChangeHeadline = text => {
 			setAttributes( {
@@ -134,7 +131,7 @@ registerBlockType( 'neu-hackney/campaign', {
 				__headline: text,
 			} );
 			validatorInputs.headline = text;
-			validator( validatePostAttributes );
+			validator.run( validatePostAttributes );
 		};
 		return (
 			<section className={ className }>

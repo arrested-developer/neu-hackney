@@ -6,7 +6,7 @@
 
 export default () => {
 	let editorHasLoadedOnce = false;
-	const validator = validatePost => {
+	const run = validatePost => {
 		if ( editorHasLoadedOnce ) {
 			wp.data.dispatch( 'core/notices' ).removeNotice( 'LOCK_NOTICE' );
 			const check = validatePost();
@@ -23,20 +23,22 @@ export default () => {
 			editorHasLoadedOnce = true;
 		}
 	};
-	return validator;
+	const fail = message => ( {
+		isValid: false,
+		message,
+	} );
+	const pass = () => ( {
+		isValid: true,
+	} );
+	const emailIsValid = email => {
+		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( email );
+	};
+	const emailIsInvalid = email => ! emailIsValid( email );
+	return {
+		run,
+		fail,
+		pass,
+		emailIsValid,
+		emailIsInvalid,
+	};
 };
-
-export const failValidation = message => ( {
-	isValid: false,
-	message,
-} );
-
-export const passValidation = () => ( {
-	isValid: true,
-} );
-
-export const emailIsValid = email => {
-	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( email );
-};
-
-export const emailIsInvalid = email => ! emailIsValid( email );
