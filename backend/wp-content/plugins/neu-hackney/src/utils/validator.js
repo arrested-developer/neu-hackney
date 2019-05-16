@@ -14,7 +14,7 @@ export default () => {
 				wp.data.dispatch( 'core/editor' ).unlockPostSaving( 'my_lock_key' );
 			} else {
 				wp.data.dispatch( 'core/editor' ).lockPostSaving( 'my_lock_key' );
-				wp.data.dispatch( 'core/notices' ).createErrorNotice( check.message, {
+				wp.data.dispatch( 'core/notices' ).createInfoNotice( check.message, {
 					id: 'LOCK_NOTICE',
 					isDismissible: true,
 				} );
