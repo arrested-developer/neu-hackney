@@ -18,10 +18,9 @@ import './editor.scss';
 
 // Import helper functions
 import makeValidator from '../utils/validator';
-
 const validator = makeValidator();
 
-const validatorInputs = {};
+//const validatorInputs = {};
 
 /**
  * Register: aa Gutenberg Block.
@@ -88,8 +87,8 @@ registerBlockType( 'neu-hackney/campaign', {
 		attributes: { mediaID, mediaURL, campaignDetails, headline },
 	} ) => {
 		const validatePostAttributes = () => {
-			const { image, headline, details, postTitle } = validatorInputs;
-			if ( ! postTitle ) {
+			const { image, headline, details, title } = validator.getAllInputs();
+			if ( ! title ) {
 				return validator.fail( 'Please enter a title' );
 			} else if ( ! image ) {
 				return validator.fail( 'Please upload an image' );
@@ -101,7 +100,7 @@ registerBlockType( 'neu-hackney/campaign', {
 			return validator.pass();
 		};
 		const validateTitle = title => {
-			validatorInputs.postTitle = title.value;
+			validator.setInput( 'title', title.value );
 			validator.run( validatePostAttributes );
 		};
 		window.addEventListener( 'load', () => {
@@ -114,7 +113,7 @@ registerBlockType( 'neu-hackney/campaign', {
 				mediaURL: image.url,
 				__mediaURL: image.url,
 			} );
-			validatorInputs.image = image.id;
+			validator.setInput( 'image', image.id );
 			validator.run( validatePostAttributes );
 		};
 		const onChangeDetails = text => {
@@ -122,7 +121,7 @@ registerBlockType( 'neu-hackney/campaign', {
 				campaignDetails: text,
 				__campaignDetails: richTextToString( text ),
 			} );
-			validatorInputs.details = richTextToString( text );
+			validator.setInput( 'details', richTextToString( text ) );
 			validator.run( validatePostAttributes );
 		};
 		const onChangeHeadline = text => {
@@ -130,7 +129,7 @@ registerBlockType( 'neu-hackney/campaign', {
 				headline: text,
 				__headline: text,
 			} );
-			validatorInputs.headline = text;
+			validator.setInput( 'headline', text );
 			validator.run( validatePostAttributes );
 		};
 		return (
