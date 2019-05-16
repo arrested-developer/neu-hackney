@@ -24,6 +24,8 @@ import makeValidator, {
 
 const validator = makeValidator();
 
+const validatorInputs = {};
+
 /**
  * Register: aa Gutenberg Block.
  *
@@ -88,40 +90,52 @@ registerBlockType( 'neu-hackney/campaign', {
 		setAttributes,
 		attributes: { mediaID, mediaURL, campaignDetails, headline },
 	} ) => {
+		const validatePostAttributes = () => {
+			const { image, headline, details, postTitle } = validatorInputs;
+			if ( ! postTitle ) {
+				return failValidation( 'Please enter a title' );
+			} else if ( ! image ) {
+				return failValidation( 'Please upload an image' );
+			} else if ( ! headline ) {
+				return failValidation( 'Please enter a short description' );
+			} else if ( ! details ) {
+				return failValidation( 'Please enter the campaign details' );
+			}
+			passValidation();
+		};
+		const validateTitle = title => {
+			validatorInputs.postTitle = title.value;
+			validator( validatePostAttributes );
+		};
+		window.addEventListener( 'load', () => {
+			const title = document.querySelector( '.editor-post-title__input' );
+			title.addEventListener( 'input', () => validateTitle( title ) );
+		} );
 		const onSelectImage = image => {
 			setAttributes( {
 				mediaID: image.id,
 				mediaURL: image.url,
 				__mediaURL: image.url,
 			} );
+			validatorInputs.image = image.id;
+			validator( validatePostAttributes );
 		};
 		const onChangeDetails = text => {
 			setAttributes( {
 				campaignDetails: text,
 				__campaignDetails: richTextToString( text ),
 			} );
+			validatorInputs.details = text;
+			validator( validatePostAttributes );
 		};
 		const onChangeHeadline = text => {
 			setAttributes( {
 				headline: text,
 				__headline: text,
 			} );
+			validatorInputs.headline = text;
+			validator( validatePostAttributes );
 		};
-		const validatePostAttributes = () => {
-			if ( ! mediaID ) {
-				return failValidation(
-					'An image is required, please upload an image for the campaign.'
-				);
-			} else if ( ! campaignDetails ) {
-				return failValidation( 'Please add details about this campaign.' );
-			} else if ( ! headline ) {
-				return failValidation(
-					'A headline is required, please enter a short description of the campaign.'
-				);
-			}
-			return passValidation();
-		};
-		validator( validatePostAttributes );
 		return (
 			<section className={ className }>
 				<BaseControl label="Add a photo for the campaign" id="flyer-upload">
