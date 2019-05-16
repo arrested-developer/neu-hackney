@@ -97,11 +97,11 @@ registerBlockType( 'neu-hackney/campaign', {
 		setAttributes,
 		attributes: { mediaID, mediaURL, campaignDetails, headline },
 	} ) => {
-		// set initial values for validation when editing an existing post
-		validator.set( 'image', mediaID );
-		validator.set( 'headline', headline );
-		validator.set( 'details', richTextToString( campaignDetails ) );
 		window.addEventListener( 'load', () => {
+			// set initial values for validation when editing an existing post
+			validator.set( 'image', mediaID );
+			validator.set( 'headline', headline );
+			validator.set( 'details', richTextToString( campaignDetails ) );
 			// set initial value for title, and validate on change
 			const title = document.querySelector( '.editor-post-title__input' );
 			validator.set( 'title', title.value );
