@@ -86,6 +86,9 @@ exports.createPages = async ({ graphql, actions }) => {
             id
             title
             content
+            categories {
+              wordpress_id
+            }
             positions {
               wordpress_id
               name
@@ -125,16 +128,105 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allWordpressWpUsefulResources(
+        filter: { categories: { elemMatch: { wordpress_id: { ne: null } } } }
+      ) {
+        edges {
+          node {
+            id
+            title
+            categories {
+              wordpress_id
+            }
+            meta {
+              neuhack_details
+              neuhack_resource_is_external
+              neuhack_resource_url
+              neuhack_resource_file {
+                localFile {
+                  publicURL
+                }
+              }
+            }
+          }
+        }
+      }
+      allWordpressCategory(filter: { name: { ne: "Uncategorised" } }) {
+        edges {
+          node {
+            id
+            wordpress_id
+            name
+            slug
+            description
+            count
+            resources {
+              id
+              title
+              categories {
+                wordpress_id
+              }
+              meta {
+                neuhack_details
+                neuhack_resource_is_external
+                neuhack_resource_url
+                neuhack_resource_file {
+                  localFile {
+                    publicURL
+                  }
+                }
+              }
+            }
+            team {
+              id
+              title
+              content
+              categories {
+                wordpress_id
+              }
+              positions {
+                wordpress_id
+                name
+              }
+              meta {
+                neuhack_team_member_email
+                neuhack_team_member_position
+                neuhack_image_url {
+                  localFile {
+                    childImageSharp {
+                      fluid(maxWidth: 500) {
+                        base64
+                        tracedSVG
+                        aspectRatio
+                        src
+                        srcSet
+                        srcWebp
+                        srcSetWebp
+                        sizes
+                        originalImg
+                        originalName
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            pageContent {
+              id
+              content
+            }
+          }
+        }
+      }
       allWordpressPage {
         edges {
           node {
             id
             title
-            slug
             categories {
-              id
-              name
+              wordpress_id
             }
+            content
           }
         }
       }
@@ -148,9 +240,10 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Access query results via object destructuring
   const {
-    allWordpressWpCampaigns,
     allWordpressWpEvents,
+    allWordpressWpCampaigns,
     allWordpressWpTeam,
+    allWordpressCategory,
     allWordpressPage,
   } = result.data
 
@@ -177,19 +270,19 @@ exports.createPages = async ({ graphql, actions }) => {
   // generate pages from categories. If the category has a page, it is standalone
   // if the category has no page, it belongs in the members dropdown
 
-  // const makeCategoryPath = node => {
-  //   const isStandalonePage = node => node.pageContent && node.pageContent.length
-  //   if (isStandalonePage(node)) return `/${node.slug}`
-  //   else return `/members/${node.slug}`
-  // }
+  const makeCategoryPath = node => {
+    const isStandalonePage = node => node.pageContent && node.pageContent.length
+    if (isStandalonePage(node)) return `/${node.slug}`
+    else return `/members/${node.slug}`
+  }
 
-  // allWordpressCategory.edges.map(({ node }) => {
-  //   createPage({
-  //     path: makeCategoryPath(node),
-  //     component: path.resolve("./src/templates/page.js"),
-  //     context: {
-  //       page: node,
-  //     },
-  //   })
-  // })
+  allWordpressCategory.edges.map(({ node }) => {
+    createPage({
+      path: makeCategoryPath(node),
+      component: path.resolve("./src/templates/page.js"),
+      context: {
+        page: node,
+      },
+    })
+  })
 }

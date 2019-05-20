@@ -21,6 +21,10 @@ const mapPositionsToTeam = entities => {
   })
 }
 
+const logTaxonomies = entities => {
+  entities.forEach(e => console.log(e.__type))
+}
+
 const mapResourcesToCategories = entities => {
   const resources = entities.filter(
     e => e.__type === "wordpress__wp_useful_resources"
@@ -79,8 +83,9 @@ const mapPagesToCategories = entities => {
 
 module.exports = ({ entities }) => {
   entities = mapPositionsToTeam(entities)
-  entities = mapResourcesToCategories(entities)
-  entities = mapTeamToCategories(entities)
-  entities = mapPagesToCategories(entities)
+  logTaxonomies(entities)
+  // entities = mapResourcesToCategories(entities)
+  // entities = mapTeamToCategories(entities)
+  // entities = mapPagesToCategories(entities)
   return entities
 }

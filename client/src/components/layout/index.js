@@ -25,18 +25,16 @@ const Layout = ({ children }) => (
             title
           }
         }
-        memberCats: allWordpressCategory(
-          filter: { name: { ne: "Uncategorised" } }
-        ) {
+        pages: allWordpressPage {
           edges {
             node {
               id
               wordpress_id
-              name
+              title
               slug
-              count
-              pageContent {
+              categories {
                 id
+                name
               }
             }
           }
@@ -44,28 +42,41 @@ const Layout = ({ children }) => (
       }
     `}
     render={data => {
-      const isStandalonePage = node =>
-        node.pageContent && node.pageContent.length
+      console.log(
+        data.pages.edges.filter(page => {
+          return (
+            page.node.categories &&
+            page.node.categories.filter(cat => cat.name === "Members Page")
+              .length
+          )
+        })
+      )
+      const hasCategory = (page, name) => {
+        return (
+          page.node.categories &&
+          page.node.categories.filter(category => category.name === name).length
+        )
+      }
       const navLinks = [
         { name: "Home", to: "/" },
         { name: "Events", to: "/events" },
         {
           name: "Members",
-          to: data.memberCats.edges
-            .filter(cat => !isStandalonePage(cat.node))
+          to: data.pages.edges
+            .filter(page => hasCategory(page, "Members Page"))
             .sort((a, b) => a.node.wordpress_id - b.node.wordpress_id)
-            .map(cat => ({
-              name: cat.node.name,
-              to: `/members/${cat.node.slug}`,
+            .map(page => ({
+              name: page.node.title,
+              to: `/members/${page.node.slug}`,
             })),
         },
       ].concat(
-        data.memberCats.edges
-          .filter(cat => isStandalonePage(cat.node))
+        data.pages.edges
+          .filter(page => hasCategory(page, "Standalone Page"))
           .sort((a, b) => a.node.wordpress_id - b.node.wordpress_id)
-          .map(cat => ({
-            name: cat.node.name,
-            to: `/${cat.node.slug}`,
+          .map(page => ({
+            name: page.node.title,
+            to: `/${page.node.slug}`,
           }))
       )
       return (
