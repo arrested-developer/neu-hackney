@@ -139,7 +139,11 @@ exports.createPages = async ({ graphql, actions }) => {
                 neuhack_details
                 neuhack_resource_is_external
                 neuhack_resource_url
-                neuhack_resource_file
+                neuhack_resource_file {
+                  localFile {
+                    publicURL
+                  }
+                }
               }
             }
             categories {
