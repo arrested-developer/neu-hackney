@@ -42,15 +42,6 @@ const Layout = ({ children }) => (
       }
     `}
     render={data => {
-      console.log(
-        data.pages.edges.filter(page => {
-          return (
-            page.node.categories &&
-            page.node.categories.filter(cat => cat.name === "Members Page")
-              .length
-          )
-        })
-      )
       const hasCategory = (page, name) => {
         return (
           page.node.categories &&

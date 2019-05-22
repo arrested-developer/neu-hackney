@@ -130,6 +130,7 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             id
             title
+            content
             slug
             categories {
               id
@@ -177,19 +178,27 @@ exports.createPages = async ({ graphql, actions }) => {
   // generate pages from categories. If the category has a page, it is standalone
   // if the category has no page, it belongs in the members dropdown
 
-  // const makeCategoryPath = node => {
-  //   const isStandalonePage = node => node.pageContent && node.pageContent.length
-  //   if (isStandalonePage(node)) return `/${node.slug}`
-  //   else return `/members/${node.slug}`
-  // }
+  const makePagePath = page => {
+    const hasCategory = (page, name) => {
+      return (
+        page.node.categories &&
+        page.node.categories.filter(category => category.name === name).length
+      )
+    }
+    if (hasCategory(page, "Members Page")) {
+      return `/members/${page.node.slug}`
+    } else {
+      return `/${page.node.slug}`
+    }
+  }
 
-  // allWordpressCategory.edges.map(({ node }) => {
-  //   createPage({
-  //     path: makeCategoryPath(node),
-  //     component: path.resolve("./src/templates/page.js"),
-  //     context: {
-  //       page: node,
-  //     },
-  //   })
-  // })
+  allWordpressPage.edges.map(page => {
+    createPage({
+      path: makePagePath(page),
+      component: path.resolve("./src/templates/page.js"),
+      context: {
+        page: page.node,
+      },
+    })
+  })
 }

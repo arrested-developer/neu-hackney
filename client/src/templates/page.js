@@ -11,26 +11,25 @@ import UsefulResources from "../components/usefulResources"
 
 export default ({
   pageContext: {
-    page: { name, pageContent, description, team, resources },
+    page: { title, content, description, team, resources },
   },
 }) => {
+  console.log(content)
   const pageHas = data => data && data.length > 0
   return (
     <>
       <Layout>
-        <SEO title={`Members - ${name}`} />
-        <H1>{name}</H1>
+        <SEO title={`Members - ${title}`} />
+        <H1>{title}</H1>
         <Main>
-          {(pageHas(description) || pageHas(pageContent)) && (
+          {(pageHas(description) || pageHas(content)) && (
             <PageSection
               title="About"
               titleBackground="light_green"
               titleColor="black"
             >
-              {pageHas(pageContent) ? (
-                <WordpressPageContent>
-                  {pageContent[0].content}
-                </WordpressPageContent>
+              {pageHas(content) ? (
+                <WordpressPageContent>{content}</WordpressPageContent>
               ) : (
                 <P>{description}</P>
               )}
