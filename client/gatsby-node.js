@@ -132,6 +132,16 @@ exports.createPages = async ({ graphql, actions }) => {
             title
             content
             slug
+            resources {
+              id
+              title
+              meta {
+                neuhack_details
+                neuhack_resource_is_external
+                neuhack_resource_url
+                neuhack_resource_file
+              }
+            }
             categories {
               id
               name

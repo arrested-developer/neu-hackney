@@ -21,10 +21,27 @@ const mapPositionsToTeam = entities => {
   })
 }
 
+const mapResourcesToPages = entities => {
+  const resources = entities.filter(
+    e => e.__type === `wordpress__wp_useful_resources`
+  )
+  return entities.map(e => {
+    if (e.__type === `wordpress__PAGE`) {
+      let hasMemberPage =
+        e.member_page && Array.isArray(e.member_page) && e.member_page.length
+      // Add resources node
+      if (hasMemberPage) {
+        e.resources___NODE = resources
+          .filter(r => r.member_page.includes(e.member_page[0]))
+          .map(r => r.id)
+      }
+    }
+    return e
+  })
+}
+
 module.exports = ({ entities }) => {
   entities = mapPositionsToTeam(entities)
-  // entities = mapResourcesToCategories(entities)
-  // entities = mapTeamToCategories(entities)
-  // entities = mapPagesToCategories(entities)
+  entities = mapResourcesToPages(entities)
   return entities
 }
