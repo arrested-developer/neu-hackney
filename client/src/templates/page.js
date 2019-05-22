@@ -3,7 +3,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 import { Main } from "../components/shared/containers"
-import { H1, P } from "../components/shared/text"
+import { H1 } from "../components/shared/text"
 import Team from "../components/team"
 import PageSection from "../components/pageSection"
 import WordpressPageContent from "../components/wordpressPageContent"
@@ -11,7 +11,7 @@ import UsefulResources from "../components/usefulResources"
 
 export default ({
   pageContext: {
-    page: { title, content, description, team, resources },
+    page: { title, content, team, resources },
   },
 }) => {
   console.log(content)
@@ -22,17 +22,13 @@ export default ({
         <SEO title={`Members - ${title}`} />
         <H1>{title}</H1>
         <Main>
-          {(pageHas(description) || pageHas(content)) && (
+          {pageHas(content) && (
             <PageSection
               title="About"
               titleBackground="light_green"
               titleColor="black"
             >
-              {pageHas(content) ? (
-                <WordpressPageContent>{content}</WordpressPageContent>
-              ) : (
-                <P>{description}</P>
-              )}
+              <WordpressPageContent>{content}</WordpressPageContent>
             </PageSection>
           )}
           {pageHas(team) && (
