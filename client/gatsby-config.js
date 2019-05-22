@@ -64,6 +64,7 @@ module.exports = {
           "**/taxonomies",
           "**/categories",
           "**/member-page",
+          "**/gallery",
           "**/position",
           "**/users",
           "**/newsletters",
