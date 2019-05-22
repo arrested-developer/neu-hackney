@@ -40,8 +40,26 @@ const mapResourcesToPages = entities => {
   })
 }
 
+const mapTeamToPages = entities => {
+  const team = entities.filter(e => e.__type === `wordpress__wp_team`)
+  return entities.map(e => {
+    if (e.__type === `wordpress__PAGE`) {
+      let hasMemberPage =
+        e.member_page && Array.isArray(e.member_page) && e.member_page.length
+      // Add resources node
+      if (hasMemberPage) {
+        e.team___NODE = team
+          .filter(t => t.member_page.includes(e.member_page[0]))
+          .map(t => t.id)
+      }
+    }
+    return e
+  })
+}
+
 module.exports = ({ entities }) => {
   entities = mapPositionsToTeam(entities)
   entities = mapResourcesToPages(entities)
+  entities = mapTeamToPages(entities)
   return entities
 }

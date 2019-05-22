@@ -146,6 +146,37 @@ exports.createPages = async ({ graphql, actions }) => {
                 }
               }
             }
+            team {
+              id
+              title
+              content
+              positions {
+                wordpress_id
+                name
+              }
+              meta {
+                neuhack_team_member_email
+                neuhack_team_member_position
+                neuhack_image_url {
+                  localFile {
+                    childImageSharp {
+                      fluid(maxWidth: 500) {
+                        base64
+                        tracedSVG
+                        aspectRatio
+                        src
+                        srcSet
+                        srcWebp
+                        srcSetWebp
+                        sizes
+                        originalImg
+                        originalName
+                      }
+                    }
+                  }
+                }
+              }
+            }
             categories {
               id
               name
