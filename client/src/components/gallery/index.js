@@ -23,38 +23,32 @@ const GalleryItem = styled.li`
 export default props => (
   <StaticQuery
     query={graphql`
-      query galleryQuery {
-        one: file(relativePath: { eq: "antiracist.jpg" }) {
-          childImageSharp {
-            fixed(height: 300, width: 300) {
-              ...GatsbyImageSharpFixed
-            }
-          }
-        }
-        two: file(relativePath: { eq: "banner.jpg" }) {
-          childImageSharp {
-            fixed(height: 300) {
-              ...GatsbyImageSharpFixed
-            }
-          }
-        }
-        three: file(relativePath: { eq: "careforcalais.jpg" }) {
-          childImageSharp {
-            fixed(height: 300) {
-              ...GatsbyImageSharpFixed
-            }
-          }
-        }
-        four: file(relativePath: { eq: "two.jpg" }) {
-          childImageSharp {
-            fixed(height: 300) {
-              ...GatsbyImageSharpFixed
+      query gallery {
+        allWordpressWpGallery {
+          edges {
+            node {
+              id
+              meta {
+                neuhack_image_alt
+                neuhack_image_url {
+                  id
+                  localFile {
+                    id
+                    childImageSharp {
+                      fixed(height: 300) {
+                        ...GatsbyImageSharpFixed
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
       }
     `}
     render={data => {
+      console.log(data)
       const settings = {
         dots: true,
         infinite: true,
@@ -65,17 +59,18 @@ export default props => (
         adaptiveHeight: true,
       }
       return (
-        <CarouselContainer>
+        <CarouselContainer {...props}>
           <Carousel settings={settings}>
-            <GalleryItem>
-              <Img fixed={data.one.childImageSharp.fixed} />
-            </GalleryItem>
-            <GalleryItem>
-              <Img fixed={data.two.childImageSharp.fixed} />
-            </GalleryItem>
-            <GalleryItem>
-              <Img fixed={data.three.childImageSharp.fixed} />
-            </GalleryItem>
+            {data.allWordpressWpGallery.edges.map(image => (
+              <GalleryItem>
+                <Img
+                  fixed={
+                    image.node.meta.neuhack_image_url.localFile.childImageSharp
+                      .fixed
+                  }
+                />
+              </GalleryItem>
+            ))}
           </Carousel>
         </CarouselContainer>
       )
