@@ -175,8 +175,7 @@ exports.createPages = async ({ graphql, actions }) => {
     },
   })
 
-  // generate pages from categories. If the category has a page, it is standalone
-  // if the category has no page, it belongs in the members dropdown
+  // generate pages
 
   const makePagePath = page => {
     const hasCategory = (page, name) => {
