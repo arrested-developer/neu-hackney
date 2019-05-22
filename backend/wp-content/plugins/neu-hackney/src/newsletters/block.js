@@ -9,7 +9,10 @@
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const { MediaUpload } = wp.editor;
-const { Button, BaseControl, Notice } = wp.components;
+const { Button, BaseControl } = wp.components;
+
+// Import helper functions
+import makeValidator from '../utils/validator';
 
 //  Import CSS.
 import './style.scss';
@@ -30,7 +33,19 @@ import './editor.scss';
  */
 
 // ensure information notice is shown each time editor is opened
-let warningShown = false;
+let noticeShown = false;
+
+// create the validator function for this post
+const validator = makeValidator();
+validator.use( () => {
+	const newsletter = validator.get( 'newsletter' );
+	if ( ! newsletter ) {
+		return validator.fail(
+			'A newsletter is required, please upload a file in pdf format'
+		);
+	}
+	return validator.pass();
+} );
 
 registerBlockType( 'neu-hackney/newsletter', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
@@ -63,10 +78,11 @@ registerBlockType( 'neu-hackney/newsletter', {
 		className,
 		setAttributes,
 	} ) => {
-		// remove the title, which is set automatically from the publish date
 		window.addEventListener( 'load', () => {
+			// remove the title, which is set automatically from the publish date
 			document.querySelector( '.editor-post-title__input' ).style.display =
 				'none';
+			validator.set( 'newsletter', newsletterID );
 		} );
 		const onSelectFile = file => {
 			setAttributes( {
@@ -74,22 +90,22 @@ registerBlockType( 'neu-hackney/newsletter', {
 				newsletterURL: file.url,
 				__newsletterURL: file.url,
 			} );
+			validator.check( 'newsletter', file.id );
 		};
 
 		// show notice to assist with completing the fields correctly
-		if ( ! warningShown ) {
+		if ( ! noticeShown ) {
 			wp.data.dispatch( 'core/notices' ).createNotice(
-				'warning', // Can be one of: success, info, warning, error.
-				'Newsletter will be published with the current month and year. To publish with a different date, change the publish settings from "Immediately" to your chosen date in the "Status & Visibility" options at the top right of the screen. There is no need to add a title, as this will be set using the selected date', // Text string to display.
+				'info', // Can be one of: success, info, warning, error.
+				'Newsletter will be published with the current month and year. To publish with a different date, change the publish settings from "Immediately" to your chosen date in the "Status & Visibility" options at the top right of the screen.', // Text string to display.
 				{
 					isDismissible: true, // Whether the user can dismiss the notice.
 					// Any actions the user can perform.
 					actions: [],
 				}
 			);
-			warningShown = true;
+			noticeShown = true;
 		}
-
 		return (
 			<div className={ className }>
 				<BaseControl

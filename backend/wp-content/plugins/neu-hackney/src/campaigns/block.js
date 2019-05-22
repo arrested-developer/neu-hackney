@@ -12,9 +12,26 @@ const { MediaUpload, RichText } = wp.editor;
 const { Button, BaseControl, TextControl } = wp.components;
 import richTextToString from '../utils/richTextToString';
 
-//  Import CSS.
+// Import CSS.
 import './style.scss';
 import './editor.scss';
+
+// Input validation
+import makeValidator from '../utils/validator';
+const validator = makeValidator();
+validator.use( () => {
+	const { image, headline, details, title } = validator.getAll();
+	if ( ! title ) {
+		return validator.fail( 'Please enter a title' );
+	} else if ( ! image ) {
+		return validator.fail( 'Please upload an image' );
+	} else if ( ! headline ) {
+		return validator.fail( 'Please enter a short description' );
+	} else if ( ! details ) {
+		return validator.fail( 'Please enter the campaign details' );
+	}
+	return validator.pass();
+} );
 
 /**
  * Register: aa Gutenberg Block.
@@ -80,24 +97,39 @@ registerBlockType( 'neu-hackney/campaign', {
 		setAttributes,
 		attributes: { mediaID, mediaURL, campaignDetails, headline },
 	} ) => {
+		window.addEventListener( 'load', () => {
+			// set initial values for validation when editing an existing post
+			validator.set( 'image', mediaID );
+			validator.set( 'headline', headline );
+			validator.set( 'details', richTextToString( campaignDetails ) );
+			// set initial value for title, and validate on change
+			const title = document.querySelector( '.editor-post-title__input' );
+			validator.set( 'title', title.value );
+			title.addEventListener( 'input', () => {
+				validator.check( 'title', title.value );
+			} );
+		} );
 		const onSelectImage = image => {
 			setAttributes( {
 				mediaID: image.id,
 				mediaURL: image.url,
 				__mediaURL: image.url,
 			} );
+			validator.check( 'image', image.id );
 		};
 		const onChangeDetails = text => {
 			setAttributes( {
 				campaignDetails: text,
 				__campaignDetails: richTextToString( text ),
 			} );
+			validator.check( 'details', richTextToString( text ) );
 		};
 		const onChangeHeadline = text => {
 			setAttributes( {
 				headline: text,
 				__headline: text,
 			} );
+			validator.check( 'headline', text );
 		};
 		return (
 			<section className={ className }>

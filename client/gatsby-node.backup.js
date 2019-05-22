@@ -86,6 +86,9 @@ exports.createPages = async ({ graphql, actions }) => {
             id
             title
             content
+            categories {
+              wordpress_id
+            }
             positions {
               wordpress_id
               name
@@ -125,16 +128,44 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allWordpressPage {
+      allWordpressWpUsefulResources(
+        filter: { categories: { elemMatch: { wordpress_id: { ne: null } } } }
+      ) {
         edges {
           node {
             id
             title
-            content
+            categories {
+              wordpress_id
+            }
+            meta {
+              neuhack_details
+              neuhack_resource_is_external
+              neuhack_resource_url
+              neuhack_resource_file {
+                localFile {
+                  publicURL
+                }
+              }
+            }
+          }
+        }
+      }
+      allWordpressCategory(filter: { name: { ne: "Uncategorised" } }) {
+        edges {
+          node {
+            id
+            wordpress_id
+            name
             slug
+            description
+            count
             resources {
               id
               title
+              categories {
+                wordpress_id
+              }
               meta {
                 neuhack_details
                 neuhack_resource_is_external
@@ -150,6 +181,9 @@ exports.createPages = async ({ graphql, actions }) => {
               id
               title
               content
+              categories {
+                wordpress_id
+              }
               positions {
                 wordpress_id
                 name
@@ -177,10 +211,22 @@ exports.createPages = async ({ graphql, actions }) => {
                 }
               }
             }
-            categories {
+            pageContent {
               id
-              name
+              content
             }
+          }
+        }
+      }
+      allWordpressPage {
+        edges {
+          node {
+            id
+            title
+            categories {
+              wordpress_id
+            }
+            content
           }
         }
       }
@@ -194,9 +240,10 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Access query results via object destructuring
   const {
-    allWordpressWpCampaigns,
     allWordpressWpEvents,
+    allWordpressWpCampaigns,
     allWordpressWpTeam,
+    allWordpressCategory,
     allWordpressPage,
   } = result.data
 
@@ -220,28 +267,21 @@ exports.createPages = async ({ graphql, actions }) => {
     },
   })
 
-  // generate pages
+  // generate pages from categories. If the category has a page, it is standalone
+  // if the category has no page, it belongs in the members dropdown
 
-  const makePagePath = page => {
-    const hasCategory = (page, name) => {
-      return (
-        page.node.categories &&
-        page.node.categories.filter(category => category.name === name).length
-      )
-    }
-    if (hasCategory(page, "Members Page")) {
-      return `/members/${page.node.slug}`
-    } else {
-      return `/${page.node.slug}`
-    }
+  const makeCategoryPath = node => {
+    const isStandalonePage = node => node.pageContent && node.pageContent.length
+    if (isStandalonePage(node)) return `/${node.slug}`
+    else return `/members/${node.slug}`
   }
 
-  allWordpressPage.edges.map(page => {
+  allWordpressCategory.edges.map(({ node }) => {
     createPage({
-      path: makePagePath(page),
+      path: makeCategoryPath(node),
       component: path.resolve("./src/templates/page.js"),
       context: {
-        page: page.node,
+        page: node,
       },
     })
   })

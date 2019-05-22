@@ -11,6 +11,9 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
 const { MediaUpload } = wp.editor;
 const { Button, BaseControl, TextControl, SelectControl } = wp.components;
 
+// Import helper functions
+import makeValidator from '../utils/validator';
+
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
@@ -34,6 +37,19 @@ const teamPlaceholder = `${ host }/wp-content/plugins/neu-hackney/assets/img/tea
 
 // ensure information notice is shown each time editor is opened
 let warningShown = false;
+
+const validator = makeValidator();
+validator.use( () => {
+	const { name, email } = validator.getAll();
+	if ( ! name ) {
+		return validator.fail( 'Please enter a name' );
+	} else if ( ! email || validator.emailIsInvalid( email ) ) {
+		return validator.fail(
+			'Please enter a valid email address for this team member'
+		);
+	}
+	return validator.pass();
+} );
 
 /**
  * Register: aa Gutenberg Block.
@@ -97,29 +113,27 @@ registerBlockType( 'neu-hackney/team-member', {
 		setAttributes,
 		attributes: { mediaID, mediaURL, email, selectedPosition },
 	} ) => {
-		// change placeholder text for the title
-		window.addEventListener( 'load', () => {
-			document.querySelector( '.editor-post-title__input' ).placeholder = 'Name';
-		} );
 		const onSelectImage = image => {
 			setAttributes( {
 				mediaID: image.id,
 				mediaURL: image.url,
 				__mediaURL: image.url,
 			} );
+			// image is optional, no validation needed
 		};
 		const onChangeEmail = e => {
 			setAttributes( {
 				email: e,
 				__email: e,
 			} );
+			validator.check( 'email', e );
 		};
-		const onChangePosition = e => {
-			setAttributes( {
-				selectedPosition: e,
-				positionName: positionNames[ e ],
-			} );
-		};
+		// const onChangePosition = e => {
+		// 	setAttributes( {
+		// 		selectedPosition: e,
+		// 		positionName: positionNames[ e ],
+		// 	} );
+		// };
 		const TeamPhoto = ( { src } ) => {
 			return (
 				<div
@@ -133,7 +147,7 @@ registerBlockType( 'neu-hackney/team-member', {
 		// show notice to assist with completing the fields correctly
 		if ( ! warningShown ) {
 			wp.data.dispatch( 'core/notices' ).createNotice(
-				'warning', // Can be one of: success, info, warning, error.
+				'info', // Can be one of: success, info, warning, error.
 				'Make sure to select the team member\'s position(s) and the page(s) to show them on from the Document settings on the right hand side', // Text string to display.
 				{
 					isDismissible: true, // Whether the user can dismiss the notice.
@@ -143,6 +157,18 @@ registerBlockType( 'neu-hackney/team-member', {
 			);
 			warningShown = true;
 		}
+		window.addEventListener( 'load', () => {
+			const title = document.querySelector( '.editor-post-title__input' );
+			// rename the title placeholder
+			title.placeholder = 'Name';
+			// set initial values for validator
+			validator.set( 'name', title.value );
+			validator.set( 'email', email );
+			// listen for changes to the title and validate
+			title.addEventListener( 'input', () =>
+				validator.check( 'name', title.value )
+			);
+		} );
 		return (
 			<section className={ className }>
 				<TextControl
@@ -150,6 +176,7 @@ registerBlockType( 'neu-hackney/team-member', {
 					placeholder="someone@neu.org.uk"
 					value={ email }
 					onChange={ onChangeEmail }
+					id="emailInput"
 				/>
 				<BaseControl
 					label="Add a photo for the team member (if no photo is selected, a placeholder will be used)"

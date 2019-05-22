@@ -1,4 +1,4 @@
-const customNormaliser = require("./src/normalise")
+const customNormaliser = require("./normalise")
 
 module.exports = {
   siteMetadata: {
@@ -63,6 +63,7 @@ module.exports = {
           "**/media",
           "**/taxonomies",
           "**/categories",
+          "**/member-page",
           "**/position",
           "**/users",
           "**/newsletters",

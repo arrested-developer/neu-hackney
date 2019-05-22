@@ -11,6 +11,9 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
 const { MediaUpload } = wp.editor;
 const { Button, BaseControl, TextControl, RadioControl } = wp.components;
 
+// Import helper functions
+import makeValidator from '../utils/validator';
+
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
@@ -31,6 +34,21 @@ import './editor.scss';
 
 // ensure information notice is shown each time editor is opened
 let warningShown = false;
+
+const validator = makeValidator();
+validator.use( () => {
+	const { title, resourceIsExternal, file, link, details } = validator.getAll();
+	if ( ! title ) {
+		return validator.fail( 'Please enter a title for this resource' );
+	} else if ( resourceIsExternal && ! link ) {
+		return validator.fail( 'Please enter a link for this resource' );
+	} else if ( ! resourceIsExternal && ! file ) {
+		return validator.fail( 'Please upload a file for this resource' );
+	} else if ( ! details || ( Array.isArray( details ) && details.length === 0 ) ) {
+		return validator.fail( 'Please enter a description of the resource' );
+	}
+	return validator.pass();
+} );
 
 registerBlockType( 'neu-hackney/useful-resource', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
@@ -93,7 +111,7 @@ registerBlockType( 'neu-hackney/useful-resource', {
 		attributes: {
 			__resourceIsExternal,
 			resourceDetails,
-			resourceID,
+			resourceFileID,
 			resourceLink,
 		},
 	} ) => {
@@ -103,12 +121,14 @@ registerBlockType( 'neu-hackney/useful-resource', {
 				resourceFileURL: file.url,
 				__resourceFileURL: file.url,
 			} );
+			validator.check( 'file', file.id );
 		};
-		const onChangeResourceLink = text => {
+		const onChangeResourceLink = link => {
 			setAttributes( {
-				resourceLink: text,
-				__resourceLink: text,
+				resourceLink: link,
+				__resourceLink: link,
 			} );
+			validator.check( 'link', link );
 		};
 		const onResourceTypeChange = value => {
 			const n = Number( value );
@@ -116,12 +136,14 @@ registerBlockType( 'neu-hackney/useful-resource', {
 				resourceIsExternal: n,
 				__resourceIsExternal: n,
 			} );
+			validator.check( 'resourceIsExternal', n );
 		};
-		const onChangeDetails = text => {
+		const onChangeDetails = details => {
 			setAttributes( {
-				resourceDetails: text,
-				__resourceDetails: text,
+				resourceDetails: details,
+				__resourceDetails: details,
 			} );
+			validator.check( 'details', details );
 		};
 		if ( ! warningShown ) {
 			wp.data.dispatch( 'core/notices' ).createNotice(
@@ -135,6 +157,17 @@ registerBlockType( 'neu-hackney/useful-resource', {
 			);
 			warningShown = true;
 		}
+		window.addEventListener( 'load', () => {
+			const title = document.querySelector( '.editor-post-title__input' );
+			validator.set( 'title', title.value );
+			validator.set( 'link', resourceLink );
+			validator.set( 'file', resourceFileID );
+			validator.set( 'resourceIsExternal', __resourceIsExternal );
+			validator.set( 'details', resourceDetails );
+			title.addEventListener( 'input', () =>
+				validator.check( 'title', title.value )
+			);
+		} );
 		return (
 			<section className={ className }>
 				<RadioControl
@@ -161,11 +194,11 @@ registerBlockType( 'neu-hackney/useful-resource', {
 						<MediaUpload
 							onSelect={ onSelectFile }
 							allowedTypes="image/*,.pdf,application/pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.zip,application/zip,.mp3,audio/mpeg"
-							value={ resourceID }
+							value={ resourceFileID }
 							id="media-upload"
 							render={ ( { open } ) => (
 								<Button className="button button-large" onClick={ open }>
-									{ ! resourceID ?
+									{ ! resourceFileID ?
 										'Upload file' :
 										'File Uploaded - click to choose again' }
 								</Button>
