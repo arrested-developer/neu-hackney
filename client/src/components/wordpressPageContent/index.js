@@ -7,6 +7,7 @@ import { H2Style, H3Style, H4Style, PStyle } from "../shared/text"
 const PageContent = styled.div`
   & p {
     ${PStyle}
+    color: ${({ theme, dark }) => (dark ? theme.dark_blue : theme.white)};
   }
   & h2 {
     ${H2Style}
@@ -30,12 +31,12 @@ const PageContent = styled.div`
   & a,
   & a:visited,
   & a:active {
-    color: ${({ theme }) => theme.dark_blue};
+    color: ${({ theme, dark }) => (dark ? theme.blue : theme.dark_blue)};
     font-weight: 700;
     text-decoration: underline;
   }
   & a:hover {
-    color: ${({ theme }) => theme.blue};
+    color: ${({ theme, dark }) => (dark ? theme.cyan : theme.blue)};
   }
 `
 
@@ -52,7 +53,7 @@ const makeLinksExternal = htmlString =>
   htmlString.replace(/<a/gi, '<a target="_blank" rel="noopener noreferrer"')
 
 export default props => (
-  <PageContent>
+  <PageContent {...props}>
     {parse(makeLinksExternal(stripTags(props.children)))}
   </PageContent>
 )
