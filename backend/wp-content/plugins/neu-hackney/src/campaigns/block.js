@@ -173,16 +173,7 @@ registerBlockType( 'neu-hackney/campaign', {
 		);
 	},
 
-	save: ( {
-		className,
-		attributes: { mediaURL, campaignDetails, headline },
-	} ) => {
-		return (
-			<article className={ className }>
-				<img src={ mediaURL } alt="" />
-				<h3 className="neu-hackney-campaign-headline">{ headline }</h3>
-				<p className="neu-hackney-campaign-details">{ campaignDetails }</p>
-			</article>
-		);
+	save: ( { attributes: { campaignDetails } } ) => {
+		return <p>{ campaignDetails }</p>;
 	},
 } );
