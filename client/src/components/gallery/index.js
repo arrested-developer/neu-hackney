@@ -14,10 +14,9 @@ export const CarouselContainer = styled.div`
 `
 
 const GalleryItem = styled.li`
-  margin-left: 1rem;
-  margin-right: 1rem;
   height: 300px;
   overflow: hidden;
+  max-width: 70vw;
 `
 
 export default props => (
