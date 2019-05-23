@@ -2,7 +2,7 @@ import styled, { css } from "styled-components"
 
 // ratios taken from http://typecast.com/blog/a-more-modern-scale-for-web-typography
 
-const headerStyles = css`
+export const headerStyles = css`
   ${({ theme }) => theme.heading};
   color: ${({ color, theme }) => (color ? theme[color] : theme.white)};
   background: ${props => props.theme[props.background] || "transparent"};
@@ -28,7 +28,7 @@ export const H1 = styled.h1`
   }
 `
 
-export const H2 = styled.h2`
+export const H2Style = css`
   ${headerStyles}
   font-size: 1.625rem;
   line-height: 1.15384615em;
@@ -44,7 +44,11 @@ export const H2 = styled.h2`
   }
 `
 
-export const H3 = styled.h3`
+export const H2 = styled.h2`
+  ${H2Style}
+`
+
+export const H3Style = css`
   ${headerStyles}
   font-size: 1.375rem;
   line-height: 1.13636364em;
@@ -60,16 +64,27 @@ export const H3 = styled.h3`
   }
 `
 
-export const H4 = styled.h4`
+export const H3 = styled.h3`
+  ${H3Style}
+  }
+`
+
+export const H4Style = css`
   ${headerStyles}
   font-size: 1.125rem;
   line-height: 1.11111111em;
+  margin-top: 0.4em;
+  margin-bottom: 0.5em;
   @media ${({ theme }) => theme.ns} {
     line-height: 1.22222222em;
   }
 `
 
-export const P = styled.p`
+export const H4 = styled.h4`
+  ${H4Style}
+`
+
+export const PStyle = css`
   ${({ theme }) => theme.body};
   line-height: 1.25em;
   max-width: 38em;
@@ -86,6 +101,10 @@ export const P = styled.p`
   background: ${({ background, theme }) =>
     background ? theme[background] : "inherit"};
   padding: ${({ background, theme }) => (background ? theme.s : 0)};
+`
+
+export const P = styled.p`
+  ${PStyle}
 `
 
 export const SecondaryP = styled(P)`

@@ -1,5 +1,43 @@
 import React from "react"
 import parse from "react-html-parser"
+import styled from "styled-components"
+
+import { H2Style, H3Style, H4Style, PStyle } from "../shared/text"
+
+const PageContent = styled.div`
+  & p {
+    ${PStyle}
+  }
+  & h2 {
+    ${H2Style}
+  }
+  & h3 {
+    ${H3Style}
+  }
+  & h4 {
+    ${H4Style}
+  }
+  & figure {
+    margin-bottom: 1rem;
+  }
+  & ul {
+    list-style: inside;
+    margin-bottom: 1rem;
+  }
+  & ul > li {
+    line-height: 1.25em;
+  }
+  & a,
+  & a:visited,
+  & a:active {
+    color: ${({ theme }) => theme.dark_blue};
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  & a:hover {
+    color: ${({ theme }) => theme.blue};
+  }
+`
 
 const stripTags = htmlString =>
   htmlString
@@ -10,11 +48,11 @@ const stripTags = htmlString =>
     .replace(/<\/body>/gi, "")
     .replace(/<\/head>/gi, "")
 
-const styleElements = htmlString =>
-  htmlString
-    .replace(/<p>/gi, '<p style="margin-bottom: 2rem">')
-    .replace(/<figure>/gi, '<figure style="margin-bottom: 2rem">')
+const makeLinksExternal = htmlString =>
+  htmlString.replace(/<a/gi, '<a target="_blank" rel="noopener noreferrer"')
 
 export default props => (
-  <h1>{parse(styleElements(stripTags(props.children)))}</h1>
+  <PageContent>
+    {parse(makeLinksExternal(stripTags(props.children)))}
+  </PageContent>
 )
