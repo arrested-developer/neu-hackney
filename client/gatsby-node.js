@@ -220,6 +220,15 @@ exports.createPages = async ({ graphql, actions }) => {
     },
   })
 
+  // generate campaigns page to list all campaigns
+  createPage({
+    path: `/campaigns`,
+    component: path.resolve("./src/templates/campaigns.js"),
+    context: {
+      campaigns: allWordpressWpCampaigns,
+    },
+  })
+
   // generate pages
 
   const makePagePath = page => {

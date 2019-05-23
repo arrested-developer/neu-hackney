@@ -51,6 +51,7 @@ const Layout = ({ children }) => (
       const navLinks = [
         { name: "Home", to: "/" },
         { name: "Events", to: "/events" },
+        { name: "Campaigns", to: "/campaigns" },
         {
           name: "Members",
           to: data.pages.edges

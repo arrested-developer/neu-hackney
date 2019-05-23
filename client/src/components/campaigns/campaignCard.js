@@ -4,14 +4,17 @@ import Img from "gatsby-image"
 import { Link } from "gatsby"
 import { H3, P } from "../shared/text"
 import { Card } from "../shared/containers"
+import { Details } from "./campaigns.styles"
+import RichText from "../wordpressPageContent"
 
-export default ({ campaign, ...props }) => {
+export default ({ campaign, showDetails, ...props }) => {
   const {
     node: {
-      id,
       title,
+      content,
       meta: {
         neuhack_headline,
+        neuhack_details,
         neuhack_image_alt,
         neuhack_image_url: {
           localFile: {
@@ -21,6 +24,7 @@ export default ({ campaign, ...props }) => {
       },
     },
   } = campaign
+  console.log(neuhack_details)
   return (
     <Card {...props}>
       <H3 color="blue">{title}</H3>
@@ -28,17 +32,23 @@ export default ({ campaign, ...props }) => {
         {neuhack_headline}
       </P>
       <Img fluid={{ ...fluid, aspectRatio: 16 / 9 }} alt={neuhack_image_alt} />
-      <Link
-        to={`/campaigns/${id}`}
-        style={{
-          display: "block",
-          margin: "0.5rem 0",
-          width: "100%",
-          textAlign: "right",
-        }}
-      >
-        Read more
-      </Link>
+      {showDetails ? (
+        <Details>
+          <RichText dark>{content}</RichText>
+        </Details>
+      ) : (
+        <Link
+          to={`/campaigns`}
+          style={{
+            display: "block",
+            margin: "0.5rem 0",
+            width: "100%",
+            textAlign: "right",
+          }}
+        >
+          Read more
+        </Link>
+      )}
     </Card>
   )
 }

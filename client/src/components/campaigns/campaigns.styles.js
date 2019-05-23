@@ -12,3 +12,13 @@ export const CarouselContainer = styled.div`
   height: auto;
   margin: 0 auto;
 `
+export const CampaignList = styled.ul``
+export const CampaignListItem = styled.li`
+  padding-bottom: ${({ theme }) => theme.l};
+  margin-bottom: ${({ theme }) => theme.l};
+  border-bottom: ${({ theme }) => theme.s} solid
+    ${({ theme }) => theme.blue_grey};
+`
+export const Details = styled.div`
+  margin-top: 1rem;
+`
