@@ -14,6 +14,9 @@ export const NEUHeader = styled.header`
   padding-top: 6rem;
   font-family: ${({ theme }) => theme.body};
   font-weight: 500;
+  @media ${({ theme }) => theme.break_ns} {
+    padding-top: 10rem;
+  }
 `
 
 export const Logo = styled.div`
@@ -21,6 +24,10 @@ export const Logo = styled.div`
   width: ${({ theme }) => theme.xl};
   height: ${({ theme }) => theme.xl};
   margin-left: ${({ theme }) => theme.m};
+  @media ${({ theme }) => theme.break_ns} {
+    width: ${({ theme }) => theme.xxl};
+    height: ${({ theme }) => theme.xxl};
+  }
 `
 
 export const BackgroundImageContainer = styled.div`
@@ -32,6 +39,9 @@ export const BackgroundImageContainer = styled.div`
   right: 0;
   z-index: 0;
   background-color: ${({ theme }) => theme.dark_blue};
+  @media ${({ theme }) => theme.break_ns} {
+    height: 10rem;
+  }
 `
 
 export const BackgroundImage = styled(Img).attrs({
@@ -44,6 +54,8 @@ export const BackgroundImage = styled(Img).attrs({
   margin-top: 2rem;
   @media ${({ theme }) => theme.break_ns} {
     margin-top: 1rem;
+    width: 60%;
+    max-width: 700px;
   }
 `
 
@@ -51,8 +63,12 @@ export const Title = styled.div`
   font-family: Lexia, serif;
   font-weight: 700;
   color: ${({ theme }) => theme.white};
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-left: ${({ theme }) => theme.m};
+  @media ${({ theme }) => theme.break_ns} {
+    font-size: 2rem;
+    margin-left: ${({ theme }) => theme.l};
+  }
 `
 
 export const FlexRow = styled.div`
