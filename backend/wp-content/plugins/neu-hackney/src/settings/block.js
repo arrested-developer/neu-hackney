@@ -79,6 +79,22 @@ registerBlockType( 'neu-hackney/settings', {
 			source: 'meta',
 			meta: 'neuhack_settings_election_calendar',
 		},
+		twitter: {
+			type: 'string',
+		},
+		__twitter: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_settings_links_twitter',
+		},
+		facebook: {
+			type: 'string',
+		},
+		__facebook: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_settings_links_facebook',
+		},
 	},
 	edit: ( {
 		className,
@@ -88,6 +104,8 @@ registerBlockType( 'neu-hackney/settings', {
 			nominationURL,
 			electionCalendarID,
 			electionCalendarURL,
+			twitter,
+			facebook,
 		},
 	} ) => {
 		window.addEventListener( 'load', () => {
@@ -112,9 +130,22 @@ registerBlockType( 'neu-hackney/settings', {
 			} );
 			//validator.check( 'image', image.id );
 		};
+		const onChangeTwitter = link => {
+			setAttributes( {
+				twitter: link,
+				__twitter: link,
+			} );
+		};
+		const onChangeFacebook = link => {
+			setAttributes( {
+				facebook: link,
+				__facebook: link,
+			} );
+		};
 		return (
 			<section className={ className }>
 				<h1>Site Settings</h1>
+				<h2>Elections</h2>
 				<BaseControl
 					label="Upload Election Nomination Form in pdf format"
 					id="nomination-upload"
@@ -153,12 +184,19 @@ registerBlockType( 'neu-hackney/settings', {
 						) }
 					/>
 				</BaseControl>
-				{ /* <TextControl
-					label="Short Description"
-					placeholder="A short headline description of the campaign"
-					value={ headline }
-					onChange={ onChangeHeadline }
-				/> */ }
+				<h2>Social Media Links</h2>
+				<TextControl
+					label="Twitter URL"
+					placeholder="https://twitter.com/youraccount"
+					value={ twitter }
+					onChange={ onChangeTwitter }
+				/>
+				<TextControl
+					label="Facebook URL"
+					placeholder="https://facebook.com/youraccount"
+					value={ facebook }
+					onChange={ onChangeFacebook }
+				/>
 			</section>
 		);
 	},

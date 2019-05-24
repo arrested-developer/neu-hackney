@@ -19,5 +19,15 @@ function neuhack_register_settings_meta() {
 		'single' => true,
 		'type' => 'string',
 	) );
+	register_meta( 'post', 'neuhack_settings_links_twitter', array(
+		'show_in_rest' => true,
+		'single' => true,
+		'type' => 'string',
+	) );
+		register_meta( 'post', 'neuhack_settings_links_facebook', array(
+		'show_in_rest' => true,
+		'single' => true,
+		'type' => 'string',
+	) );
 }
 add_action('init', 'neuhack_register_settings_meta');
