@@ -14,7 +14,6 @@ export default ({
     page: { title, content, team, resources },
   },
 }) => {
-  console.log(content)
   const pageHas = data => data && data.length > 0
   return (
     <>

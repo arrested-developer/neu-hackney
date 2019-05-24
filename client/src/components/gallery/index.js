@@ -47,7 +47,6 @@ export default props => (
       }
     `}
     render={data => {
-      console.log(data)
       const settings = {
         dots: true,
         infinite: true,
@@ -61,7 +60,7 @@ export default props => (
         <CarouselContainer {...props}>
           <Carousel settings={settings}>
             {data.allWordpressWpGallery.edges.map(image => (
-              <GalleryItem>
+              <GalleryItem key={image.node.id}>
                 <Img
                   fixed={
                     image.node.meta.neuhack_image_url.localFile.childImageSharp
