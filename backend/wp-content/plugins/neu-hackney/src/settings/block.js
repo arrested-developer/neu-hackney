@@ -13,6 +13,7 @@ const { Button, BaseControl, TextControl } = wp.components;
 
 // Import helper functions
 import makeValidator from '../utils/validator';
+import richTextToString from '../utils/richTextToString';
 
 //  Import CSS.
 import './style.scss';
@@ -95,6 +96,30 @@ registerBlockType( 'neu-hackney/settings', {
 			source: 'meta',
 			meta: 'neuhack_settings_links_facebook',
 		},
+		phone: {
+			type: 'string',
+		},
+		__phone: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_settings_contact_phone',
+		},
+		email: {
+			type: 'string',
+		},
+		__email: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_settings_contact_email',
+		},
+		address: {
+			type: 'string',
+		},
+		__address: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_settings_contact_address',
+		},
 	},
 	edit: ( {
 		className,
@@ -106,6 +131,9 @@ registerBlockType( 'neu-hackney/settings', {
 			electionCalendarURL,
 			twitter,
 			facebook,
+			phone,
+			address,
+			email,
 		},
 	} ) => {
 		window.addEventListener( 'load', () => {
@@ -113,6 +141,9 @@ registerBlockType( 'neu-hackney/settings', {
 			document.querySelector( '.editor-post-title__input' ).style.display =
 				'none';
 			//validator.set( 'newsletter', newsletterID );
+			document.querySelector( '.editor-post-trash' ).style.display = 'none';
+			document.querySelector( '.editor-post-switch-to-draft' ).style.display =
+				'none';
 		} );
 		const onSelectNominationForm = file => {
 			setAttributes( {
@@ -142,9 +173,68 @@ registerBlockType( 'neu-hackney/settings', {
 				__facebook: link,
 			} );
 		};
+		const onChangePhone = phone => {
+			setAttributes( {
+				phone: phone,
+				__phone: phone,
+			} );
+		};
+		const onChangeEmail = email => {
+			setAttributes( {
+				email: email,
+				__email: email,
+			} );
+		};
+		const onChangeAddress = address => {
+			setAttributes( {
+				address: address,
+				__address: address,
+			} );
+		};
 		return (
 			<section className={ className }>
 				<h1>Site Settings</h1>
+				<h2>Contact Details</h2>
+				<BaseControl label="Branch Address" id="contact-address">
+					<RichText
+						tagName="div"
+						multiline="br"
+						format="string"
+						id="contact-address"
+						placeholder="Your address"
+						value={ address }
+						onChange={ onChangeAddress }
+						style={ {
+							marginTop: '1rem',
+							marginBottom: '1rem',
+						} }
+					/>
+				</BaseControl>
+				<TextControl
+					label="Branch phone contact number"
+					placeholder="0123 456 789"
+					value={ phone }
+					onChange={ onChangePhone }
+				/>
+				<TextControl
+					label="Branch contact email"
+					placeholder="you@neu.org.uk"
+					value={ email }
+					onChange={ onChangeEmail }
+				/>
+				<h2>Social Media Links</h2>
+				<TextControl
+					label="Twitter URL"
+					placeholder="https://twitter.com/youraccount"
+					value={ twitter }
+					onChange={ onChangeTwitter }
+				/>
+				<TextControl
+					label="Facebook URL"
+					placeholder="https://facebook.com/youraccount"
+					value={ facebook }
+					onChange={ onChangeFacebook }
+				/>
 				<h2>Elections</h2>
 				<BaseControl
 					label="Upload Election Nomination Form in pdf format"
@@ -184,19 +274,6 @@ registerBlockType( 'neu-hackney/settings', {
 						) }
 					/>
 				</BaseControl>
-				<h2>Social Media Links</h2>
-				<TextControl
-					label="Twitter URL"
-					placeholder="https://twitter.com/youraccount"
-					value={ twitter }
-					onChange={ onChangeTwitter }
-				/>
-				<TextControl
-					label="Facebook URL"
-					placeholder="https://facebook.com/youraccount"
-					value={ facebook }
-					onChange={ onChangeFacebook }
-				/>
 			</section>
 		);
 	},

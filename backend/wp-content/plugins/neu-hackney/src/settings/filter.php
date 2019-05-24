@@ -18,3 +18,11 @@ function remove_settings_row_actions( $actions )
 		}
 		return $actions;
 }
+
+function set_settings_title( $data , $postarr ) {
+  if($data['post_type'] == 'sitesettings') {
+		$data['post_title'] = "Site Settings";
+  }
+  return $data;
+}
+add_filter( 'wp_insert_post_data' , 'set_settings_title' , '500', 2 );
