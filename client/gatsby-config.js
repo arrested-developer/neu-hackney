@@ -82,8 +82,8 @@ module.exports = {
           {
             resolve: `gatsby-wordpress-inline-images`,
             options: {
-              baseUrl: "localhost:8001",
-              protocol: "http",
+              baseUrl: "lot49.io/neutemporary",
+              protocol: "https",
             },
           },
         ],
