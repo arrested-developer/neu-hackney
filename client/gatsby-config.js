@@ -72,6 +72,7 @@ module.exports = {
           "**/campaigns",
           "**/team",
           "**/useful-resources",
+          "**/site-settings",
         ],
         // Blacklisted routes using glob patterns
         // excludedRoutes: ["**/posts/1456"],
