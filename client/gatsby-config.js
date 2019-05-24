@@ -12,8 +12,8 @@ module.exports = {
     {
       resolve: "gatsby-source-wordpress",
       options: {
-        baseUrl: process.env.CMS_HOSTNAME || "localhost:8001",
-        protocol: process.env.CMS_HOSTNAME ? "https" : "http",
+        baseUrl: "lot49.io/neutemporary",
+        protocol: "https",
         hostingWPCOM: false,
         useACF: false,
         acfOptionPageIds: [],
