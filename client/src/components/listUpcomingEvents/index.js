@@ -21,11 +21,13 @@ export default ({ events, ...props }) => {
   const futureEvents = getFutureEvents(sortByDateAscending(events))
   return (
     <EventsList {...props}>
-      {futureEvents.map(event => (
-        <EventsListItem key={event.node.id}>
-          <Event event={event} />
-        </EventsListItem>
-      ))}
+      {futureEvents.length > 0
+        ? futureEvents.map(event => (
+            <EventsListItem key={event.node.id}>
+              <Event event={event} />
+            </EventsListItem>
+          ))
+        : "No events found"}
     </EventsList>
   )
 }

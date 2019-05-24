@@ -23,5 +23,5 @@ export default ({ events, ...props }) => {
   const getNextMeeting = events =>
     getFutureMeetings(sortByDateAscending(events))[0]
 
-  return <Event event={getNextMeeting(meetings)} {...props} />
+  return <Event event={getNextMeeting(meetings) || meetings[0]} {...props} />
 }

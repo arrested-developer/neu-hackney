@@ -38,6 +38,7 @@ let noticeShown = false;
 // create the validator function for this post
 const validator = makeValidator();
 validator.use( () => {
+	console.log( 'validating' );
 	const newsletter = validator.get( 'newsletter' );
 	if ( ! newsletter ) {
 		return validator.fail(

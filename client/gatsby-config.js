@@ -1,5 +1,14 @@
 const customNormaliser = require("./normalise")
 
+const WP_SOURCE_URL = process.env.WP_SOURCE_URL
+const WP_SOURCE_PROTOCOL = process.env.WP_SOURCE_PROTOCOL
+
+if (!WP_SOURCE_URL || !WP_SOURCE_PROTOCOL) {
+  throw new Error(
+    "WP_SOURCE_URL and WP_SOURCE_PROTOCOL must be defined in environment variables "
+  )
+}
+
 module.exports = {
   siteMetadata: {
     title: `NEU Hackney`,
@@ -12,8 +21,8 @@ module.exports = {
     {
       resolve: "gatsby-source-wordpress",
       options: {
-        baseUrl: "lot49.io/neutemporary",
-        protocol: "https",
+        baseUrl: WP_SOURCE_URL,
+        protocol: WP_SOURCE_PROTOCOL,
         hostingWPCOM: false,
         useACF: false,
         acfOptionPageIds: [],
@@ -44,8 +53,8 @@ module.exports = {
         perPage: 100,
         // Search and Replace Urls across WordPress content.
         // searchAndReplaceContentUrls: {
-        //   sourceUrl: "https://source-url.com",
-        //   replacementUrl: "https://replacement-url.com",
+        //   sourceUrl: "http://localhost:8001",
+        //   replacementUrl: "https://lot49.io/neutemporary",
         // },
         // Set how many simultaneous requests are sent at once.
         concurrentRequests: 10,
@@ -81,8 +90,8 @@ module.exports = {
           {
             resolve: `gatsby-wordpress-inline-images`,
             options: {
-              baseUrl: "lot49.io/neutemporary",
-              protocol: "https",
+              baseUrl: WP_SOURCE_URL,
+              protocol: WP_SOURCE_PROTOCOL,
             },
           },
         ],

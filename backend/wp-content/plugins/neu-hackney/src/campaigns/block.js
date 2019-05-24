@@ -20,6 +20,7 @@ import './editor.scss';
 import makeValidator from '../utils/validator';
 const validator = makeValidator();
 validator.use( () => {
+	console.log( 'validating' );
 	const { image, headline, details, title } = validator.getAll();
 	if ( ! title ) {
 		return validator.fail( 'Please enter a title' );
@@ -74,7 +75,7 @@ registerBlockType( 'neu-hackney/campaign', {
 		campaignDetails: {
 			type: 'array',
 			source: 'children',
-			selector: '.neu-hackney-campaign-details',
+			selector: '.wp-block-neu-hackney-campaign',
 		},
 		__campaignDetails: {
 			type: 'string',
