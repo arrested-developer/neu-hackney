@@ -88,7 +88,12 @@ const Layout = ({ children }) => (
             {children}
             <Sidebar />
           </div>
-          <Footer navLinks={navLinks} />
+          <Footer
+            navLinks={navLinks.concat({
+              name: `Privacy Policy`,
+              to: `/privacy`,
+            })}
+          />
         </div>
       )
     }}
