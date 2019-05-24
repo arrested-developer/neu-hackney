@@ -229,6 +229,35 @@ exports.createPages = async ({ graphql, actions }) => {
     },
   })
 
+  // generate privacy policy page
+  const privacyPolicy = allWordpressPage.edges.filter(
+    page => page.node.title.toUpperCase() === "PRIVACY POLICY"
+  )
+
+  if (privacyPolicy && privacyPolicy.length === 1) {
+    privacyPolicy.map(page => {
+      createPage({
+        path: `/privacy`,
+        component: path.resolve("./src/templates/page.js"),
+        context: {
+          page: page.node,
+        },
+      })
+    })
+  } else {
+    createPage({
+      path: `/privacy`,
+      component: path.resolve("./src/templates/page.js"),
+      context: {
+        page: {
+          title: "Privacy Policy",
+          content:
+            "No privacy policy page was found - please contact the site administrator",
+        },
+      },
+    })
+  }
+
   // generate pages
 
   const makePagePath = page => {

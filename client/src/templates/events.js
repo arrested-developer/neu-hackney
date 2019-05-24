@@ -6,6 +6,7 @@ import { Main } from "../components/shared/containers"
 import { H1 } from "../components/shared/text"
 import PageSection from "../components/pageSection"
 import ListEvents from "../components/listUpcomingEvents"
+import ListPastGeneralMeetings from "../components/listUpcomingEvents/listPastGeneralMeetings"
 
 export default ({ pageContext: { events } }) => {
   return (
@@ -32,6 +33,13 @@ export default ({ pageContext: { events } }) => {
             titleBackground="dark_blue"
           >
             <ListEvents events={events.edges} />
+          </PageSection>
+          <PageSection
+            title="Previous General Meeetings"
+            titleColor="white"
+            titleBackground="green"
+          >
+            <ListPastGeneralMeetings events={events.edges} />
           </PageSection>
         </Main>
       </Layout>

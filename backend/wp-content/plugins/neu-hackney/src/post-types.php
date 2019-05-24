@@ -41,6 +41,7 @@ require_once plugin_dir_path( __FILE__ ) . 'campaigns/post-type.php';
 require_once plugin_dir_path( __FILE__ ) . 'team-members/post-type.php';
 require_once plugin_dir_path( __FILE__ ) . 'useful-resources/post-type.php';
 require_once plugin_dir_path( __FILE__ ) . 'gallery/post-type.php';
+require_once plugin_dir_path( __FILE__ ) . 'settings/post-type.php';
 
 add_filter( 'allowed_block_types', 'neuhack_allowed_block_types', 10, 2 );
  

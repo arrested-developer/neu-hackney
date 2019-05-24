@@ -132,7 +132,6 @@ export default props => {
             Learn more about Mailchimp's privacy practices here.
           </ExternalLink>
         </P>
-        <Button style={{ background: theme.cyan }}>Submit</Button>
         {message.show ? (
           <FormMessage
             color={
@@ -146,6 +145,7 @@ export default props => {
             {message.text}
           </FormMessage>
         ) : null}
+        <Button style={{ background: theme.cyan }}>Submit</Button>
       </Form>
     </>
   )

@@ -72,6 +72,7 @@ add_action( 'admin_init', 'remove_dashboard_meta' );
 add_action( 'admin_menu', 'neuhack_remove_menu_links' );
 function neuhack_remove_menu_links() {
 		remove_menu_page('upload.php'); //remove media
+		remove_menu_page('post-new.php?post_type=sitesettings'); // remove add new settings
 }
 
 /**

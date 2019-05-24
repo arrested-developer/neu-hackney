@@ -12,8 +12,8 @@ module.exports = {
     {
       resolve: "gatsby-source-wordpress",
       options: {
-        baseUrl: "localhost:8001",
-        protocol: "http",
+        baseUrl: process.env.CMS_HOSTNAME || "localhost:8001",
+        protocol: process.env.CMS_HOSTNAME ? "https" : "http",
         hostingWPCOM: false,
         useACF: false,
         acfOptionPageIds: [],
@@ -72,6 +72,7 @@ module.exports = {
           "**/campaigns",
           "**/team",
           "**/useful-resources",
+          "**/site-settings",
         ],
         // Blacklisted routes using glob patterns
         // excludedRoutes: ["**/posts/1456"],
@@ -112,7 +113,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/favicon.png`, // This path is relative to the root of the site.
       },
     },
     {

@@ -14,7 +14,6 @@ export default ({ campaign, showDetails, ...props }) => {
       content,
       meta: {
         neuhack_headline,
-        neuhack_details,
         neuhack_image_alt,
         neuhack_image_url: {
           localFile: {
@@ -24,7 +23,6 @@ export default ({ campaign, showDetails, ...props }) => {
       },
     },
   } = campaign
-  console.log(neuhack_details)
   return (
     <Card {...props}>
       <H3 color="blue">{title}</H3>
