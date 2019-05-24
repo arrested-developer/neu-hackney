@@ -66,7 +66,6 @@ module.exports = {
           "**/member-page",
           "**/gallery",
           "**/position",
-          "**/users",
           "**/newsletters",
           "**/events",
           "**/campaigns",
