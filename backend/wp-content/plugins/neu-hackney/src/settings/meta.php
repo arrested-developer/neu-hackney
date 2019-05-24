@@ -14,7 +14,7 @@ function neuhack_register_settings_meta() {
 		'single' => true,
 		'type' => 'string',
 	) );
-	register_meta( 'post', 'neuhack_settings_nomination_calendar', array(
+	register_meta( 'post', 'neuhack_settings_election_calendar', array(
 		'show_in_rest' => true,
 		'single' => true,
 		'type' => 'string',

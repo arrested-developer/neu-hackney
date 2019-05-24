@@ -68,11 +68,27 @@ registerBlockType( 'neu-hackney/settings', {
 			source: 'meta',
 			meta: 'neuhack_settings_nomination_form',
 		},
+		electionCalendarID: {
+			type: 'number',
+		},
+		electionCalendarURL: {
+			type: 'string',
+		},
+		__electionCalendarURL: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_settings_election_calendar',
+		},
 	},
 	edit: ( {
 		className,
 		setAttributes,
-		attributes: { nominationID, nominationURL },
+		attributes: {
+			nominationID,
+			nominationURL,
+			electionCalendarID,
+			electionCalendarURL,
+		},
 	} ) => {
 		window.addEventListener( 'load', () => {
 			// remove the title, which is set automatically from the publish date
@@ -85,6 +101,14 @@ registerBlockType( 'neu-hackney/settings', {
 				nominationID: file.id,
 				nominationURL: file.url,
 				__nominationURL: file.url,
+			} );
+			//validator.check( 'image', image.id );
+		};
+		const onSelectElectionCalendar = file => {
+			setAttributes( {
+				electionCalendarID: file.id,
+				electionCalendarURL: file.url,
+				__electionCalendarURL: file.url,
 			} );
 			//validator.check( 'image', image.id );
 		};
@@ -105,6 +129,25 @@ registerBlockType( 'neu-hackney/settings', {
 								{ nominationID ? <div>{ nominationURL }</div> : null }
 								<Button className="button button-large" onClick={ open }>
 									{ ! nominationID ? 'Upload form' : 'Choose another file' }
+								</Button>
+							</div>
+						) }
+					/>
+				</BaseControl>
+				<BaseControl
+					label="Upload Election Calendar in pdf format"
+					id="calendar-upload"
+				>
+					<MediaUpload
+						onSelect={ onSelectElectionCalendar }
+						allowedTypes="application/pdf"
+						value={ electionCalendarID }
+						id="calendar-upload"
+						render={ ( { open } ) => (
+							<div style={ { width: '100%' } }>
+								{ electionCalendarID ? <div>{ electionCalendarURL }</div> : null }
+								<Button className="button button-large" onClick={ open }>
+									{ ! electionCalendarID ? 'Upload form' : 'Choose another file' }
 								</Button>
 							</div>
 						) }
