@@ -1,16 +1,28 @@
 /**
- * BLOCK: mercury
+ * BLOCK: Site Settings
  *
  * Registering a basic block with Gutenberg.
  * Simple block, renders and saves the same content without any interactivity.
  */
 
+//  Import components
+const { __ } = wp.i18n; // Import __() from wp.i18n
+const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+const { MediaUpload, RichText } = wp.editor;
+const { Button, BaseControl, TextControl } = wp.components;
+
+// Import helper functions
+import makeValidator from '../utils/validator';
+
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
 
-const { __ } = wp.i18n; // Import __() from wp.i18n
-const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+// create the validator function for this post
+const validator = makeValidator();
+validator.use( () => {
+	return validator.pass();
+} );
 
 /**
  * Register: aa Gutenberg Block.
@@ -44,24 +56,67 @@ registerBlockType( 'neu-hackney/settings', {
 	 *
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
-	edit: function( props ) {
-		// Creates a <p class='wp-block-cgb-block-mercury'></p>.
+	attributes: {
+		nominationID: {
+			type: 'number',
+		},
+		nominationURL: {
+			type: 'string',
+		},
+		__nominationURL: {
+			type: 'string',
+			source: 'meta',
+			meta: 'neuhack_settings_nomination_form',
+		},
+	},
+	edit: ( {
+		className,
+		setAttributes,
+		attributes: { nominationID, nominationURL },
+	} ) => {
+		window.addEventListener( 'load', () => {
+			// remove the title, which is set automatically from the publish date
+			document.querySelector( '.editor-post-title__input' ).style.display =
+				'none';
+			//validator.set( 'newsletter', newsletterID );
+		} );
+		const onSelectNominationForm = file => {
+			setAttributes( {
+				nominationID: file.id,
+				nominationURL: file.url,
+				__nominationURL: file.url,
+			} );
+			//validator.check( 'image', image.id );
+		};
 		return (
-			<div className={ props.className }>
-				<p>— Hello from the backend.</p>
-				<p>
-					CGB BLOCK: <code>mercury</code> is a new Gutenberg block
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>
-					.
-				</p>
-			</div>
+			<section className={ className }>
+				<h1>Site Settings</h1>
+				<BaseControl
+					label="Upload Election Nomination Form in pdf format"
+					id="nomination-upload"
+				>
+					<MediaUpload
+						onSelect={ onSelectNominationForm }
+						allowedTypes="application/pdf"
+						value={ nominationID }
+						id="nomination-upload"
+						render={ ( { open } ) => (
+							<div style={ { width: '100%' } }>
+								{ nominationID ? <div>{ nominationURL }</div> : null }
+								<Button className="button button-large" onClick={ open }>
+									{ ! nominationID ? 'Upload form' : 'Choose another file' }
+								</Button>
+							</div>
+						) }
+					/>
+				</BaseControl>
+				{ /* <TextControl
+					label="Short Description"
+					placeholder="A short headline description of the campaign"
+					value={ headline }
+					onChange={ onChangeHeadline }
+				/> */ }
+			</section>
 		);
 	},
 
