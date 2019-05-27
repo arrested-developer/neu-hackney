@@ -1,7 +1,5 @@
 const customNormaliser = require("./normalise")
 
-console.log(process.env)
-
 const WP_SOURCE_URL = process.env.WP_SOURCE_URL
 const WP_SOURCE_PROTOCOL = process.env.WP_SOURCE_PROTOCOL
 

@@ -7,10 +7,10 @@ import { H1 } from "../components/shared/text"
 import PageSection from "../components/pageSection"
 import ListCampaigns from "../components/campaigns/listCampaigns"
 
-export default ({ pageContext: { campaigns } }) => {
+export default ({ pageContext: { campaigns, settings } }) => {
   return (
     <>
-      <Layout>
+      <Layout settings={settings}>
         <SEO title={`Campaigns`} />
         <H1>Campaigns</H1>
         <Main>

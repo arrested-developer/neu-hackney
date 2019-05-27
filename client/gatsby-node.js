@@ -184,6 +184,19 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      settings: allWordpressWpSiteSettings {
+        edges {
+          node {
+            meta {
+              twitter: neuhack_settings_links_twitter
+              facebook: neuhack_settings_links_facebook
+              address: neuhack_settings_contact_address
+              phone: neuhack_settings_contact_phone
+              email: neuhack_settings_contact_email
+            }
+          }
+        }
+      }
     }
   `)
 
@@ -198,6 +211,7 @@ exports.createPages = async ({ graphql, actions }) => {
     allWordpressWpEvents,
     allWordpressWpTeam,
     allWordpressPage,
+    settings,
   } = result.data
 
   // create home page with graphQL data from meetings, campaigns and officers
@@ -208,6 +222,7 @@ exports.createPages = async ({ graphql, actions }) => {
       events: allWordpressWpEvents,
       campaigns: allWordpressWpCampaigns,
       team: allWordpressWpTeam,
+      settings,
     },
   })
 
@@ -217,6 +232,7 @@ exports.createPages = async ({ graphql, actions }) => {
     component: path.resolve("./src/templates/events.js"),
     context: {
       events: allWordpressWpEvents,
+      settings,
     },
   })
 
@@ -226,6 +242,7 @@ exports.createPages = async ({ graphql, actions }) => {
     component: path.resolve("./src/templates/campaigns.js"),
     context: {
       campaigns: allWordpressWpCampaigns,
+      settings,
     },
   })
 
@@ -241,6 +258,7 @@ exports.createPages = async ({ graphql, actions }) => {
         component: path.resolve("./src/templates/page.js"),
         context: {
           page: page.node,
+          settings,
         },
       })
     })
@@ -253,6 +271,7 @@ exports.createPages = async ({ graphql, actions }) => {
           title: "Privacy Policy",
           content:
             "No privacy policy page was found - please contact the site administrator",
+          settings,
         },
       },
     })
@@ -280,6 +299,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve("./src/templates/page.js"),
       context: {
         page: page.node,
+        settings,
       },
     })
   })

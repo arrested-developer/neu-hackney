@@ -9,9 +9,11 @@ import Team from "../components/team"
 import PageSection from "../components/pageSection"
 import Gallery from "../components/gallery"
 
-export default ({ pageContext: { campaigns, team, events, positions } }) => {
+export default ({
+  pageContext: { campaigns, team, events, positions, settings },
+}) => {
   return (
-    <Layout>
+    <Layout settings={settings}>
       <SEO title="Home" />
       <H1 color="white">Home</H1>
       <Main>

@@ -12,12 +12,13 @@ import UsefulResources from "../components/usefulResources"
 export default ({
   pageContext: {
     page: { title, content, team, resources },
+    settings,
   },
 }) => {
   const pageHas = data => data && data.length > 0
   return (
     <>
-      <Layout>
+      <Layout settings={settings}>
         <SEO title={`Members - ${title}`} />
         <H1>{title}</H1>
         <Main>

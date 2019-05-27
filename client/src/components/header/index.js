@@ -34,7 +34,13 @@ const Header = ({
   siteTitle,
   navLinks,
   data: { headerBackground, headerLogo },
+  settings,
 }) => {
+  const {
+    node: {
+      meta: { twitter, facebook },
+    },
+  } = settings.edges[0]
   const [opened, setOpened] = useState(false)
   return (
     <>
@@ -114,10 +120,10 @@ const Header = ({
             }}
           >
             <NavItem className="mr-3">
-              <Twitter href="https://twitter.com" title="Twitter" />
+              <Twitter href={twitter} title="Twitter" />
             </NavItem>
             <NavItem>
-              <Facebook href="https://facebook.com" title="Facebook" />
+              <Facebook href={facebook} title="Facebook" />
             </NavItem>
           </Nav>
         </Navbar>

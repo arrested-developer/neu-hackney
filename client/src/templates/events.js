@@ -8,10 +8,10 @@ import PageSection from "../components/pageSection"
 import ListEvents from "../components/listUpcomingEvents"
 import ListPastGeneralMeetings from "../components/listUpcomingEvents/listPastGeneralMeetings"
 
-export default ({ pageContext: { events } }) => {
+export default ({ pageContext: { events, settings } }) => {
   return (
     <>
-      <Layout>
+      <Layout settings={settings}>
         <SEO title={`Events`} />
         <H1>Events</H1>
         <Main>

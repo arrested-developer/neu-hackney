@@ -16,7 +16,12 @@ const Section = ({ title, children, ...props }) => (
   </FooterSection>
 )
 
-export default ({ navLinks, ...props }) => {
+export default ({ navLinks, settings, ...props }) => {
+  const {
+    node: {
+      meta: { twitter, facebook, address, email, phone },
+    },
+  } = settings.edges[0]
   return (
     <Footer {...props}>
       <Section title="Links" maxWidth="14rem">
@@ -29,15 +34,15 @@ export default ({ navLinks, ...props }) => {
         <LocationMap />
       </Section>
       <Section title="Contact">
-        <ContactDetails />
+        <ContactDetails address={address} email={email} phone={phone} />
       </Section>
       <FooterSocials>
         <Twitter
-          href="https://twitter.com"
+          href={twitter}
           title="Twitter"
           style={{ marginRight: "1rem" }}
         />
-        <Facebook href="https://facebook.com" title="Facebook" />
+        <Facebook href={facebook} title="Facebook" />
       </FooterSocials>
     </Footer>
   )

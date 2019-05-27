@@ -16,7 +16,7 @@ import Sidebar from "../sidebar"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./layout.css"
 
-const Layout = ({ children }) => (
+const Layout = ({ settings, children }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -76,6 +76,7 @@ const Layout = ({ children }) => (
           <Header
             siteTitle={data.site.siteMetadata.title}
             navLinks={navLinks}
+            settings={settings}
           />
           <div
             style={{
@@ -93,6 +94,7 @@ const Layout = ({ children }) => (
               name: `Privacy Policy`,
               to: `/privacy`,
             })}
+            settings={settings}
           />
         </div>
       )
