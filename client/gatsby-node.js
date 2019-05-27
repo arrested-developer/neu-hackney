@@ -277,6 +277,20 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   }
 
+  // create 404 page
+
+  createPage({
+    path: `/404`,
+    component: path.resolve("./src/templates/page.js"),
+    context: {
+      page: {
+        title: "404 - Not Found",
+        content: "404. The path you requested was not found.",
+        settings,
+      },
+    },
+  })
+
   // generate pages
 
   const makePagePath = page => {
