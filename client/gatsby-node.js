@@ -286,8 +286,8 @@ exports.createPages = async ({ graphql, actions }) => {
       page: {
         title: "404 - Not Found",
         content: "404. The path you requested was not found.",
-        settings,
       },
+      settings,
     },
   })
 
