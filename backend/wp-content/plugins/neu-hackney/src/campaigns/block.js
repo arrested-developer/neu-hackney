@@ -96,13 +96,13 @@ registerBlockType( 'neu-hackney/campaign', {
 	edit: ( {
 		className,
 		setAttributes,
-		attributes: { mediaID, mediaURL, campaignDetails, headline },
+		attributes: { mediaID, __mediaURL, __campaignDetails, __headline },
 	} ) => {
 		window.addEventListener( 'load', () => {
 			// set initial values for validation when editing an existing post
 			validator.set( 'image', mediaID );
-			validator.set( 'headline', headline );
-			validator.set( 'details', richTextToString( campaignDetails ) );
+			validator.set( 'headline', __headline );
+			validator.set( 'details', __campaignDetails );
 			// set initial value for title, and validate on change
 			const title = document.querySelector( '.editor-post-title__input' );
 			validator.set( 'title', title.value );
@@ -145,7 +145,7 @@ registerBlockType( 'neu-hackney/campaign', {
 								className={ mediaID ? 'image-button' : 'button button-large' }
 								onClick={ open }
 							>
-								{ ! mediaID ? 'Upload image' : <img src={ mediaURL } alt="" /> }
+								{ ! mediaID ? 'Upload image' : <img src={ __mediaURL } alt="" /> }
 							</Button>
 						) }
 					/>
@@ -153,7 +153,7 @@ registerBlockType( 'neu-hackney/campaign', {
 				<TextControl
 					label="Short Description"
 					placeholder="A short headline description of the campaign"
-					value={ headline }
+					value={ __headline }
 					onChange={ onChangeHeadline }
 				/>
 				<BaseControl label="Campaign Details" id="campaign-details">
@@ -162,7 +162,7 @@ registerBlockType( 'neu-hackney/campaign', {
 						multiline="br"
 						id="event-details"
 						placeholder="Enter the key event details, e.g. location"
-						value={ campaignDetails }
+						value={ __campaignDetails }
 						onChange={ onChangeDetails }
 						style={ {
 							marginTop: '1rem',

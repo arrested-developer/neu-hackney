@@ -27,7 +27,7 @@ export const FooterSection = styled.section`
     padding: ${({ theme }) => theme.l} 0;
   }
   @media ${({ theme }) => theme.break_xl} {
-    width: calc(25% - ${({ theme }) => theme.s});
+    width: calc(33% - ${({ theme }) => theme.s});
     max-width: ${props => props.maxWidth};
   }
 `
