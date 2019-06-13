@@ -93,9 +93,11 @@ function neuhack_staging_dashboard_widget() {
 
 	// Display whatever it is you want to show.
 	echo '<p>Want to see how your changes look? Build a new staging site, and 
-	take a look.</p>';
-	echo '<p><a class="button button-primary button-hero" style="margin-right:1rem">Build Staging Site</a>';
-	echo '<a class="button button-primary button-hero">View Staging Site</a></p>';
+	check your new changes before building to production.</p>';
+	echo '<p><a class="button button-primary button-hero" id="neuhack-build-staging" style="margin-right:1rem">Build Staging Site</a>';
+	echo '<a class="button button-primary button-hero" href="https://youthful-stonebraker-1236a6.netlify.com/" target="_blank" rel="noopener norefferer">View Staging Site</a></p>';
+	echo '<h3>Staging site status</h3>';
+	echo '<img id="neuhack-status-staging" src="https://api.netlify.com/api/v1/badges/4d4cb85d-0f61-4639-b46c-4cc2c7147969/deploy-status" alt="deploy status" />';
 }
 
 /**
@@ -105,8 +107,10 @@ function neuhack_publish_dashboard_widget() {
 
 	// Display whatever it is you want to show.
 	echo '<p>Happy with your changes? Publish your site by clicking below.</p>';
-	echo '<a class="button button-primary button-hero" style="margin-right:1rem">Build Production Site</a>';
-	echo '<a class="button button-primary button-hero">View Production Site</a>';
+	echo '<a class="button button-primary button-hero" id="neuhack-build-production" style="margin-right:1rem">Build Production Site</a>';
+	echo '<a class="button button-primary button-hero" href="https://hackneyneu.org.uk target="_blank" rel="noopener norefferer"">View Production Site</a></p>';
+	echo '<h3>Production site status</h3>';
+	echo '<img id="neuhack-status-production" src="https://api.netlify.com/api/v1/badges/dfe35096-442b-4c49-a8ff-0f63105e8737/deploy-status" alt="deploy status" />';
 }
 
 /**
@@ -158,3 +162,16 @@ function remove_page_row_actions( $actions )
     unset( $actions['view'] );
     return $actions;
 }
+
+/**
+ * Enqueue JS for staging and production build triggers
+ */
+
+function enqueue_build_scripts($hook) {
+	if ( 'index.php' != $hook ) {
+			return;
+	}
+
+	wp_enqueue_script( 'neuhack_build_script', plugins_url( 'assets/js/admin.js', __FILE__ ) );
+}
+add_action( 'admin_enqueue_scripts', 'enqueue_build_scripts' );
