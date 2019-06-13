@@ -1,6 +1,6 @@
 import React from "react"
 
-import MailingList from "./mailingList"
+// import MailingList from "./mailingList"
 import LocationMap from "./locationMap"
 import ContactDetails from "./contactDetails"
 import FooterLinks from "./footerLinks"
@@ -27,9 +27,9 @@ export default ({ navLinks, settings, ...props }) => {
       <Section title="Links" maxWidth="14rem">
         <FooterLinks navLinks={navLinks} />
       </Section>
-      <Section title="Mailing List" maxWidth="300px">
+      {/* <Section title="Mailing List" maxWidth="300px">
         <MailingList />
-      </Section>
+      </Section> */}
       <Section title="Map">
         <LocationMap />
       </Section>
