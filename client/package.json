@@ -52,8 +52,9 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "build": "npm run cache-clear && gatsby build",
     "develop": "WP_SOURCE_URL=localhost:8001 WP_SOURCE_PROTOCOL=http gatsby develop",
+    "develop:remote-source": "WP_SOURCE_URL=neuhackney.lot49.io WP_SOURCE_PROTOCOL=https gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
