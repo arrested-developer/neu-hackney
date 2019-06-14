@@ -108,7 +108,7 @@ function neuhack_publish_dashboard_widget() {
 	// Display whatever it is you want to show.
 	echo '<p>Happy with your changes? Publish your site by clicking below.</p>';
 	echo '<a class="button button-primary button-hero" id="neuhack-build-production" style="margin-right:1rem">Build Production Site</a>';
-	echo '<a class="button button-primary button-hero" href="https://hackneyneu.org.uk target="_blank" rel="noopener norefferer"">View Production Site</a></p>';
+	echo '<a class="button button-primary button-hero" href="https://hackneyneu.org.uk" target="_blank" rel="noopener norefferer"">View Production Site</a></p>';
 	echo '<h3>Production site status</h3>';
 	echo '<img id="neuhack-status-production" src="https://api.netlify.com/api/v1/badges/dfe35096-442b-4c49-a8ff-0f63105e8737/deploy-status" alt="deploy status" />';
 }

@@ -21,6 +21,7 @@ wp-content/themes/twentynineteen
 # Ignore starter plugins
 wp-content/plugins/akismet
 wp-content/plugins/hello.php
-
+wp-content/plugins/better-search-replace
+wp-content/languages
 # Ignore database files
 database/
