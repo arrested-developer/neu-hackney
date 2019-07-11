@@ -39,6 +39,18 @@ require_once plugin_dir_path( __FILE__ ) . 'src/filters.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/meta.php';
 
 /**
+ * Prevent users below admin from deleting uploaded media
+ */
+
+add_action('delete_attachment', 'DontDeleteMedia', 11, 1);
+function DontDeleteMedia($postID)
+{
+    if (!current_user_can('add_users')) {
+        exit('You cannot delete media.');
+    }
+}
+
+/**
  * Remove standard posts from admin menu
  */
 
