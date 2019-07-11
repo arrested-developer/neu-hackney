@@ -6,7 +6,8 @@
   "scripts": {
     "dev:start": "docker-compose up -d",
     "dev:stop": "docker-compose down",
-    "dev:erase": "docker-compose down -v && rm -r wordpress/wp-content/uploads"
+    "dev:erase": "docker-compose down -v && rm -r wordpress/wp-content/uploads",
+    "build": "npm run build --prefix wp-content/plugins/neu-hackney"
   },
   "repository": {
     "type": "git",
