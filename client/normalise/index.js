@@ -57,9 +57,50 @@ const mapTeamToPages = entities => {
   })
 }
 
+const checkImageNodes = entities => {
+  const nodesWithError = entities.filter(
+    e => e.meta && e.meta.neuhack_image_url && e.meta.neuhack_image_url.length
+  )
+  if (nodesWithError.length > 0) {
+    nodesWithError.map(e => {
+      console.log(
+        "ERROR WITH IMAGE NODE: ",
+        `title: ${e.title}\ntype: ${e.__type}\nurl: ${e.meta.neuhack_image_url}`
+      )
+    })
+    throw new Error("One or more images could not be downloaded")
+  } else {
+    console.log("Image nodes checked")
+  }
+}
+
+const checkAttachmentNodes = entities => {
+  const nodesWithError = entities.filter(
+    e =>
+      e.meta &&
+      e.meta.neuhack_attachment_url &&
+      e.meta.neuhack_attachment_url.length
+  )
+  if (nodesWithError.length > 0) {
+    nodesWithError.map(e => {
+      console.log(
+        "ERROR WITH FILE ATTACHMENT NODE: ",
+        `title: ${e.title}\ntype: ${e.__type}\nurl: ${
+          e.meta.neuhack_attachment_url
+        }`
+      )
+    })
+    throw new Error("One or more attachments could not be downloaded")
+  } else {
+    console.log("Attachment nodes checked")
+  }
+}
+
 module.exports = ({ entities }) => {
   entities = mapPositionsToTeam(entities)
   entities = mapResourcesToPages(entities)
   entities = mapTeamToPages(entities)
+  checkImageNodes(entities)
+  checkAttachmentNodes(entities)
   return entities
 }
