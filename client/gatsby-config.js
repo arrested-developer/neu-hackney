@@ -49,7 +49,7 @@ module.exports = {
           // jwt_pass: process.env.JWT_PASSWORD,
           // jwt_base_path: "/jwt-auth/v1/token", // Default - can skip if you are using https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/
         },
-        verboseOutput: false,
+        verboseOutput: process.env.WP_VERBOSE || false,
         perPage: 100,
         // Search and Replace Urls across WordPress content.
         // searchAndReplaceContentUrls: {
