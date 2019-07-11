@@ -10,7 +10,7 @@ const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const { MediaUpload, RichText } = wp.editor;
 const { Button, BaseControl, TextControl } = wp.components;
-import richTextToString from '../utils/richTextToString';
+//import richTextToString from '../utils/richTextToString';
 
 // Import CSS.
 import './style.scss';
@@ -20,7 +20,6 @@ import './editor.scss';
 import makeValidator from '../utils/validator';
 const validator = makeValidator();
 validator.use( () => {
-	console.log( 'validating' );
 	const { image, headline, details, title } = validator.getAll();
 	if ( ! title ) {
 		return validator.fail( 'Please enter a title' );
@@ -121,9 +120,9 @@ registerBlockType( 'neu-hackney/campaign', {
 		const onChangeDetails = text => {
 			setAttributes( {
 				campaignDetails: text,
-				__campaignDetails: richTextToString( text ),
+				__campaignDetails: text,
 			} );
-			validator.check( 'details', richTextToString( text ) );
+			validator.check( 'details', text );
 		};
 		const onChangeHeadline = text => {
 			setAttributes( {
