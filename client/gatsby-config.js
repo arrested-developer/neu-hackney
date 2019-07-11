@@ -57,7 +57,7 @@ module.exports = {
         //   replacementUrl: "https://lot49.io/neutemporary",
         // },
         // Set how many simultaneous requests are sent at once.
-        concurrentRequests: 10,
+        concurrentRequests: 1,
         // Set WP REST API routes whitelists
         // and blacklists using glob patterns.
         // Defaults to whitelist the routes shown
