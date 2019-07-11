@@ -121,6 +121,13 @@ registerBlockType( 'neu-hackney/team-member', {
 			} );
 			// image is optional, no validation needed
 		};
+		const removeImage = () => {
+			setAttributes( {
+				mediaID: null,
+				mediaURL: '',
+				__mediaURL: '',
+			} );
+		};
 		const onChangeEmail = e => {
 			setAttributes( {
 				email: e,
@@ -192,10 +199,25 @@ registerBlockType( 'neu-hackney/team-member', {
 								className={ mediaID ? 'image-button' : 'button button-large' }
 								onClick={ open }
 							>
-								{ ! mediaID ? 'Select Photo' : <TeamPhoto src={ mediaURL } /> }
+								{ ! mediaID ? (
+									'Select Photo'
+								) : (
+									<div>
+										<TeamPhoto src={ mediaURL } />
+									</div>
+								) }
 							</Button>
 						) }
 					/>
+					{ mediaID > 0 && (
+						<Button
+							className="button"
+							style={ { display: 'block', marginTop: '0.5rem' } }
+							onClick={ removeImage }
+						>
+							Remove Image
+						</Button>
+					) }
 				</BaseControl>
 				{ /* <SelectControl
 					label={ __( 'Select a Position' ) }
