@@ -1,11 +1,11 @@
 <?php
 /**
- * @package REST files
+ * @package REST no files
  * @version 1
  */
 /*
-Plugin Name: REST files for Gatsby
-Description: Provides Gatsby with documents as well as images via the REST api /media endpoint
+Plugin Name: REST no files for Gatsby
+Description: Provides Gatsby with images only, no pdf files on /media endpoint
 Author: Michael Watts
 Version: 1
 Author URI: https://michaelwatts.co
@@ -32,7 +32,9 @@ $query = new WP_Query( $args );
 $output = Array();
 
 foreach ($query->posts as $post) {
-  $output[] = attachment_post_to_media_item($post);
+  if (strpos($post->post_mime_type, 'image') !== false) {
+    $output[] = attachment_post_to_media_item($post);
+  }
 }
 
 return $output;
@@ -58,7 +60,7 @@ function attachment_post_to_media_item($post) {
       rendered => $post->post_title,
     ],
     author => $post->post_author,
-    media_type => strpos($post->post_mime_type, 'image') !== false ? 'image' : 'file',
+    media_type => 'image',
     mime_type => $post->post_mime_type,
     media_details => Array(),
     source_url => $post->guid,
