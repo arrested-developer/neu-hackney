@@ -12,18 +12,18 @@ const { MediaUpload, RichText } = wp.editor;
 const { Button, BaseControl, TextControl } = wp.components;
 
 // Import helper functions
-import makeValidator from '../utils/validator';
-import richTextToString from '../utils/richTextToString';
+import makeValidator from "../utils/validator";
+import richTextToString from "../utils/richTextToString";
 
 //  Import CSS.
-import './style.scss';
-import './editor.scss';
+import "./style.scss";
+import "./editor.scss";
 
 // create the validator function for this post
 const validator = makeValidator();
-validator.use( () => {
+validator.use(() => {
 	return validator.pass();
-} );
+});
 
 /**
  * Register: aa Gutenberg Block.
@@ -38,15 +38,15 @@ validator.use( () => {
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
-registerBlockType( 'neu-hackney/settings', {
+registerBlockType("neu-hackney/settings", {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-	title: __( 'NEU Hackney Settings - CGB Block' ), // Block title.
-	icon: 'admin-standard', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
-	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
+	title: __("NEU Hackney Settings - CGB Block"), // Block title.
+	icon: "admin-standard", // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
+	category: "common", // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
-		__( 'NEU Hackney Settings — CGB Block' ),
-		__( 'CGB Example' ),
-		__( 'create-guten-block' ),
+		__("NEU Hackney Settings — CGB Block"),
+		__("CGB Example"),
+		__("create-guten-block")
 	],
 
 	/**
@@ -59,69 +59,69 @@ registerBlockType( 'neu-hackney/settings', {
 	 */
 	attributes: {
 		nominationID: {
-			type: 'number',
+			type: "number"
 		},
 		nominationURL: {
-			type: 'string',
+			type: "string"
 		},
 		__nominationURL: {
-			type: 'string',
-			source: 'meta',
-			meta: 'neuhack_settings_nomination_form',
+			type: "string",
+			source: "meta",
+			meta: "neuhack_settings_nomination_form"
 		},
 		electionCalendarID: {
-			type: 'number',
+			type: "number"
 		},
 		electionCalendarURL: {
-			type: 'string',
+			type: "string"
 		},
 		__electionCalendarURL: {
-			type: 'string',
-			source: 'meta',
-			meta: 'neuhack_settings_election_calendar',
+			type: "string",
+			source: "meta",
+			meta: "neuhack_settings_election_calendar"
 		},
 		twitter: {
-			type: 'string',
+			type: "string"
 		},
 		__twitter: {
-			type: 'string',
-			source: 'meta',
-			meta: 'neuhack_settings_links_twitter',
+			type: "string",
+			source: "meta",
+			meta: "neuhack_settings_links_twitter"
 		},
 		facebook: {
-			type: 'string',
+			type: "string"
 		},
 		__facebook: {
-			type: 'string',
-			source: 'meta',
-			meta: 'neuhack_settings_links_facebook',
+			type: "string",
+			source: "meta",
+			meta: "neuhack_settings_links_facebook"
 		},
 		phone: {
-			type: 'string',
+			type: "string"
 		},
 		__phone: {
-			type: 'string',
-			source: 'meta',
-			meta: 'neuhack_settings_contact_phone',
+			type: "string",
+			source: "meta",
+			meta: "neuhack_settings_contact_phone"
 		},
 		email: {
-			type: 'string',
+			type: "string"
 		},
 		__email: {
-			type: 'string',
-			source: 'meta',
-			meta: 'neuhack_settings_contact_email',
+			type: "string",
+			source: "meta",
+			meta: "neuhack_settings_contact_email"
 		},
 		address: {
-			type: 'string',
+			type: "string"
 		},
 		__address: {
-			type: 'string',
-			source: 'meta',
-			meta: 'neuhack_settings_contact_address',
-		},
+			type: "string",
+			source: "meta",
+			meta: "neuhack_settings_contact_address"
+		}
 	},
-	edit: ( {
+	edit: ({
 		className,
 		setAttributes,
 		attributes: {
@@ -133,66 +133,66 @@ registerBlockType( 'neu-hackney/settings', {
 			facebook,
 			phone,
 			address,
-			email,
-		},
-	} ) => {
-		window.addEventListener( 'load', () => {
+			email
+		}
+	}) => {
+		window.addEventListener("load", () => {
 			// remove the title, which is set automatically from the publish date
-			document.querySelector( '.editor-post-title__input' ).style.display =
-				'none';
+			document.querySelector(".editor-post-title__input").style.display =
+				"none";
 			//validator.set( 'newsletter', newsletterID );
-			document.querySelector( '.editor-post-trash' ).style.display = 'none';
-			document.querySelector( '.editor-post-switch-to-draft' ).style.display =
-				'none';
-		} );
+			document.querySelector(".editor-post-trash").style.display = "none";
+			document.querySelector(".editor-post-switch-to-draft").style.display =
+				"none";
+		});
 		const onSelectNominationForm = file => {
-			setAttributes( {
+			setAttributes({
 				nominationID: file.id,
 				nominationURL: file.url,
-				__nominationURL: file.url,
-			} );
+				__nominationURL: file.url
+			});
 			//validator.check( 'image', image.id );
 		};
 		const onSelectElectionCalendar = file => {
-			setAttributes( {
+			setAttributes({
 				electionCalendarID: file.id,
 				electionCalendarURL: file.url,
-				__electionCalendarURL: file.url,
-			} );
+				__electionCalendarURL: file.url
+			});
 			//validator.check( 'image', image.id );
 		};
 		const onChangeTwitter = link => {
-			setAttributes( {
+			setAttributes({
 				twitter: link,
-				__twitter: link,
-			} );
+				__twitter: link
+			});
 		};
 		const onChangeFacebook = link => {
-			setAttributes( {
+			setAttributes({
 				facebook: link,
-				__facebook: link,
-			} );
+				__facebook: link
+			});
 		};
-		const onChangePhone = phone => {
-			setAttributes( {
-				phone: phone,
-				__phone: phone,
-			} );
+		const onChangePhone = p => {
+			setAttributes({
+				phone: p,
+				__phone: p
+			});
 		};
-		const onChangeEmail = email => {
-			setAttributes( {
-				email: email,
-				__email: email,
-			} );
+		const onChangeEmail = e => {
+			setAttributes({
+				email: e,
+				__email: e
+			});
 		};
-		const onChangeAddress = address => {
-			setAttributes( {
-				address: address,
-				__address: address,
-			} );
+		const onChangeAddress = a => {
+			setAttributes({
+				address: a,
+				__address: a
+			});
 		};
 		return (
-			<section className={ className }>
+			<section className={className}>
 				<h1>Site Settings</h1>
 				<h2>Contact Details</h2>
 				<BaseControl label="Branch Address" id="contact-address">
@@ -202,38 +202,38 @@ registerBlockType( 'neu-hackney/settings', {
 						format="string"
 						id="contact-address"
 						placeholder="Your address"
-						value={ address }
-						onChange={ onChangeAddress }
-						style={ {
-							marginTop: '1rem',
-							marginBottom: '1rem',
-						} }
+						value={address}
+						onChange={onChangeAddress}
+						style={{
+							marginTop: "1rem",
+							marginBottom: "1rem"
+						}}
 					/>
 				</BaseControl>
 				<TextControl
 					label="Branch phone contact number"
 					placeholder="0123 456 789"
-					value={ phone }
-					onChange={ onChangePhone }
+					value={phone}
+					onChange={onChangePhone}
 				/>
 				<TextControl
 					label="Branch contact email"
 					placeholder="you@neu.org.uk"
-					value={ email }
-					onChange={ onChangeEmail }
+					value={email}
+					onChange={onChangeEmail}
 				/>
 				<h2>Social Media Links</h2>
 				<TextControl
 					label="Twitter URL"
 					placeholder="https://twitter.com/youraccount"
-					value={ twitter }
-					onChange={ onChangeTwitter }
+					value={twitter}
+					onChange={onChangeTwitter}
 				/>
 				<TextControl
 					label="Facebook URL"
 					placeholder="https://facebook.com/youraccount"
-					value={ facebook }
-					onChange={ onChangeFacebook }
+					value={facebook}
+					onChange={onChangeFacebook}
 				/>
 				<h2>Elections</h2>
 				<BaseControl
@@ -241,18 +241,18 @@ registerBlockType( 'neu-hackney/settings', {
 					id="nomination-upload"
 				>
 					<MediaUpload
-						onSelect={ onSelectNominationForm }
+						onSelect={onSelectNominationForm}
 						allowedTypes="application/pdf"
-						value={ nominationID }
+						value={nominationID}
 						id="nomination-upload"
-						render={ ( { open } ) => (
-							<div style={ { width: '100%' } }>
-								{ nominationID ? <div>{ nominationURL }</div> : null }
-								<Button className="button button-large" onClick={ open }>
-									{ ! nominationID ? 'Upload form' : 'Choose another file' }
+						render={({ open }) => (
+							<div style={{ width: "100%" }}>
+								{nominationID ? <div>{nominationURL}</div> : null}
+								<Button className="button button-large" onClick={open}>
+									{!nominationID ? "Upload form" : "Choose another file"}
 								</Button>
 							</div>
-						) }
+						)}
 					/>
 				</BaseControl>
 				<BaseControl
@@ -260,18 +260,18 @@ registerBlockType( 'neu-hackney/settings', {
 					id="calendar-upload"
 				>
 					<MediaUpload
-						onSelect={ onSelectElectionCalendar }
+						onSelect={onSelectElectionCalendar}
 						allowedTypes="application/pdf"
-						value={ electionCalendarID }
+						value={electionCalendarID}
 						id="calendar-upload"
-						render={ ( { open } ) => (
-							<div style={ { width: '100%' } }>
-								{ electionCalendarID ? <div>{ electionCalendarURL }</div> : null }
-								<Button className="button button-large" onClick={ open }>
-									{ ! electionCalendarID ? 'Upload form' : 'Choose another file' }
+						render={({ open }) => (
+							<div style={{ width: "100%" }}>
+								{electionCalendarID ? <div>{electionCalendarURL}</div> : null}
+								<Button className="button button-large" onClick={open}>
+									{!electionCalendarID ? "Upload form" : "Choose another file"}
 								</Button>
 							</div>
-						) }
+						)}
 					/>
 				</BaseControl>
 			</section>
@@ -286,7 +286,7 @@ registerBlockType( 'neu-hackney/settings', {
 	 *
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
-	save: function( props ) {
+	save: function(props) {
 		return (
 			<div>
 				<p>— Hello from the frontend.</p>
@@ -294,7 +294,7 @@ registerBlockType( 'neu-hackney/settings', {
 					CGB BLOCK: <code>mercury</code> is a new Gutenberg block.
 				</p>
 				<p>
-					It was created via{ ' ' }
+					It was created via{" "}
 					<code>
 						<a href="https://github.com/ahmadawais/create-guten-block">
 							create-guten-block
@@ -304,5 +304,5 @@ registerBlockType( 'neu-hackney/settings', {
 				</p>
 			</div>
 		);
-	},
-} );
+	}
+});
