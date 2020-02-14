@@ -42,7 +42,7 @@ export default ({
           titleBackground="purple"
           titleColor="white"
         >
-          <Team team={team} positions={positions} />
+          <Team team={team} positions={positions} settings={settings} />
         </PageSection>
       </Main>
     </Layout>

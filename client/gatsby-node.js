@@ -193,6 +193,18 @@ exports.createPages = async ({ graphql, actions }) => {
               address: neuhack_settings_contact_address
               phone: neuhack_settings_contact_phone
               email: neuhack_settings_contact_email
+              nominationForm: neuhack_settings_nomination_form {
+                id
+                localFile {
+                  publicURL
+                }
+              }
+              electionCalendar: neuhack_settings_election_calendar {
+                id
+                localFile {
+                  publicURL
+                }
+              }
             }
           }
         }
