@@ -217,8 +217,8 @@ registerBlockType("neu-hackney/settings", {
 					onChange={onChangePhone}
 				/>
 				<TextControl
-					label="Branch contact email"
-					placeholder="you@neu.org.uk"
+					label="Branch contact email(s), use a comma to separate multiple emails"
+					placeholder="you@neu.org.uk, another@neu.org.uk"
 					value={email}
 					onChange={onChangeEmail}
 				/>
