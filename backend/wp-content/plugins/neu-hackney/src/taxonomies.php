@@ -45,6 +45,14 @@ function neuhack_register_cats(){
     )
   );
   wp_insert_term(
+    'Equalities Page', // the term
+    'category', // the taxonomy
+    array(
+      'slug' => 'equalities-page',
+      'description' => 'Pages selected as an Equalities Page will appear in the drop-down "Equalities" menu in the navigation bar.',
+    )
+  );
+  wp_insert_term(
     'Standalone Page', // the term
     'category', // the taxonomy
     array(

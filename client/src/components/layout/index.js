@@ -62,6 +62,16 @@ const Layout = ({ settings, children }) => (
               to: `/members/${page.node.slug}`,
             })),
         },
+        {
+          name: "Members",
+          to: data.pages.edges
+            .filter(page => hasCategory(page, "Equalities Page"))
+            .sort((a, b) => a.node.wordpress_id - b.node.wordpress_id)
+            .map(page => ({
+              name: page.node.title,
+              to: `/equalities/${page.node.slug}`,
+            })),
+        },
       ].concat(
         data.pages.edges
           .filter(page => hasCategory(page, "Standalone Page"))

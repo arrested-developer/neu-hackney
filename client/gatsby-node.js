@@ -314,6 +314,8 @@ exports.createPages = async ({ graphql, actions }) => {
     }
     if (hasCategory(page, "Members Page")) {
       return `/members/${page.node.slug}`
+    } else if (hasCategory(page, "Equalities Page")) {
+      return `/equalities/${page.node.slug}`
     } else {
       return `/${page.node.slug}`
     }
