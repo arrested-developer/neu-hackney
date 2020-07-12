@@ -25,7 +25,7 @@ export default props => (
         <Newsletters />
       </PageSection>
       <PageSection
-        title="Join the NEU"
+        title="Visit National NEU"
         titleBackground="light_green"
         titleColor="black"
       >
