@@ -63,7 +63,7 @@ const Layout = ({ settings, children }) => (
             })),
         },
         {
-          name: "Members",
+          name: "Equalities",
           to: data.pages.edges
             .filter(page => hasCategory(page, "Equalities Page"))
             .sort((a, b) => a.node.wordpress_id - b.node.wordpress_id)
