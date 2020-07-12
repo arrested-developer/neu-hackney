@@ -7,7 +7,9 @@ const ContactDetails = ({ address, phone, email, ...props }) => {
   return (
     <div {...props}>
       {emails.map(email => (
-        <ExternalLink href={`mailto:${email}`}>{email}</ExternalLink>
+        <ExternalLink key={email} href={`mailto:${email}`}>
+          {email}
+        </ExternalLink>
       ))}
       <P>
         <ExternalLink href={`tel:${phone}`}>{phone}</ExternalLink>
