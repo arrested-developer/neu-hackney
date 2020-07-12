@@ -116,13 +116,6 @@ function neuhack_register_member_pages(){
 		)
 	);
 	wp_insert_term(
-		'Equalities', // the term
-		'member-page', // the taxonomy
-		array(
-			'slug' => 'equalities',
-		)
-	);
-	wp_insert_term(
 		'Academy Staff', // the term
 		'member-page', // the taxonomy
 		array(
