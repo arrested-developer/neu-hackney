@@ -80,6 +80,62 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      campaignResources: allWordpressWpUsefulResources(
+        filter: { member_page: { eq: 63 } }
+      ) {
+        edges {
+          node {
+            id
+            title
+            member_page
+            meta {
+              neuhack_details
+              neuhack_resource_is_external
+              neuhack_resource_url
+              neuhack_resource_file {
+                localFile {
+                  publicURL
+                }
+              }
+            }
+          }
+        }
+      }
+      campaignTeam: allWordpressWpTeam(filter: { member_page: { eq: 63 } }) {
+        edges {
+          node {
+            id
+            title
+            content
+            positions {
+              wordpress_id
+              name
+            }
+            meta {
+              neuhack_team_member_email
+              neuhack_team_member_position
+              neuhack_image_url {
+                localFile {
+                  childImageSharp {
+                    fluid(maxWidth: 500) {
+                      base64
+                      tracedSVG
+                      aspectRatio
+                      src
+                      srcSet
+                      srcWebp
+                      srcSetWebp
+                      sizes
+                      originalImg
+                      originalName
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
       allWordpressWpTeam {
         edges {
           node {
@@ -220,6 +276,8 @@ exports.createPages = async ({ graphql, actions }) => {
   // Access query results via object destructuring
   const {
     allWordpressWpCampaigns,
+    campaignResources,
+    campaignTeam,
     allWordpressWpEvents,
     allWordpressWpTeam,
     allWordpressPage,
@@ -255,6 +313,8 @@ exports.createPages = async ({ graphql, actions }) => {
     context: {
       campaigns: allWordpressWpCampaigns,
       settings,
+      resources: campaignResources.edges.map(edge => edge.node),
+      team: campaignTeam.edges.map(edge => edge.node),
     },
   })
 
